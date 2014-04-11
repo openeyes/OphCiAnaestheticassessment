@@ -349,7 +349,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'event_id' => 'int(10) unsigned NOT NULL',
 				'weight' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'lbs' => 'text COLLATE utf8_bin DEFAULT \'\'',
+				'lbs' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
 				'weight_calculation_id' => 'int(10) unsigned NOT NULL',
 

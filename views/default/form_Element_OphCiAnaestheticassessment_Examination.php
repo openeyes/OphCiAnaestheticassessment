@@ -29,7 +29,7 @@
 
 		<div class="element-fields">
 			<?php echo $form->textField($element, 'weight', array('size' => '10'))?>
-	<?php echo $form->textArea($element, 'lbs', array('rows' => 6, 'cols' => 80))?>
+	<?php echo $form->textField($element, 'lbs', array('size' => '10'))?>
 	<?php echo $form->dropDownList($element, 'weight_calculation_id', CHtml::listData(OphCiAnaestheticassessment_Examination_WeightCalculation::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'))?>
 	<?php echo $form->textField($element, 'height', array('size' => '10'))?>
 	<?php echo $form->textField($element, 'ft', array('size' => '10'))?>

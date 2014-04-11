@@ -87,7 +87,7 @@ class Element_OphCiAnaestheticassessment_Allergies  extends  BaseEventTypeElemen
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'allergies' => 'allergies',
+			'allergies' => 'Allergies',
 		);
 	}
 
