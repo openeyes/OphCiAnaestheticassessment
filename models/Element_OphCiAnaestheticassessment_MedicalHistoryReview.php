@@ -36,12 +36,12 @@
  * @property integer $genitourinary_renal_endocrine
  * @property integer $neuro_musculoskeletal
  * @property integer $falls_mobility_risk
- * @property integer $miscelaneous
+ * @property integer $Miscellaneous
  * @property integer $psychiatric
  * @property integer $pregnancy_status
  * @property integer $exposure
  * @property integer $dental
- * @property integer $tabacco_use
+ * @property integer $tobacco_use
  * @property integer $alcohol_use
  * @property integer $recreational_drug_use
  *
@@ -79,9 +79,9 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscelaneous, psychiatric, pregnancy_status, exposure, dental, tabacco_use, alcohol_use, recreational_drug_use, ', 'safe'),
-			array('medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscelaneous, psychiatric, pregnancy_status, exposure, dental, tabacco_use, alcohol_use, recreational_drug_use, ', 'required'),
-			array('id, event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscelaneous, psychiatric, pregnancy_status, exposure, dental, tabacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
+			array('event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe'),
+			array('medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'required'),
+			array('id, event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -120,12 +120,12 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'genitourinary_renal_endocrine' => 'Genitourinary Renal Endocrine',
 			'neuro_musculoskeletal' => 'Neuro Musculoskeletal',
 			'falls_mobility_risk' => 'Falls Mobility Risk',
-			'miscelaneous' => 'Miscelaneous',
+			'Miscellaneous' => 'Miscellaneous',
 			'psychiatric' => 'Psychiatric',
 			'pregnancy_status' => 'Pregnancy Status',
 			'exposure' => 'Recent fever cough illness or exposure',
 			'dental' => 'Implants prosthetics removable dental work',
-			'tabacco_use' => 'Tabacco Use',
+			'tobacco_use' => 'Tobacco Use',
 			'alcohol_use' => 'Alcohol Use',
 			'recreational_drug_use' => 'Recreational Drug Use',
 		);
@@ -154,12 +154,12 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 		$criteria->compare('genitourinary_renal_endocrine', $this->genitourinary_renal_endocrine);
 		$criteria->compare('neuro_musculoskeletal', $this->neuro_musculoskeletal);
 		$criteria->compare('falls_mobility_risk', $this->falls_mobility_risk);
-		$criteria->compare('miscelaneous', $this->miscelaneous);
+		$criteria->compare('Miscellaneous', $this->Miscellaneous);
 		$criteria->compare('psychiatric', $this->psychiatric);
 		$criteria->compare('pregnancy_status', $this->pregnancy_status);
 		$criteria->compare('exposure', $this->exposure);
 		$criteria->compare('dental', $this->dental);
-		$criteria->compare('tabacco_use', $this->tabacco_use);
+		$criteria->compare('tobacco_use', $this->tobacco_use);
 		$criteria->compare('alcohol_use', $this->alcohol_use);
 		$criteria->compare('recreational_drug_use', $this->recreational_drug_use);
 

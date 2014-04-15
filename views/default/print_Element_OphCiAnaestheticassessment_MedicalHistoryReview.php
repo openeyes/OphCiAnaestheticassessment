@@ -74,8 +74,8 @@
 			<td><span class="big"><?php echo $element->falls_mobility_risk ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('miscelaneous'))?>:</td>
-			<td><span class="big"><?php echo $element->miscelaneous ? 'Yes' : 'No'?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('Miscellaneous'))?>:</td>
+			<td><span class="big"><?php echo $element->Miscellaneous ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('psychiatric'))?>:</td>
@@ -94,8 +94,8 @@
 			<td><span class="big"><?php echo $element->dental ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('tabacco_use'))?>:</td>
-			<td><span class="big"><?php echo $element->tabacco_use ? 'Yes' : 'No'?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('tobacco_use'))?>:</td>
+			<td><span class="big"><?php echo $element->tobacco_use ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('alcohol_use'))?>:</td>

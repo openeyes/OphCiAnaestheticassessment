@@ -25,8 +25,8 @@
 
 		<div class="element-data">
 				<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('surgery_aproval_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->surgery_aproval ? $element->surgery_aproval->name : 'None'?></div></div>
+			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('surgery_approval_id'))?></div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo $element->surgery_approval ? $element->surgery_approval->name : 'None'?></div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('not_app'))?>:</div></div>

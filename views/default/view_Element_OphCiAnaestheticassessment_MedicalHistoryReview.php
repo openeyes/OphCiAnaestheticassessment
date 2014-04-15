@@ -77,8 +77,8 @@
 			<div class="large-10 column end"><div class="data-value"><?php echo $element->falls_mobility_risk ? 'Yes' : 'No'?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('miscelaneous'))?>:</div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->miscelaneous ? 'Yes' : 'No'?></div></div>
+			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('Miscellaneous'))?>:</div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo $element->Miscellaneous ? 'Yes' : 'No'?></div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('psychiatric'))?>:</div></div>
@@ -97,8 +97,8 @@
 			<div class="large-10 column end"><div class="data-value"><?php echo $element->dental ? 'Yes' : 'No'?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('tabacco_use'))?>:</div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->tabacco_use ? 'Yes' : 'No'?></div></div>
+			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('tobacco_use'))?>:</div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo $element->tobacco_use ? 'Yes' : 'No'?></div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('alcohol_use'))?>:</div></div>

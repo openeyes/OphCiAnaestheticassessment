@@ -28,7 +28,7 @@
 	</header>
 
 		<div class="element-fields">
-			<?php echo $form->dropDownList($element, 'surgery_aproval_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryAproval::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'))?>
+			<?php echo $form->dropDownList($element, 'surgery_approval_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'))?>
 	<?php echo $form->multiSelectList($element, 'MultiSelect_not_app', 'not_apps', 'ophcianassessment_anesthesiaplan_not_app_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_NotApp::model()->findAll(array('order'=>'display_order asc')),'id','name'), $element->ophcianassessment_anesthesiaplan_not_app_defaults, array('empty' => '- Please select -', 'label' => 'Reason for not approving patient for surgery'))?>
 	<?php echo $form->textField($element, 'com_na', array('size' => '10'))?>
 	<?php echo $form->dropDownList($element, 'acceptance_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'))?>

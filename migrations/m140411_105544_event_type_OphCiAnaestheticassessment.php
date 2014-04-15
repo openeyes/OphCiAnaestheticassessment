@@ -30,11 +30,11 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Examination'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'DVT Asessment',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'DVT Asessment','class_name' => 'Element_OphCiAnaestheticassessment_DvtAsessment', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'DVT Assessment',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'DVT Assessment','class_name' => 'Element_OphCiAnaestheticassessment_DvtAssessment', 'event_type_id' => $event_type['id'], 'display_order' => 1));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'DVT Asessment'))->queryRow();
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'DVT Assessment'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Investigations',':eventTypeId'=>$event_type['id']))->queryRow()) {
 			$this->insert('element_type', array('name' => 'Investigations','class_name' => 'Element_OphCiAnaestheticassessment_Investigations', 'event_type_id' => $event_type['id'], 'display_order' => 1));
 		}
@@ -151,7 +151,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 				'falls_mobility_risk' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
-				'miscelaneous' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
+				'Miscellaneous' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
 				'psychiatric' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
@@ -161,7 +161,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 				'dental' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
-				'tabacco_use' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
+				'tobacco_use' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
 				'alcohol_use' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
@@ -375,7 +375,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 
 
-		$this->createTable('et_ophcianassessment_dvtasessment', array(
+		$this->createTable('et_ophcianassessment_dvtassessment', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'event_id' => 'int(10) unsigned NOT NULL',
 				'comments' => 'text COLLATE utf8_bin DEFAULT \'\'',
@@ -385,12 +385,12 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'PRIMARY KEY (`id`)',
-				'KEY `et_ophcianassessment_dvtasessment_lmui_fk` (`last_modified_user_id`)',
-				'KEY `et_ophcianassessment_dvtasessment_cui_fk` (`created_user_id`)',
-				'KEY `et_ophcianassessment_dvtasessment_ev_fk` (`event_id`)',
-				'CONSTRAINT `et_ophcianassessment_dvtasessment_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_dvtasessment_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_dvtasessment_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
+				'KEY `et_ophcianassessment_dvtassessment_lmui_fk` (`last_modified_user_id`)',
+				'KEY `et_ophcianassessment_dvtassessment_cui_fk` (`created_user_id`)',
+				'KEY `et_ophcianassessment_dvtassessment_ev_fk` (`event_id`)',
+				'CONSTRAINT `et_ophcianassessment_dvtassessment_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianassessment_dvtassessment_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianassessment_dvtassessment_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
 
@@ -413,7 +413,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'CONSTRAINT `et_ophcianassessment_investigations_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
-		$this->createTable('ophcianassessment_anesthesiaplan_surgery_aproval', array(
+		$this->createTable('ophcianassessment_anesthesiaplan_surgery_approval', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'name' => 'varchar(128) COLLATE utf8_bin NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL DEFAULT 1',
@@ -422,15 +422,15 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'PRIMARY KEY (`id`)',
-				'KEY `ophcianassessment_anesthesiaplan_surgery_aproval_lmui_fk` (`last_modified_user_id`)',
-				'KEY `ophcianassessment_anesthesiaplan_surgery_aproval_cui_fk` (`created_user_id`)',
-				'CONSTRAINT `ophcianassessment_anesthesiaplan_surgery_aproval_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `ophcianassessment_anesthesiaplan_surgery_aproval_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
+				'KEY `ophcianassessment_anesthesiaplan_surgery_approval_lmui_fk` (`last_modified_user_id`)',
+				'KEY `ophcianassessment_anesthesiaplan_surgery_approval_cui_fk` (`created_user_id`)',
+				'CONSTRAINT `ophcianassessment_anesthesiaplan_surgery_approval_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `ophcianassessment_anesthesiaplan_surgery_approval_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
-		$this->insert('ophcianassessment_anesthesiaplan_surgery_aproval',array('name'=>'Awaiting further information do not schedule','display_order'=>1));
-		$this->insert('ophcianassessment_anesthesiaplan_surgery_aproval',array('name'=>'Not approved for surgery','display_order'=>2));
-		$this->insert('ophcianassessment_anesthesiaplan_surgery_aproval',array('name'=>'Approved for surgery','display_order'=>3));
+		$this->insert('ophcianassessment_anesthesiaplan_surgery_approval',array('name'=>'Awaiting further information do not schedule','display_order'=>1));
+		$this->insert('ophcianassessment_anesthesiaplan_surgery_approval',array('name'=>'Not approved for surgery','display_order'=>2));
+		$this->insert('ophcianassessment_anesthesiaplan_surgery_approval',array('name'=>'Approved for surgery','display_order'=>3));
 
 		$this->createTable('ophcianassessment_anesthesiaplan_not_app', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -517,7 +517,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 		$this->createTable('et_ophcianassessment_anesthesiaplan', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'event_id' => 'int(10) unsigned NOT NULL',
-				'surgery_aproval_id' => 'int(10) unsigned NOT NULL',
+				'surgery_approval_id' => 'int(10) unsigned NOT NULL',
 
 				'com_na' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
@@ -539,14 +539,14 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'KEY `et_ophcianassessment_anesthesiaplan_lmui_fk` (`last_modified_user_id`)',
 				'KEY `et_ophcianassessment_anesthesiaplan_cui_fk` (`created_user_id`)',
 				'KEY `et_ophcianassessment_anesthesiaplan_ev_fk` (`event_id`)',
-				'KEY `ophcianassessment_anesthesiaplan_surgery_aproval_fk` (`surgery_aproval_id`)',
+				'KEY `ophcianassessment_anesthesiaplan_surgery_approval_fk` (`surgery_approval_id`)',
 				'KEY `ophcianassessment_anesthesiaplan_acceptance_fk` (`acceptance_id`)',
 				'KEY `ophcianassessment_anesthesiaplan_asa_level_fk` (`asa_level_id`)',
 				'KEY `ophcianassessment_anesthesiaplan_anesthesia_plan_fk` (`anesthesia_plan_id`)',
 				'CONSTRAINT `et_ophcianassessment_anesthesiaplan_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophcianassessment_anesthesiaplan_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophcianassessment_anesthesiaplan_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-				'CONSTRAINT `ophcianassessment_anesthesiaplan_surgery_aproval_fk` FOREIGN KEY (`surgery_aproval_id`) REFERENCES `ophcianassessment_anesthesiaplan_surgery_aproval` (`id`)',
+				'CONSTRAINT `ophcianassessment_anesthesiaplan_surgery_approval_fk` FOREIGN KEY (`surgery_approval_id`) REFERENCES `ophcianassessment_anesthesiaplan_surgery_approval` (`id`)',
 				'CONSTRAINT `ophcianassessment_anesthesiaplan_acceptance_fk` FOREIGN KEY (`acceptance_id`) REFERENCES `ophcianassessment_anesthesiaplan_acceptance` (`id`)',
 				'CONSTRAINT `ophcianassessment_anesthesiaplan_asa_level_fk` FOREIGN KEY (`asa_level_id`) REFERENCES `ophcianassessment_anesthesiaplan_asa_level` (`id`)',
 				'CONSTRAINT `ophcianassessment_anesthesiaplan_anesthesia_plan_fk` FOREIGN KEY (`anesthesia_plan_id`) REFERENCES `ophcianassessment_anesthesiaplan_anesthesia_plan` (`id`)',
@@ -665,7 +665,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 		$this->dropTable('ophcianassessment_examination_teeth');
 		$this->dropTable('ophcianassessment_examination_dental');
 
-		$this->dropTable('et_ophcianassessment_dvtasessment');
+		$this->dropTable('et_ophcianassessment_dvtassessment');
 
 
 
@@ -677,7 +677,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 		$this->dropTable('et_ophcianassessment_anesthesiaplan');
 
 
-		$this->dropTable('ophcianassessment_anesthesiaplan_surgery_aproval');
+		$this->dropTable('ophcianassessment_anesthesiaplan_surgery_approval');
 		$this->dropTable('ophcianassessment_anesthesiaplan_not_app');
 		$this->dropTable('ophcianassessment_anesthesiaplan_acceptance');
 		$this->dropTable('ophcianassessment_anesthesiaplan_asa_level');

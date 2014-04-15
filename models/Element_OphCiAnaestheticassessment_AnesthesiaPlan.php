@@ -23,7 +23,7 @@
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $event_id
- * @property integer $surgery_aproval_id
+ * @property integer $surgery_approval_id
  * @property string $com_na
  * @property integer $acceptance_id
  * @property string $waiting_comments
@@ -38,7 +38,7 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryAproval $surgery_aproval
+ * @property OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval $surgery_approval
  * @property Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment $not_apps
  * @property OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance $acceptance
  * @property OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel $asa_level
@@ -70,9 +70,9 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 	public function rules()
 	{
 		return array(
-			array('event_id, surgery_aproval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe'),
-			array('surgery_aproval_id, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'required'),
-			array('id, event_id, surgery_aproval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe', 'on' => 'search'),
+			array('event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe'),
+			array('surgery_approval_id, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'required'),
+			array('id, event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -87,7 +87,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'surgery_aproval' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryAproval', 'surgery_aproval_id'),
+			'surgery_approval' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval', 'surgery_approval_id'),
 			'not_apps' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment', 'element_id'),
 			'acceptance' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance', 'acceptance_id'),
 			'asa_level' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel', 'asa_level_id'),
@@ -103,7 +103,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'surgery_aproval_id' => 'Anesthesia Patient Approcal for Surgery',
+			'surgery_approval_id' => 'Anesthesia Patient Approval for Surgery',
 			'not_app' => 'Reason for not approving patient for surgery',
 			'com_na' => 'Other comments',
 			'acceptance_id' => 'Reason for Conditional Acceptance',
@@ -124,7 +124,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('surgery_aproval_id', $this->surgery_aproval_id);
+		$criteria->compare('surgery_approval_id', $this->surgery_approval_id);
 		$criteria->compare('not_app', $this->not_app);
 		$criteria->compare('com_na', $this->com_na);
 		$criteria->compare('acceptance_id', $this->acceptance_id);

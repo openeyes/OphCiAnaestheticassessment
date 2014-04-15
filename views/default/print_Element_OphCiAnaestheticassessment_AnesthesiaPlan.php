@@ -22,8 +22,8 @@
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('surgery_aproval_id'))?></td>
-			<td><span class="big"><?php echo $element->surgery_aproval ? $element->surgery_aproval->name : 'None'?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('surgery_approval_id'))?></td>
+			<td><span class="big"><?php echo $element->surgery_approval ? $element->surgery_approval->name : 'None'?></span></td>
 		</tr>
 		<tr>
 			<td colspan="2">
