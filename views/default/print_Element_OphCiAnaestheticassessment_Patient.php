@@ -22,6 +22,10 @@
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('patient_id_verified_with_two_identifiers'))?></td>
+			<td><span class="big"><?php echo $element->patient_id_verified_with_two_identifiers ? 'Yes' : 'No'?></span></td>
+		</tr>
+		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('translator_present_id'))?></td>
 			<td><span class="big"><?php echo $element->translator_present ? $element->translator_present->name : 'None'?></span></td>
 		</tr>

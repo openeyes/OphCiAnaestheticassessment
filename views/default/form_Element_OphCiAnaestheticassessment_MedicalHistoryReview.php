@@ -28,9 +28,27 @@
 	</header>
 
 		<div class="element-fields">
-			<?php echo $form->radioButtons($element, 'translator_present_id', 'ophcianassessment_translator_translator_present')?>
-	<?php echo $form->textField($element, 'name', array('size' => '10'))?>
-	<?php echo $form->checkBox($element, 'patient')?>
+			<?php echo $form->checkBox($element, 'medication_verified')?>
+	<?php echo $form->checkBox($element, 'allergies_verified')?>
+	<?php echo $form->radioBoolean($element, 'previous_surgical_procedures')?>
+	<?php echo $form->radioBoolean($element, 'patient_anesthesia')?>
+	<?php echo $form->radioBoolean($element, 'family_anesthesia')?>
+	<?php echo $form->radioBoolean($element, 'pain')?>
+	<?php echo $form->radioBoolean($element, 'cardiovascular')?>
+	<?php echo $form->radioBoolean($element, 'respiratory')?>
+	<?php echo $form->radioBoolean($element, 'gastro_intestinal')?>
+	<?php echo $form->radioBoolean($element, 'diabetes')?>
+	<?php echo $form->radioBoolean($element, 'genitourinary_renal_endocrine')?>
+	<?php echo $form->radioBoolean($element, 'neuro_musculoskeletal')?>
+	<?php echo $form->radioBoolean($element, 'falls_mobility_risk')?>
+	<?php echo $form->radioBoolean($element, 'miscelaneous')?>
+	<?php echo $form->radioBoolean($element, 'psychiatric')?>
+	<?php echo $form->radioBoolean($element, 'pregnancy_status')?>
+	<?php echo $form->radioBoolean($element, 'exposure')?>
+	<?php echo $form->radioBoolean($element, 'dental')?>
+	<?php echo $form->radioBoolean($element, 'tabacco_use')?>
+	<?php echo $form->radioBoolean($element, 'alcohol_use')?>
+	<?php echo $form->radioBoolean($element, 'recreational_drug_use')?>
 	</div>
 	
 </section>

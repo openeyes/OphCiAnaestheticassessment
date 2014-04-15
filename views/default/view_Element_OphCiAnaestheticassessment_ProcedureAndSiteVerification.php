@@ -18,19 +18,19 @@
  */
 ?>
 
-<section class="element <?php echo $element->elementType->class_name?>"
-	data-element-type-id="<?php echo $element->elementType->id?>"
-	data-element-type-class="<?php echo $element->elementType->class_name?>"
-	data-element-type-name="<?php echo $element->elementType->name?>"
-	data-element-display-order="<?php echo $element->elementType->display_order?>">
+<section class="element">
 	<header class="element-header">
-		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
+		<h3 class="element-title"><?php echo $element->elementType->name?></h3>
 	</header>
 
-		<div class="element-fields">
-			<?php echo $form->radioButtons($element, 'translator_present_id', 'ophcianassessment_translator_translator_present')?>
-	<?php echo $form->textField($element, 'name', array('size' => '10'))?>
-	<?php echo $form->checkBox($element, 'patient')?>
-	</div>
-	
+		<div class="element-data">
+				<div class="row data-row">
+			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?></div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->procedures)?></div></div>
+		</div>
+		<div class="row data-row">
+			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('site'))?></div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->site)?></div></div>
+		</div>
+			</div>
 </section>

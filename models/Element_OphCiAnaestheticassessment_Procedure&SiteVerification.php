@@ -18,14 +18,13 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_translator".
+ * This is the model class for table "et_ophcianassessment_procedures".
  *
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $event_id
- * @property integer $translator_present_id
- * @property string $name
- * @property integer $patient
+ * @property string $procedures
+ * @property string $site
  *
  * The followings are the available model relations:
  *
@@ -34,10 +33,9 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property OphCiAnaestheticassessment_Translator_TranslatorPresent $translator_present
  */
 
-class Element_OphCiAnaestheticassessment_Translator  extends  BaseEventTypeElement
+class Element_OphCiAnaestheticassessment_Procedure&SiteVerification  extends  BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -53,7 +51,7 @@ class Element_OphCiAnaestheticassessment_Translator  extends  BaseEventTypeEleme
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_translator';
+		return 'et_ophcianassessment_procedures';
 	}
 
 	/**
@@ -62,9 +60,9 @@ class Element_OphCiAnaestheticassessment_Translator  extends  BaseEventTypeEleme
 	public function rules()
 	{
 		return array(
-			array('event_id, translator_present_id, name, patient, ', 'safe'),
-			array('translator_present_id, patient, ', 'required'),
-			array('id, event_id, translator_present_id, name, patient, ', 'safe', 'on' => 'search'),
+			array('event_id, procedures, site, ', 'safe'),
+			array('procedures, site, ', 'required'),
+			array('id, event_id, procedures, site, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -79,7 +77,6 @@ class Element_OphCiAnaestheticassessment_Translator  extends  BaseEventTypeEleme
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'translator_present' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Translator_TranslatorPresent', 'translator_present_id'),
 		);
 	}
 
@@ -91,9 +88,8 @@ class Element_OphCiAnaestheticassessment_Translator  extends  BaseEventTypeEleme
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'translator_present_id' => 'Translator Present',
-			'name' => 'Name',
-			'patient' => 'Patient',
+			'procedures' => 'Procedures',
+			'site' => 'Site',
 		);
 	}
 
@@ -107,9 +103,8 @@ class Element_OphCiAnaestheticassessment_Translator  extends  BaseEventTypeEleme
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('translator_present_id', $this->translator_present_id);
-		$criteria->compare('name', $this->name);
-		$criteria->compare('patient', $this->patient);
+		$criteria->compare('procedures', $this->procedures);
+		$criteria->compare('site', $this->site);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,

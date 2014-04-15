@@ -26,8 +26,8 @@
 			<td><span class="big"><?php echo CHtml::encode($element->weight)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('lbs'))?></td>
-			<td><span class="big"><?php echo CHtml::encode($element->lbs)?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('weight_kg'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->weight_kg)?></span></td>
 		</tr>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('weight_calculation_id'))?></td>
@@ -38,12 +38,8 @@
 			<td><span class="big"><?php echo CHtml::encode($element->height)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('ft'))?></td>
-			<td><span class="big"><?php echo CHtml::encode($element->ft)?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('in'))?></td>
-			<td><span class="big"><?php echo CHtml::encode($element->in)?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('height_cm'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->height_cm)?></span></td>
 		</tr>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('height_calculation_id'))?></td>
@@ -56,10 +52,6 @@
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('blood_pressure'))?></td>
 			<td><span class="big"><?php echo CHtml::encode($element->blood_pressure)?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('mmhg'))?></td>
-			<td><span class="big"><?php echo CHtml::encode($element->mmhg)?></span></td>
 		</tr>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('heart_rate_pulse'))?></td>

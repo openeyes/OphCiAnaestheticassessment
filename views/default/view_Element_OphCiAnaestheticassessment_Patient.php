@@ -25,6 +25,10 @@
 
 		<div class="element-data">
 				<div class="row data-row">
+			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('patient_id_verified_with_two_identifiers'))?></div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo $element->patient_id_verified_with_two_identifiers ? 'Yes' : 'No'?></div></div>
+		</div>
+		<div class="row data-row">
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('translator_present_id'))?></div></div>
 			<div class="large-10 column end"><div class="data-value"><?php echo $element->translator_present ? $element->translator_present->name : 'None'?></div></div>
 		</div>

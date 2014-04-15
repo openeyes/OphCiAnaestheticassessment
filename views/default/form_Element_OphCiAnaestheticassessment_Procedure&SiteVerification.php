@@ -28,9 +28,8 @@
 	</header>
 
 		<div class="element-fields">
-			<?php echo $form->radioButtons($element, 'translator_present_id', 'ophcianassessment_translator_translator_present')?>
-	<?php echo $form->textField($element, 'name', array('size' => '10'))?>
-	<?php echo $form->checkBox($element, 'patient')?>
+			<?php echo $form->textField($element, 'procedures', array('size' => '10'))?>
+	<?php echo $form->textField($element, 'site', array('size' => '10'))?>
 	</div>
 	
 </section>

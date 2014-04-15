@@ -22,16 +22,12 @@
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('translator_present_id'))?></td>
-			<td><span class="big"><?php echo $element->translator_present ? $element->translator_present->name : 'None'?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->procedures)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('name'))?></td>
-			<td><span class="big"><?php echo CHtml::encode($element->name)?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('patient'))?></td>
-			<td><span class="big"><?php echo $element->patient ? 'Yes' : 'No'?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('site'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->site)?></span></td>
 		</tr>
 	</tbody>
 </table>

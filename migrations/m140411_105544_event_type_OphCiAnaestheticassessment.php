@@ -10,36 +10,21 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 		$event_type = $this->dbConnection->createCommand()->select('id')->from('event_type')->where('class_name=:class_name', array(':class_name'=>'OphCiAnaestheticassessment'))->queryRow();
 
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Patient ID',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Patient ID','class_name' => 'Element_OphCiAnaestheticassessment_PatientId', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Patient',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Patient','class_name' => 'Element_OphCiAnaestheticassessment_Patient', 'event_type_id' => $event_type['id'], 'display_order' => 1));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient ID'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Translator',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Translator','class_name' => 'Element_OphCiAnaestheticassessment_Translator', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient'))->queryRow();
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Procedure and Site Verification',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Procedure and Site Verification','class_name' => 'Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification', 'event_type_id' => $event_type['id'], 'display_order' => 1));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Translator'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Procedures',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Procedures','class_name' => 'Element_OphCiAnaestheticassessment_Procedures', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Procedure and Site Verification'))->queryRow();
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Medical History Review',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Medical History Review','class_name' => 'Element_OphCiAnaestheticassessment_MedicalHistoryReview', 'event_type_id' => $event_type['id'], 'display_order' => 1));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Procedures'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Medication',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Medication','class_name' => 'Element_OphCiAnaestheticassessment_Medication', 'event_type_id' => $event_type['id'], 'display_order' => 1));
-		}
-
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Medication'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Allergies',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Allergies','class_name' => 'Element_OphCiAnaestheticassessment_Allergies', 'event_type_id' => $event_type['id'], 'display_order' => 1));
-		}
-
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Allergies'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Checklist',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Checklist','class_name' => 'Element_OphCiAnaestheticassessment_Checklist', 'event_type_id' => $event_type['id'], 'display_order' => 1));
-		}
-
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Checklist'))->queryRow();
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Medical History Review'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Examination',':eventTypeId'=>$event_type['id']))->queryRow()) {
 			$this->insert('element_type', array('name' => 'Examination','class_name' => 'Element_OphCiAnaestheticassessment_Examination', 'event_type_id' => $event_type['id'], 'display_order' => 1));
 		}
@@ -66,27 +51,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient Specific Preoperative Education'))->queryRow();
 
-
-
-		$this->createTable('et_ophcianassessment_patientid', array(
-				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'event_id' => 'int(10) unsigned NOT NULL',
-				'patient_identifed' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
-
-				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
-				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
-				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
-				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
-				'PRIMARY KEY (`id`)',
-				'KEY `et_ophcianassessment_patientid_lmui_fk` (`last_modified_user_id`)',
-				'KEY `et_ophcianassessment_patientid_cui_fk` (`created_user_id`)',
-				'KEY `et_ophcianassessment_patientid_ev_fk` (`event_id`)',
-				'CONSTRAINT `et_ophcianassessment_patientid_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_patientid_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_patientid_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
-
-		$this->createTable('ophcianassessment_translator_translator_present', array(
+		$this->createTable('ophcianassessment_patient_translator_present', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'name' => 'varchar(128) COLLATE utf8_bin NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL DEFAULT 1',
@@ -95,38 +60,42 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'PRIMARY KEY (`id`)',
-				'KEY `ophcianassessment_translator_translator_present_lmui_fk` (`last_modified_user_id`)',
-				'KEY `ophcianassessment_translator_translator_present_cui_fk` (`created_user_id`)',
-				'CONSTRAINT `ophcianassessment_translator_translator_present_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `ophcianassessment_translator_translator_present_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
+				'KEY `ophcianassessment_patient_translator_present_lmui_fk` (`last_modified_user_id`)',
+				'KEY `ophcianassessment_patient_translator_present_cui_fk` (`created_user_id`)',
+				'CONSTRAINT `ophcianassessment_patient_translator_present_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `ophcianassessment_patient_translator_present_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
-		$this->insert('ophcianassessment_translator_translator_present',array('name'=>'Yes','display_order'=>1));
-		$this->insert('ophcianassessment_translator_translator_present',array('name'=>'No','display_order'=>2));
-		$this->insert('ophcianassessment_translator_translator_present',array('name'=>'NA','display_order'=>3));
+		$this->insert('ophcianassessment_patient_translator_present',array('name'=>'Yes','display_order'=>1));
+		$this->insert('ophcianassessment_patient_translator_present',array('name'=>'No','display_order'=>2));
+		$this->insert('ophcianassessment_patient_translator_present',array('name'=>'NA','display_order'=>3));
 
 
 
-		$this->createTable('et_ophcianassessment_translator', array(
+		$this->createTable('et_ophcianassessment_patient', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'event_id' => 'int(10) unsigned NOT NULL',
+				'patient_id_verified_with_two_identifiers' => 'tinyint(1) unsigned NOT NULL',
+
 				'translator_present_id' => 'int(10) unsigned NOT NULL',
 
 				'name' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
+
+				'patient' => 'tinyint(1) unsigned NOT NULL',
 
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'PRIMARY KEY (`id`)',
-				'KEY `et_ophcianassessment_translator_lmui_fk` (`last_modified_user_id`)',
-				'KEY `et_ophcianassessment_translator_cui_fk` (`created_user_id`)',
-				'KEY `et_ophcianassessment_translator_ev_fk` (`event_id`)',
-				'KEY `ophcianassessment_translator_translator_present_fk` (`translator_present_id`)',
-				'CONSTRAINT `et_ophcianassessment_translator_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_translator_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_translator_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-				'CONSTRAINT `ophcianassessment_translator_translator_present_fk` FOREIGN KEY (`translator_present_id`) REFERENCES `ophcianassessment_translator_translator_present` (`id`)',
+				'KEY `et_ophcianassessment_patient_lmui_fk` (`last_modified_user_id`)',
+				'KEY `et_ophcianassessment_patient_cui_fk` (`created_user_id`)',
+				'KEY `et_ophcianassessment_patient_ev_fk` (`event_id`)',
+				'KEY `ophcianassessment_patient_translator_present_fk` (`translator_present_id`)',
+				'CONSTRAINT `et_ophcianassessment_patient_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianassessment_patient_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianassessment_patient_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
+				'CONSTRAINT `ophcianassessment_patient_translator_present_fk` FOREIGN KEY (`translator_present_id`) REFERENCES `ophcianassessment_patient_translator_present` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
 
@@ -153,49 +122,13 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 
 
-		$this->createTable('et_ophcianassessment_medication', array(
+		$this->createTable('et_ophcianassessment_medical_history_review', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'event_id' => 'int(10) unsigned NOT NULL',
-				'medication' => 'text COLLATE utf8_bin DEFAULT \'\'',
+				'medication_verified' => 'tinyint(1) unsigned NOT NULL',
 
-				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
-				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
-				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
-				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
-				'PRIMARY KEY (`id`)',
-				'KEY `et_ophcianassessment_medication_lmui_fk` (`last_modified_user_id`)',
-				'KEY `et_ophcianassessment_medication_cui_fk` (`created_user_id`)',
-				'KEY `et_ophcianassessment_medication_ev_fk` (`event_id`)',
-				'CONSTRAINT `et_ophcianassessment_medication_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_medication_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_medication_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+				'allergies_verified' => 'tinyint(1) unsigned NOT NULL',
 
-
-
-		$this->createTable('et_ophcianassessment_allergies', array(
-				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'event_id' => 'int(10) unsigned NOT NULL',
-				'allergies' => 'text COLLATE utf8_bin DEFAULT \'\'',
-
-				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
-				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
-				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
-				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
-				'PRIMARY KEY (`id`)',
-				'KEY `et_ophcianassessment_allergies_lmui_fk` (`last_modified_user_id`)',
-				'KEY `et_ophcianassessment_allergies_cui_fk` (`created_user_id`)',
-				'KEY `et_ophcianassessment_allergies_ev_fk` (`event_id`)',
-				'CONSTRAINT `et_ophcianassessment_allergies_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_allergies_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_allergies_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
-
-
-
-		$this->createTable('et_ophcianassessment_checklist', array(
-				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'event_id' => 'int(10) unsigned NOT NULL',
 				'previous_surgical_procedures' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
 
 				'patient_anesthesia' => 'tinyint(1) unsigned NOT NULL DEFAULT 0',
@@ -239,12 +172,12 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'PRIMARY KEY (`id`)',
-				'KEY `et_ophcianassessment_checklist_lmui_fk` (`last_modified_user_id`)',
-				'KEY `et_ophcianassessment_checklist_cui_fk` (`created_user_id`)',
-				'KEY `et_ophcianassessment_checklist_ev_fk` (`event_id`)',
-				'CONSTRAINT `et_ophcianassessment_checklist_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_checklist_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-				'CONSTRAINT `et_ophcianassessment_checklist_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
+				'KEY `et_ophcianassessment_medical_history_review_lmui_fk` (`last_modified_user_id`)',
+				'KEY `et_ophcianassessment_medical_history_review_cui_fk` (`created_user_id`)',
+				'KEY `et_ophcianassessment_medical_history_review_ev_fk` (`event_id`)',
+				'CONSTRAINT `et_ophcianassessment_medical_history_review_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianassessment_medical_history_review_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianassessment_medical_history_review_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
 		$this->createTable('ophcianassessment_examination_weight_calculation', array(
@@ -349,23 +282,19 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 				'event_id' => 'int(10) unsigned NOT NULL',
 				'weight' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'lbs' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
+				'weight_kg' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'weight_calculation_id' => 'int(10) unsigned NOT NULL',
+				'weight_calculation_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 
 				'height' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'ft' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
+				'height_cm' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'in' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
-
-				'height_calculation_id' => 'int(10) unsigned NOT NULL',
+				'height_calculation_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 
 				'bmi' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
 				'blood_pressure' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
-
-				'mmhg' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
 				'heart_rate_pulse' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
@@ -501,6 +430,7 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 		$this->insert('ophcianassessment_anesthesiaplan_surgery_aproval',array('name'=>'Awaiting further information do not schedule','display_order'=>1));
 		$this->insert('ophcianassessment_anesthesiaplan_surgery_aproval',array('name'=>'Not approved for surgery','display_order'=>2));
+		$this->insert('ophcianassessment_anesthesiaplan_surgery_aproval',array('name'=>'Approved for surgery','display_order'=>3));
 
 		$this->createTable('ophcianassessment_anesthesiaplan_not_app', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -711,28 +641,16 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 	public function down()
 	{
-		$this->dropTable('et_ophcianassessment_patientid');
+		$this->dropTable('et_ophcianassessment_patient');
 
 
-
-		$this->dropTable('et_ophcianassessment_translator');
-
-
-		$this->dropTable('ophcianassessment_translator_translator_present');
+		$this->dropTable('ophcianassessment_patient_translator_present');
 
 		$this->dropTable('et_ophcianassessment_procedures');
 
 
 
-		$this->dropTable('et_ophcianassessment_medication');
-
-
-
-		$this->dropTable('et_ophcianassessment_allergies');
-
-
-
-		$this->dropTable('et_ophcianassessment_checklist');
+		$this->dropTable('et_ophcianassessment_medical_history_review');
 
 
 

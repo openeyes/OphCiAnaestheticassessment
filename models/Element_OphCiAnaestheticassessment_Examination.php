@@ -24,15 +24,13 @@
  * @property string $id
  * @property integer $event_id
  * @property string $weight
- * @property string $lbs
+ * @property string $weight_kg
  * @property integer $weight_calculation_id
  * @property string $height
- * @property string $ft
- * @property string $in
+ * @property string $height_cm
  * @property integer $height_calculation_id
  * @property string $bmi
  * @property string $blood_pressure
- * @property string $mmhg
  * @property string $heart_rate_pulse
  * @property string $temperature
  * @property string $respiratory_rate
@@ -83,9 +81,9 @@ class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElem
 	public function rules()
 	{
 		return array(
-			array('event_id, weight, lbs, weight_calculation_id, height, ft, in, height_calculation_id, bmi, blood_pressure, mmhg, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe'),
-			array('weight, lbs, weight_calculation_id, height, ft, in, height_calculation_id, bmi, blood_pressure, mmhg, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'required'),
-			array('id, event_id, weight, lbs, weight_calculation_id, height, ft, in, height_calculation_id, bmi, blood_pressure, mmhg, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe', 'on' => 'search'),
+			array('event_id, weight, weight_kg, weight_calculation_id, height, height_cm, height_calculation_id, bmi, blood_pressure, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe'),
+			array('weight, weight_kg, weight_calculation_id, height, height_cm, height_calculation_id, bmi, blood_pressure, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'required'),
+			array('id, event_id, weight, weight_kg, weight_calculation_id, height, height_cm, height_calculation_id, bmi, blood_pressure, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -116,17 +114,15 @@ class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElem
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'weight' => 'Weight',
-			'lbs' => 'lbs',
+			'weight' => 'Weight (lbs)',
+			'weight_kg' => 'Weight (kg)',
 			'weight_calculation_id' => 'Weight Calculation',
-			'height' => 'Height',
-			'ft' => 'ft',
-			'in' => 'in',
+			'height' => 'Height (ft,in)',
+			'height_cm' => 'Height (cm)',
 			'height_calculation_id' => 'Height Calculation',
 			'bmi' => 'BMI',
-			'blood_pressure' => 'Blood pressure',
-			'mmhg' => 'mmHg',
-			'heart_rate_pulse' => 'Heart Rate Pulse',
+			'blood_pressure' => 'Blood pressure (mmhg)',
+			'heart_rate_pulse' => 'Heart Rate / Pulse',
 			'temperature' => 'Temperature',
 			'respiratory_rate' => 'Respiratory rate',
 			'sao2' => 'SaO2',
@@ -152,15 +148,13 @@ class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElem
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
 		$criteria->compare('weight', $this->weight);
-		$criteria->compare('lbs', $this->lbs);
+		$criteria->compare('weight_kg', $this->weight_kg);
 		$criteria->compare('weight_calculation_id', $this->weight_calculation_id);
 		$criteria->compare('height', $this->height);
-		$criteria->compare('ft', $this->ft);
-		$criteria->compare('in', $this->in);
+		$criteria->compare('height_cm', $this->height_cm);
 		$criteria->compare('height_calculation_id', $this->height_calculation_id);
 		$criteria->compare('bmi', $this->bmi);
 		$criteria->compare('blood_pressure', $this->blood_pressure);
-		$criteria->compare('mmhg', $this->mmhg);
 		$criteria->compare('heart_rate_pulse', $this->heart_rate_pulse);
 		$criteria->compare('temperature', $this->temperature);
 		$criteria->compare('respiratory_rate', $this->respiratory_rate);

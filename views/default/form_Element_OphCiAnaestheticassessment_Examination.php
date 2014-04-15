@@ -29,15 +29,13 @@
 
 		<div class="element-fields">
 			<?php echo $form->textField($element, 'weight', array('size' => '10'))?>
-	<?php echo $form->textField($element, 'lbs', array('size' => '10'))?>
+	<?php echo $form->textField($element, 'weight_kg', array('size' => '10'))?>
 	<?php echo $form->dropDownList($element, 'weight_calculation_id', CHtml::listData(OphCiAnaestheticassessment_Examination_WeightCalculation::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'))?>
 	<?php echo $form->textField($element, 'height', array('size' => '10'))?>
-	<?php echo $form->textField($element, 'ft', array('size' => '10'))?>
-	<?php echo $form->textField($element, 'in', array('size' => '10'))?>
+	<?php echo $form->textField($element, 'height_cm', array('size' => '10'))?>
 	<?php echo $form->dropDownList($element, 'height_calculation_id', CHtml::listData(OphCiAnaestheticassessment_Examination_HeightCalculation::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'))?>
 	<?php echo $form->textField($element, 'bmi', array('size' => '10'))?>
 	<?php echo $form->textField($element, 'blood_pressure', array('size' => '10'))?>
-	<?php echo $form->textField($element, 'mmhg', array('size' => '10'))?>
 	<?php echo $form->textField($element, 'heart_rate_pulse', array('size' => '10'))?>
 	<?php echo $form->textField($element, 'temperature', array('size' => '10'))?>
 	<?php echo $form->textField($element, 'respiratory_rate', array('size' => '10'))?>
