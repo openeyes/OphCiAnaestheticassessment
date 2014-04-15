@@ -81,8 +81,6 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 				'name' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'patient' => 'tinyint(1) unsigned NOT NULL',
-
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',

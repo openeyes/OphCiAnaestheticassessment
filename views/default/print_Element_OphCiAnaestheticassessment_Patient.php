@@ -33,10 +33,6 @@
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('name'))?></td>
 			<td><span class="big"><?php echo CHtml::encode($element->name)?></span></td>
 		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('patient'))?></td>
-			<td><span class="big"><?php echo $element->patient ? 'Yes' : 'No'?></span></td>
-		</tr>
 	</tbody>
 </table>
 

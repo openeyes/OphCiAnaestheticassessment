@@ -31,7 +31,6 @@
 			<?php echo $form->checkBox($element, 'patient_id_verified_with_two_identifiers')?>
 	<?php echo $form->radioButtons($element, 'translator_present_id', 'ophcianassessment_patient_translator_present')?>
 	<?php echo $form->textField($element, 'name', array('size' => '10'))?>
-	<?php echo $form->checkBox($element, 'patient')?>
 	</div>
 	
 </section>

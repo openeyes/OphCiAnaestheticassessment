@@ -36,9 +36,5 @@
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('name'))?></div></div>
 			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->name)?></div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('patient'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->patient ? 'Yes' : 'No'?></div></div>
-		</div>
 			</div>
 </section>

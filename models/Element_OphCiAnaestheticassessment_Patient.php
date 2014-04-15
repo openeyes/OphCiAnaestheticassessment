@@ -26,7 +26,6 @@
  * @property integer $patient_id_verified_with_two_identifiers
  * @property integer $translator_present_id
  * @property string $name
- * @property integer $patient
  *
  * The followings are the available model relations:
  *
@@ -63,9 +62,9 @@ class Element_OphCiAnaestheticassessment_Patient  extends  BaseEventTypeElement
 	public function rules()
 	{
 		return array(
-			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, patient, ', 'safe'),
-			array('patient_id_verified_with_two_identifiers, translator_present_id, patient, ', 'required'),
-			array('id, event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, patient, ', 'safe', 'on' => 'search'),
+			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe'),
+			array('patient_id_verified_with_two_identifiers, translator_present_id, ', 'required'),
+			array('id, event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -95,7 +94,6 @@ class Element_OphCiAnaestheticassessment_Patient  extends  BaseEventTypeElement
 			'patient_id_verified_with_two_identifiers' => 'Patient ID Verified with two Identifiers',
 			'translator_present_id' => 'Translator Present',
 			'name' => 'Name',
-			'patient' => 'Patient',
 		);
 	}
 
@@ -112,7 +110,6 @@ class Element_OphCiAnaestheticassessment_Patient  extends  BaseEventTypeElement
 		$criteria->compare('patient_id_verified_with_two_identifiers', $this->patient_id_verified_with_two_identifiers);
 		$criteria->compare('translator_present_id', $this->translator_present_id);
 		$criteria->compare('name', $this->name);
-		$criteria->compare('patient', $this->patient);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
