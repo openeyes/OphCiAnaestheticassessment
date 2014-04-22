@@ -1,5 +1,5 @@
 <?php 
-class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
+class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 {
 	public function up()
 	{
@@ -16,37 +16,37 @@ class m140411_105544_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Procedure and Site Verification',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Procedure and Site Verification','class_name' => 'Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'Procedure and Site Verification','class_name' => 'Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification', 'event_type_id' => $event_type['id'], 'display_order' => 2));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Procedure and Site Verification'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Medical History Review',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Medical History Review','class_name' => 'Element_OphCiAnaestheticassessment_MedicalHistoryReview', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'Medical History Review','class_name' => 'Element_OphCiAnaestheticassessment_MedicalHistoryReview', 'event_type_id' => $event_type['id'], 'display_order' => 3));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Medical History Review'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Examination',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Examination','class_name' => 'Element_OphCiAnaestheticassessment_Examination', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'Examination','class_name' => 'Element_OphCiAnaestheticassessment_Examination', 'event_type_id' => $event_type['id'], 'display_order' => 4));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Examination'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'DVT Assessment',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'DVT Assessment','class_name' => 'Element_OphCiAnaestheticassessment_DvtAssessment', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'DVT Assessment','class_name' => 'Element_OphCiAnaestheticassessment_DvtAssessment', 'event_type_id' => $event_type['id'], 'display_order' => 5));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'DVT Assessment'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Investigations',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Investigations','class_name' => 'Element_OphCiAnaestheticassessment_Investigations', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'Investigations','class_name' => 'Element_OphCiAnaestheticassessment_Investigations', 'event_type_id' => $event_type['id'], 'display_order' => 6));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Investigations'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Anesthesia Plan',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Anesthesia Plan','class_name' => 'Element_OphCiAnaestheticassessment_AnesthesiaPlan', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'Anesthesia Plan','class_name' => 'Element_OphCiAnaestheticassessment_AnesthesiaPlan', 'event_type_id' => $event_type['id'], 'display_order' => 7));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Anesthesia Plan'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Patient Specific Preoperative Education',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Patient Specific Preoperative Education','class_name' => 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'event_type_id' => $event_type['id'], 'display_order' => 1));
+			$this->insert('element_type', array('name' => 'Patient Specific Preoperative Education','class_name' => 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'event_type_id' => $event_type['id'], 'display_order' => 8));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient Specific Preoperative Education'))->queryRow();
