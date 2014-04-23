@@ -40,12 +40,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="no_medications"<?php if (!empty($element->medications)) {?> style="display: none"<?php }?>>
-							<td colspan="7">
-								No medications have been entered for this patient.
-							</td>
-						</tr>
-						<?php if (!empty($element->medications)) {?>
+						<?php if (empty($element->medications)) {?>
+							<tr class="no_medications">
+								<td colspan="7">
+									No medications have been entered for this patient.
+								</td>
+							</tr>
+						<?php }else{?>
 							<?php foreach ($element->medications as $i => $medication) {
 								echo $this->renderPartial('_medication_row',array('medication'=>$medication,'i'=>$i,'edit'=>false));
 							}?>

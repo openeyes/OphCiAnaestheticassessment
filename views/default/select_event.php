@@ -34,7 +34,7 @@
 
 					// Event actions
 					if (count($bookings) >0) {
-						$this->event_actions[] = EventAction::button('Create anaesthetic assessment', 'save', array('level' => 'secondary'), array('form'=>'patient-admission-select','class'=>'button small'));
+						$this->event_actions[] = EventAction::button('Create anaesthetic assessment', 'save', array('level' => 'secondary'), array('form'=>'anaesthetic-assessment-select','class'=>'button small'));
 					}
 				?>
 					<?php  $this->displayErrors($errors)?>
