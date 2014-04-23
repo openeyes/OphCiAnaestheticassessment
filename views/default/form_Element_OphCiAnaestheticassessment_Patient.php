@@ -27,10 +27,9 @@
 		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
 	</header>
 
-		<div class="element-fields">
-			<?php echo $form->checkBox($element, 'patient_id_verified_with_two_identifiers')?>
-	<?php echo $form->radioButtons($element, 'translator_present_id', 'ophcianassessment_patient_translator_present')?>
-	<?php echo $form->textField($element, 'name', array('size' => '10'))?>
+	<div class="element-fields">
+		<?php echo $form->checkBox($element, 'patient_id_verified_with_two_identifiers', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioButtons($element, 'translator_present_id', CHtml::listData(OphCiAnaestheticassessment_Patient_TranslatorPresent::model()->findAll(array('order'=>'display_order asc')),'id','name'), null, false, false, false, false, array('class' => 'linked-fields', 'data-linked-fields' => 'name', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->textField($element, 'name', array('hide' => !$element->translator_present || $element->translator_present->name != 'Yes'), array(), array('label' => 3, 'field' => 4))?>
 	</div>
-	
 </section>

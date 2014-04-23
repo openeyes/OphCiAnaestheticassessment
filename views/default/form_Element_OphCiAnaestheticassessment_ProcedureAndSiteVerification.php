@@ -27,9 +27,30 @@
 		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
 	</header>
 
-		<div class="element-fields">
-			<?php echo $form->textField($element, 'procedures', array('size' => '10'))?>
-	<?php echo $form->textField($element, 'site', array('size' => '10'))?>
+	<div class="element-fields">
+		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_site_id" class="row field-row">
+			<div class="large-3 column">
+				<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_site_id">
+					<?php echo $element->getAttributeLabel('site_id')?>:
+				</label>
+			</div>
+			<div class="large-3 column end">
+				<?php echo $element->site->name?>
+				<input type="hidden" name="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification[site_id]" value="<?php echo $element->site_id?>" />
+			</div>
+		</div>
+		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id" class="row field-row">
+			<div class="large-3 column">
+				<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id">
+					<?php echo $element->getAttributeLabel('procedure_id')?>:
+				</label>
+			</div>
+			<div class="large-3 column end">
+				<?php foreach ($element->procedures as $procedure) {?>
+					<div><?php echo $procedure->term?></div>
+					<input type="hidden" name="<?php echo get_class($element)?>[procedure_id][]" value="<?php echo $procedure->id?>" />
+				<?php }?>
+			</div>
+		</div>
 	</div>
-	
 </section>

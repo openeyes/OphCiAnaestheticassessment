@@ -91,9 +91,9 @@ class Element_OphCiAnaestheticassessment_Patient  extends  BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'patient_id_verified_with_two_identifiers' => 'Patient ID Verified with two Identifiers',
-			'translator_present_id' => 'Translator Present',
-			'name' => 'Name',
+			'patient_id_verified_with_two_identifiers' => 'Patient ID verified with two identifiers',
+			'translator_present_id' => 'Translator present',
+			'name' => 'Translator name',
 		);
 	}
 
@@ -116,12 +116,15 @@ class Element_OphCiAnaestheticassessment_Patient  extends  BaseEventTypeElement
 		));
 	}
 
-
-
-	protected function afterSave()
+	public function beforeValidate()
 	{
+		if ($this->translator_present && $this->translator_present->name == 'Yes') {
+			if (!$this->name) {
+				$this->addError('name',$this->getAttributeLabel('name').' cannot be blank.');
+			}
+		}
 
-		return parent::afterSave();
+		return parent::beforeValidate();
 	}
 }
 ?>

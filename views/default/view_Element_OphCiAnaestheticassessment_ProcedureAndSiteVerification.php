@@ -26,11 +26,11 @@
 		<div class="element-data">
 				<div class="row data-row">
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->procedures)?></div></div>
+			<div class="large-10 column end"><div class="data-value"><?php //echo CHtml::encode($element->procedures)?></div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('site'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->site)?></div></div>
+			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->site->name)?></div></div>
 		</div>
 			</div>
 </section>

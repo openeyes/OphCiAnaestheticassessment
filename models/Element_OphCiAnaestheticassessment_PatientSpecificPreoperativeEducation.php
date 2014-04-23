@@ -36,7 +36,7 @@
  * @property Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment $speced_ids
  */
 
-class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  extends  BaseEventTypeElement
+class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  extends	BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -62,7 +62,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	{
 		return array(
 			array('event_id, medications, other, ', 'safe'),
-			array('medications, ', 'required'),
+			array('', 'required'),
 			array('id, event_id, medications, other, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -90,9 +90,9 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'speced_id' => 'Patient Specific Education',
+			'speced_ids' => 'Patient specific education',
 			'medications' => 'Medications',
-			'other' => 'Other',
+			'other' => 'Other education',
 		);
 	}
 
@@ -115,48 +115,43 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		));
 	}
 
+	public function updateSpeceds($speced_ids)
+	{
+		foreach ($speced_ids as $speced_id) {
+			if (!$assignment = Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->find('element_id=? and ophcianassessment_specificeducation_speced_id_id=?',array($this->id,$speced_id))) {
+				$assignment = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->ophcianassessment_specificeducation_speced_id_id = $speced_id;
 
-	public function getophcianassessment_specificeducation_speced_id_defaults() {
-		$ids = array();
-		foreach (OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId::model()->findAll('`default` = ?',array(1)) as $item) {
-			$ids[] = $item->id;
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
 		}
-		return $ids;
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+		$criteria->addNotInCondition('ophcianassessment_specificeducation_speced_id_id',$speced_ids);
+
+		Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->deleteAll($criteria);
 	}
 
-	protected function afterSave()
+	protected function beforeValidate()
 	{
-		if (!empty($_POST['MultiSelect_speced_id'])) {
-
-			$existing_ids = array();
-
-			foreach (Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->findAll('element_id = :elementId', array(':elementId' => $this->id)) as $item) {
-				$existing_ids[] = $item->ophcianassessment_specificeducation_speced_id_id;
-			}
-
-			foreach ($_POST['MultiSelect_speced_id'] as $id) {
-				if (!in_array($id,$existing_ids)) {
-					$item = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment;
-					$item->element_id = $this->id;
-					$item->ophcianassessment_specificeducation_speced_id_id = $id;
-
-					if (!$item->save()) {
-						throw new Exception('Unable to save MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
-			}
-
-			foreach ($existing_ids as $id) {
-				if (!in_array($id,$_POST['MultiSelect_speced_id'])) {
-					$item = Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->find('element_id = :elementId and ophcianassessment_specificeducation_speced_id_id = :lookupfieldId',array(':elementId' => $this->id, ':lookupfieldId' => $id));
-					if (!$item->delete()) {
-						throw new Exception('Unable to delete MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
+		if ($this->hasMultiSelectValue('speced_ids','Other (please specify)')) {
+			if (!$this->other) {
+				$this->addError('other',$this->getAttributeLabel('other').' cannot be blank.');
 			}
 		}
 
-		return parent::afterSave();
+		if ($this->hasMultiSelectValue('speced_ids','Medications')) {
+			if (!$this->medications) {
+				$this->addError('medications',$this->getAttributeLabel('medications').' cannot be blank.');
+			}
+		}
+
+		return parent::beforeValidate();
 	}
 }
 ?>

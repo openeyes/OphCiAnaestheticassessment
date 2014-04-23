@@ -35,7 +35,7 @@
  * @property User $usermodified
  */
 
-class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends  BaseEventTypeElement
+class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -77,6 +77,8 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends  
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'procedures' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Procedures_Procedure_Assignment', 'element_id'),
+			'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
 		);
 	}
 
@@ -88,8 +90,8 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends  
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'procedures' => 'Procedures',
-			'site' => 'Site',
+			'procedure_id' => 'Procedures',
+			'site_id' => 'Site',
 		);
 	}
 
@@ -111,12 +113,26 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends  
 		));
 	}
 
-
-
-	protected function afterSave()
+	public function updateProcedures($procedure_ids)
 	{
+		foreach ($procedure_ids as $procedure_id) {
+			if (!$assignment = OphCiAnaestheticassessment_Procedures_Procedure_Assignment::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
+				$assignment = new OphCiAnaestheticassessment_Procedures_Procedure_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->proc_id = $procedure_id;
 
-		return parent::afterSave();
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+		$criteria->addNotInCondition('proc_id',$procedure_ids);
+
+		OphCiAnaestheticassessment_Procedures_Procedure_Assignment::model()->deleteAll($criteria);
 	}
 }
 ?>

@@ -1,0 +1,136 @@
+/** OphCiAnaestheticassessment module styles */
+/**
+ * OpenEyes
+ *
+ * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
+ * (C) OpenEyes Foundation, 2011-2013
+ * This file is part of OpenEyes.
+ * OpenEyes is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * OpenEyes is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with OpenEyes in a file titled COPYING. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package OpenEyes
+ * @link http://www.openeyes.org.uk
+ * @author OpenEyes <info@openeyes.org.uk>
+ * @copyright Copyright (c) 2008-2011, Moorfields Eye Hospital NHS Foundation Trust
+ * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
+ * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
+ */
+/* line 17, ../sass/components/_event.scss */
+.event {
+  border-color: #aaaaaa;
+}
+/* line 19, ../sass/components/_event.scss */
+.event .event-content {
+  background-image: url('../img/watermark.png?1398158474');
+}
+/* line 22, ../sass/components/_event.scss */
+.event .event-title {
+  background-image: url('../img/medium.png?1398158474');
+}
+
+/* line 28, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_weight_kg .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+/* line 32, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_weight_kg input {
+  display: inline;
+}
+/* line 35, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_weight_kg .smallInput {
+  width: 5em;
+}
+
+/* line 41, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_height_cm .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+/* line 45, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_height_cm input {
+  display: inline;
+}
+/* line 48, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_height_cm .smallInput {
+  width: 5em;
+}
+
+/* line 53, ../sass/components/_event.scss */
+#Element_OphCiAnaestheticassessment_Examination_height_ft {
+  width: 3em;
+}
+
+/* line 57, ../sass/components/_event.scss */
+#Element_OphCiAnaestheticassessment_Examination_height_in {
+  width: 3em;
+  margin-left: 0.6em;
+}
+
+/* line 63, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_bmi .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+/* line 67, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_bmi input {
+  display: inline;
+}
+/* line 70, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_bmi .smallInput {
+  width: 5em;
+}
+
+/* line 76, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_bp_systolic input {
+  display: inline;
+}
+/* line 79, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_bp_systolic .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+
+/* line 86, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_heart_rate_pulse input {
+  display: inline;
+  width: 5em;
+}
+/* line 90, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_heart_rate_pulse .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+
+/* line 97, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate input {
+  display: inline;
+  width: 5em;
+}
+/* line 101, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+
+/* line 108, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_sao2 input {
+  display: inline;
+  width: 5em;
+}
+/* line 112, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_sao2 .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+
+/* line 118, ../sass/components/_event.scss */
+#Element_OphCiAnaestheticassessment_Examination_bp_systolic {
+  width: 4em;
+}
+
+/* line 122, ../sass/components/_event.scss */
+#Element_OphCiAnaestheticassessment_Examination_bp_diastolic {
+  width: 3em;
+}

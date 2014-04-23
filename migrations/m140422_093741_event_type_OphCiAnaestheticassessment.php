@@ -5,7 +5,7 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 	{
 		if (!$this->dbConnection->createCommand()->select('id')->from('event_type')->where('class_name=:class_name', array(':class_name'=>'OphCiAnaestheticassessment'))->queryRow()) {
 			$group = $this->dbConnection->createCommand()->select('id')->from('event_group')->where('name=:name',array(':name'=>'Clinical events'))->queryRow();
-			$this->insert('event_type', array('class_name' => 'OphCiAnaestheticassessment', 'name' => 'Anaestheticassessment','event_group_id' => $group['id']));
+			$this->insert('event_type', array('class_name' => 'OphCiAnaestheticassessment', 'name' => 'Anaesthetic assessment','event_group_id' => $group['id']));
 		}
 
 		$event_type = $this->dbConnection->createCommand()->select('id')->from('event_type')->where('class_name=:class_name', array(':class_name'=>'OphCiAnaestheticassessment'))->queryRow();
@@ -15,41 +15,41 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Procedure and Site Verification',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Procedure and Site Verification','class_name' => 'Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification', 'event_type_id' => $event_type['id'], 'display_order' => 2));
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Procedure and site verification',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Procedure and site verification','class_name' => 'Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification', 'event_type_id' => $event_type['id'], 'display_order' => 2));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Procedure and Site Verification'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Medical History Review',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Medical History Review','class_name' => 'Element_OphCiAnaestheticassessment_MedicalHistoryReview', 'event_type_id' => $event_type['id'], 'display_order' => 3));
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Procedure and site verification'))->queryRow();
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Medical history review',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Medical history review','class_name' => 'Element_OphCiAnaestheticassessment_MedicalHistoryReview', 'event_type_id' => $event_type['id'], 'display_order' => 3));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Medical History Review'))->queryRow();
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Medical history review'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Examination',':eventTypeId'=>$event_type['id']))->queryRow()) {
 			$this->insert('element_type', array('name' => 'Examination','class_name' => 'Element_OphCiAnaestheticassessment_Examination', 'event_type_id' => $event_type['id'], 'display_order' => 4));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Examination'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'DVT Assessment',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'DVT Assessment','class_name' => 'Element_OphCiAnaestheticassessment_DvtAssessment', 'event_type_id' => $event_type['id'], 'display_order' => 5));
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'DVT assessment',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'DVT assessment','class_name' => 'Element_OphCiAnaestheticassessment_DvtAssessment', 'event_type_id' => $event_type['id'], 'display_order' => 5));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'DVT Assessment'))->queryRow();
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'DVT assessment'))->queryRow();
 		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Investigations',':eventTypeId'=>$event_type['id']))->queryRow()) {
 			$this->insert('element_type', array('name' => 'Investigations','class_name' => 'Element_OphCiAnaestheticassessment_Investigations', 'event_type_id' => $event_type['id'], 'display_order' => 6));
 		}
 
 		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Investigations'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Anesthesia Plan',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Anesthesia Plan','class_name' => 'Element_OphCiAnaestheticassessment_AnesthesiaPlan', 'event_type_id' => $event_type['id'], 'display_order' => 7));
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Anesthesia plan',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Anesthesia plan','class_name' => 'Element_OphCiAnaestheticassessment_AnesthesiaPlan', 'event_type_id' => $event_type['id'], 'display_order' => 7));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Anesthesia Plan'))->queryRow();
-		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Patient Specific Preoperative Education',':eventTypeId'=>$event_type['id']))->queryRow()) {
-			$this->insert('element_type', array('name' => 'Patient Specific Preoperative Education','class_name' => 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'event_type_id' => $event_type['id'], 'display_order' => 8));
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Anesthesia plan'))->queryRow();
+		if (!$this->dbConnection->createCommand()->select('id')->from('element_type')->where('name=:name and event_type_id=:eventTypeId', array(':name'=>'Patient specific preoperative education',':eventTypeId'=>$event_type['id']))->queryRow()) {
+			$this->insert('element_type', array('name' => 'Patient specific preoperative education','class_name' => 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'event_type_id' => $event_type['id'], 'display_order' => 8));
 		}
 
-		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient Specific Preoperative Education'))->queryRow();
+		$element_type = $this->dbConnection->createCommand()->select('id')->from('element_type')->where('event_type_id=:eventTypeId and name=:name', array(':eventTypeId'=>$event_type['id'],':name'=>'Patient specific preoperative education'))->queryRow();
 
 		$this->createTable('ophcianassessment_patient_translator_present', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -251,7 +251,7 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
 		$this->insert('ophcianassessment_examination_teeth',array('name'=>'Loose teeth','display_order'=>1));
-		$this->insert('ophcianassessment_examination_teeth',array('name'=>'caps / crowns','display_order'=>2));
+		$this->insert('ophcianassessment_examination_teeth',array('name'=>'Caps / crowns','display_order'=>2));
 
 		$this->createTable('ophcianassessment_examination_dental', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -271,7 +271,7 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 		$this->insert('ophcianassessment_examination_dental',array('name'=>'Full uppers','display_order'=>1));
 		$this->insert('ophcianassessment_examination_dental',array('name'=>'Full Lowers','display_order'=>2));
-		$this->insert('ophcianassessment_examination_dental',array('name'=>'Other','display_order'=>3));
+		$this->insert('ophcianassessment_examination_dental',array('name'=>'Other (please specify)','display_order'=>3));
 
 
 
@@ -282,13 +282,13 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 
 				'weight_kg' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'weight_calculation_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
+				'weight_calculation_id' => 'int(10) unsigned NOT NULL',
 
 				'height' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
 				'height_cm' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
-				'height_calculation_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
+				'height_calculation_id' => 'int(10) unsigned NOT NULL',
 
 				'bmi' => 'varchar(255) COLLATE utf8_bin DEFAULT \'\'',
 
@@ -449,7 +449,7 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 		$this->insert('ophcianassessment_anesthesiaplan_not_app',array('name'=>'Uncontrolled Hypertension','display_order'=>1));
 		$this->insert('ophcianassessment_anesthesiaplan_not_app',array('name'=>'Uncontrolled Diabetes','display_order'=>2));
 		$this->insert('ophcianassessment_anesthesiaplan_not_app',array('name'=>'Unstable ishemic heart disease','display_order'=>3));
-		$this->insert('ophcianassessment_anesthesiaplan_not_app',array('name'=>'Other','display_order'=>4));
+		$this->insert('ophcianassessment_anesthesiaplan_not_app',array('name'=>'Other (please specify)','display_order'=>4));
 
 		$this->createTable('ophcianassessment_anesthesiaplan_acceptance', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -467,7 +467,7 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 
 		$this->insert('ophcianassessment_anesthesiaplan_acceptance',array('name'=>'Waiting on lab results','display_order'=>1));
-		$this->insert('ophcianassessment_anesthesiaplan_acceptance',array('name'=>'Other','display_order'=>2));
+		$this->insert('ophcianassessment_anesthesiaplan_acceptance',array('name'=>'Other (please specify)','display_order'=>2));
 
 		$this->createTable('ophcianassessment_anesthesiaplan_asa_level', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -593,6 +593,7 @@ class m140422_093741_event_type_OphCiAnaestheticassessment extends CDbMigration
 		$this->insert('ophcianassessment_specificeducation_speced_id',array('name'=>'Fast as adult','display_order'=>6));
 		$this->insert('ophcianassessment_specificeducation_speced_id',array('name'=>'Take normal medications','display_order'=>7));
 		$this->insert('ophcianassessment_specificeducation_speced_id',array('name'=>'Medications','display_order'=>8));
+		$this->insert('ophcianassessment_specificeducation_speced_id',array('name'=>'Other (please specify)','display_order'=>9));
 
 
 

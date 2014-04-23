@@ -23,3 +23,102 @@
 		background-image: image-url("medium.png");
 	}
 }
+
+#div_Element_OphCiAnaestheticassessment_Examination_weight_kg {
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	}
+	input {
+		display: inline;
+	}
+	.smallInput {
+		width: 5em;
+	}
+}
+
+#div_Element_OphCiAnaestheticassessment_Examination_height_cm {
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	} 
+	input {
+		display: inline;
+	}
+	.smallInput { 
+		width: 5em;
+	} 
+}
+
+#Element_OphCiAnaestheticassessment_Examination_height_ft {
+	width: 3em;
+}
+
+#Element_OphCiAnaestheticassessment_Examination_height_in {
+	width: 3em;
+	margin-left: 0.6em;
+}
+
+#div_Element_OphCiAnaestheticassessment_Examination_bmi {
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	}
+	input {
+		display: inline;
+	}
+	.smallInput {
+		width: 5em;
+	}
+}
+
+#div_Element_OphCiAnaestheticassessment_Examination_bp_systolic {
+	input {
+		display: inline;
+	}
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	}
+}
+
+#div_Element_OphCiAnaestheticassessment_Examination_heart_rate_pulse {
+	input {
+		display: inline;
+		width: 5em;
+	}
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	}
+}
+
+#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate {
+	input {
+		display: inline;
+		width: 5em;
+	}
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	}
+}
+
+#div_Element_OphCiAnaestheticassessment_Examination_sao2 {
+	input {
+		display: inline;
+		width: 5em;
+	}
+	.metric {
+		display: inline;
+		font-size: 0.8125em;
+	}
+}
+
+#Element_OphCiAnaestheticassessment_Examination_bp_systolic {
+	width: 4em;
+}
+
+#Element_OphCiAnaestheticassessment_Examination_bp_diastolic {
+	width: 3em;
+}

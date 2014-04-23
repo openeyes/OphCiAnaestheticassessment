@@ -102,5 +102,10 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment extend
 			'criteria' => $criteria,
 		));
 	}
+
+	public function getName()
+	{
+		return $this->ophcianassessment_anesthesiaplan_not_app->name;
+	}
 }
 ?>

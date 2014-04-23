@@ -107,27 +107,27 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'medication_verified' => 'Medication Verified',
-			'allergies_verified' => 'Allergies Verified',
+			'medication_verified' => 'Medication verified',
+			'allergies_verified' => 'Allergies verified',
 			'previous_surgical_procedures' => 'Previous surgical procedures',
 			'patient_anesthesia' => 'Previous patient anesthesia problems',
 			'family_anesthesia' => 'Previous family anesthesia  problems',
 			'pain' => 'Pain',
 			'cardiovascular' => 'Cardiovascular',
 			'respiratory' => 'Respiratory',
-			'gastro_intestinal' => 'Gastro Intestinal',
+			'gastro_intestinal' => 'Gastro intestinal',
 			'diabetes' => 'Diabetes',
-			'genitourinary_renal_endocrine' => 'Genitourinary / Renal / Endocrine',
-			'neuro_musculoskeletal' => 'Neuro / Musculoskeletal',
-			'falls_mobility_risk' => 'Falls Mobility Risk',
+			'genitourinary_renal_endocrine' => 'Genitourinary / renal / endocrine',
+			'neuro_musculoskeletal' => 'Neuro / musculoskeletal',
+			'falls_mobility_risk' => 'Falls mobility risk',
 			'Miscellaneous' => 'Miscellaneous',
 			'psychiatric' => 'Psychiatric',
-			'pregnancy_status' => 'Pregnancy Status',
+			'pregnancy_status' => 'Pregnancy status',
 			'exposure' => 'Recent fever cough illness or exposure',
 			'dental' => 'Implants / prosthetics / removable dental work',
-			'tobacco_use' => 'Tobacco Use',
-			'alcohol_use' => 'Alcohol Use',
-			'recreational_drug_use' => 'Recreational Drug Use',
+			'tobacco_use' => 'Tobacco use',
+			'alcohol_use' => 'Alcohol use',
+			'recreational_drug_use' => 'Recreational drug use',
 		);
 	}
 
@@ -166,14 +166,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-
-
-	protected function afterSave()
-	{
-
-		return parent::afterSave();
 	}
 }
 ?>

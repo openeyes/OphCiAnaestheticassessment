@@ -56,7 +56,7 @@
  * @property Element_OphCiAnaestheticassessment_Examination_Dental_Assignment $dentals
  */
 
-class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElement
+class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -81,9 +81,9 @@ class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElem
 	public function rules()
 	{
 		return array(
-			array('event_id, weight, weight_kg, weight_calculation_id, height, height_cm, height_calculation_id, bmi, blood_pressure, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe'),
-			array('weight, weight_kg, weight_calculation_id, height, height_cm, height_calculation_id, bmi, blood_pressure, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'required'),
-			array('id, event_id, weight, weight_kg, weight_calculation_id, height, height_cm, height_calculation_id, bmi, blood_pressure, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe', 'on' => 'search'),
+			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe'),
+			array('weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'required'),
+			array('id, event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -114,26 +114,29 @@ class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElem
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'weight' => 'Weight (lbs)',
+			'weight_lb' => 'Weight (lbs)',
 			'weight_kg' => 'Weight (kg)',
-			'weight_calculation_id' => 'Weight Calculation',
-			'height' => 'Height (ft,in)',
+			'weight_calculation_id' => 'Weight calculation',
+			'height_ft' => 'Height (ft)',
+			'height_in' => 'Height (in)',
 			'height_cm' => 'Height (cm)',
-			'height_calculation_id' => 'Height Calculation',
+			'height_calculation_id' => 'Height calculation',
 			'bmi' => 'BMI',
-			'blood_pressure' => 'Blood pressure (mmhg)',
-			'heart_rate_pulse' => 'Heart Rate / Pulse',
+			'bp_systolic' => 'Blood pressure', 
+			'heart_rate_pulse' => 'Heart rate / pulse',
+			'bp_systolic' => 'Blood pressure (systolic)',
+			'bp_diastolic' => 'Blood pressure (diastolic)',
 			'temperature' => 'Temperature',
 			'respiratory_rate' => 'Respiratory rate',
 			'sao2' => 'SaO2',
-			'airway_class_id' => 'Airway Class',
+			'airway_class_id' => 'Airway class',
 			'blood_glucose' => 'Blood glucose',
 			'heart' => 'Heart',
 			'lungs' => 'Lungs',
 			'abdomen' => 'Abdomen',
 			'teeth' => 'Teeth',
 			'dental' => 'Removable dental work',
-			'teeth_other' => 'Teeth Other',
+			'teeth_other' => 'Other removable dental work',
 		);
 	}
 
@@ -173,84 +176,59 @@ class Element_OphCiAnaestheticassessment_Examination  extends  BaseEventTypeElem
 		));
 	}
 
-
-	public function getophcianassessment_examination_teeth_defaults() {
-		$ids = array();
-		foreach (OphCiAnaestheticassessment_Examination_Teeth::model()->findAll('`default` = ?',array(1)) as $item) {
-			$ids[] = $item->id;
-		}
-		return $ids;
-	}
-	public function getophcianassessment_examination_dental_defaults() {
-		$ids = array();
-		foreach (OphCiAnaestheticassessment_Examination_Dental::model()->findAll('`default` = ?',array(1)) as $item) {
-			$ids[] = $item->id;
-		}
-		return $ids;
-	}
-
-	protected function afterSave()
+	public function updateTeeth($teeth_ids)
 	{
-		if (!empty($_POST['MultiSelect_teeth'])) {
+		foreach ($teeth_ids as $teeth_id) {
+			if (!$assignment = Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->find('element_id=? and ophcianassessment_examination_teeth_id=?',array($this->id,$teeth_id))) {
+				$assignment = new Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->ophcianassessment_examination_teeth_id = $teeth_id;
 
-			$existing_ids = array();
-
-			foreach (Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->findAll('element_id = :elementId', array(':elementId' => $this->id)) as $item) {
-				$existing_ids[] = $item->ophcianassessment_examination_teeth_id;
-			}
-
-			foreach ($_POST['MultiSelect_teeth'] as $id) {
-				if (!in_array($id,$existing_ids)) {
-					$item = new Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment;
-					$item->element_id = $this->id;
-					$item->ophcianassessment_examination_teeth_id = $id;
-
-					if (!$item->save()) {
-						throw new Exception('Unable to save MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
-			}
-
-			foreach ($existing_ids as $id) {
-				if (!in_array($id,$_POST['MultiSelect_teeth'])) {
-					$item = Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->find('element_id = :elementId and ophcianassessment_examination_teeth_id = :lookupfieldId',array(':elementId' => $this->id, ':lookupfieldId' => $id));
-					if (!$item->delete()) {
-						throw new Exception('Unable to delete MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
-			}
-		}
-		if (!empty($_POST['MultiSelect_dental'])) {
-
-			$existing_ids = array();
-
-			foreach (Element_OphCiAnaestheticassessment_Examination_Dental_Assignment::model()->findAll('element_id = :elementId', array(':elementId' => $this->id)) as $item) {
-				$existing_ids[] = $item->ophcianassessment_examination_dental_id;
-			}
-
-			foreach ($_POST['MultiSelect_dental'] as $id) {
-				if (!in_array($id,$existing_ids)) {
-					$item = new Element_OphCiAnaestheticassessment_Examination_Dental_Assignment;
-					$item->element_id = $this->id;
-					$item->ophcianassessment_examination_dental_id = $id;
-
-					if (!$item->save()) {
-						throw new Exception('Unable to save MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
-			}
-
-			foreach ($existing_ids as $id) {
-				if (!in_array($id,$_POST['MultiSelect_dental'])) {
-					$item = Element_OphCiAnaestheticassessment_Examination_Dental_Assignment::model()->find('element_id = :elementId and ophcianassessment_examination_dental_id = :lookupfieldId',array(':elementId' => $this->id, ':lookupfieldId' => $id));
-					if (!$item->delete()) {
-						throw new Exception('Unable to delete MultiSelect item: '.print_r($item->getErrors(),true));
-					}
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
 				}
 			}
 		}
 
-		return parent::afterSave();
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+		$criteria->addNotInCondition('ophcianassessment_examination_teeth_id',$teeth_ids);
+
+		Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->deleteAll($criteria);
+	}
+
+	public function updateDental($dental_ids)
+	{
+		foreach ($dental_ids as $dental_id) {
+			if (!$assignment = Element_OphCiAnaestheticassessment_Examination_Dental_Assignment::model()->find('element_id=? and ophcianassessment_examination_dental_id=?',array($this->id,$dental_id))) {
+				$assignment = new Element_OphCiAnaestheticassessment_Examination_Dental_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->ophcianassessment_examination_dental_id = $dental_id;
+
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+		$criteria->addNotInCondition('ophcianassessment_examination_dental_id',$dental_ids);
+
+		Element_OphCiAnaestheticassessment_Examination_Dental_Assignment::model()->deleteAll($criteria);
+	}
+
+	protected function beforeValidate()
+	{
+		if ($this->hasMultiSelectValue('dentals','Other (please specify)')) {
+			if (!$this->teeth_other) {
+				$this->addError('teeth_other',$this->getAttributeLabel('teeth_other').' cannot be blank.');
+			}
+		}
+
+		return parent::beforeValidate();
 	}
 }
 ?>

@@ -102,5 +102,10 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Sp
 			'criteria' => $criteria,
 		));
 	}
+
+	public function getName()
+	{
+		return $this->ophcianassessment_specificeducation_speced_id->name;
+	}
 }
 ?>

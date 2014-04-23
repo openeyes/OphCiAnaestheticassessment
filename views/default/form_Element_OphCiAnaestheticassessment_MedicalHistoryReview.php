@@ -27,28 +27,27 @@
 		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
 	</header>
 
-		<div class="element-fields">
-			<?php echo $form->checkBox($element, 'medication_verified')?>
-	<?php echo $form->checkBox($element, 'allergies_verified')?>
-	<?php echo $form->radioBoolean($element, 'previous_surgical_procedures')?>
-	<?php echo $form->radioBoolean($element, 'patient_anesthesia')?>
-	<?php echo $form->radioBoolean($element, 'family_anesthesia')?>
-	<?php echo $form->radioBoolean($element, 'pain')?>
-	<?php echo $form->radioBoolean($element, 'cardiovascular')?>
-	<?php echo $form->radioBoolean($element, 'respiratory')?>
-	<?php echo $form->radioBoolean($element, 'gastro_intestinal')?>
-	<?php echo $form->radioBoolean($element, 'diabetes')?>
-	<?php echo $form->radioBoolean($element, 'genitourinary_renal_endocrine')?>
-	<?php echo $form->radioBoolean($element, 'neuro_musculoskeletal')?>
-	<?php echo $form->radioBoolean($element, 'falls_mobility_risk')?>
-	<?php echo $form->radioBoolean($element, 'Miscellaneous')?>
-	<?php echo $form->radioBoolean($element, 'psychiatric')?>
-	<?php echo $form->radioBoolean($element, 'pregnancy_status')?>
-	<?php echo $form->radioBoolean($element, 'exposure')?>
-	<?php echo $form->radioBoolean($element, 'dental')?>
-	<?php echo $form->radioBoolean($element, 'tobacco_use')?>
-	<?php echo $form->radioBoolean($element, 'alcohol_use')?>
-	<?php echo $form->radioBoolean($element, 'recreational_drug_use')?>
+	<div class="element-fields">
+		<?php echo $form->checkBox($element, 'medication_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->checkBox($element, 'allergies_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'patient_anesthesia', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'family_anesthesia', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'pain', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'cardiovascular', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'respiratory', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'gastro_intestinal', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'diabetes', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'genitourinary_renal_endocrine', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'neuro_musculoskeletal', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'falls_mobility_risk', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'Miscellaneous', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'psychiatric', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'pregnancy_status', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'exposure', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'dental', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'tobacco_use', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'alcohol_use', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'recreational_drug_use', array(), array('label' => 3, 'field' => 4))?>
 	</div>
-	
 </section>

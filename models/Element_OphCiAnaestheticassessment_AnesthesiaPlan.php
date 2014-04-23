@@ -71,7 +71,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 	{
 		return array(
 			array('event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe'),
-			array('surgery_approval_id, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'required'),
+			array('surgery_approval_id, acceptance_id, asa_level_id, anesthesia_plan_id', 'required'),
 			array('id, event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -103,14 +103,14 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'surgery_approval_id' => 'Anesthesia Patient Approval for Surgery',
+			'surgery_approval_id' => 'Anesthesia patient approval for surgery',
 			'not_app' => 'Reason for not approving patient for surgery',
-			'com_na' => 'Other comments',
-			'acceptance_id' => 'Reason for Conditional Acceptance',
-			'waiting_comments' => 'Other comments',
-			'asa_level_id' => 'ASA Level',
-			'anesthesia_plan_id' => 'Anesthesia Plan',
-			'anesthesia_plan_comment' => 'Anesthesia Plan Comment',
+			'com_na' => 'Other reason',
+			'acceptance_id' => 'Reason for conditional acceptance',
+			'waiting_comments' => 'Other reason',
+			'asa_level_id' => 'ASA level',
+			'anesthesia_plan_id' => 'Anesthesia plan',
+			'anesthesia_plan_comment' => 'Anesthesia plan comment',
 		);
 	}
 
@@ -138,48 +138,15 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 		));
 	}
 
-
-	public function getophcianassessment_anesthesiaplan_not_app_defaults() {
-		$ids = array();
-		foreach (OphCiAnaestheticassessment_AnesthesiaPlan_NotApp::model()->findAll('`default` = ?',array(1)) as $item) {
-			$ids[] = $item->id;
-		}
-		return $ids;
-	}
-
-	protected function afterSave()
+	public function beforeValidate()
 	{
-		if (!empty($_POST['MultiSelect_not_app'])) {
-
-			$existing_ids = array();
-
-			foreach (Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment::model()->findAll('element_id = :elementId', array(':elementId' => $this->id)) as $item) {
-				$existing_ids[] = $item->ophcianassessment_anesthesiaplan_not_app_id;
-			}
-
-			foreach ($_POST['MultiSelect_not_app'] as $id) {
-				if (!in_array($id,$existing_ids)) {
-					$item = new Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment;
-					$item->element_id = $this->id;
-					$item->ophcianassessment_anesthesiaplan_not_app_id = $id;
-
-					if (!$item->save()) {
-						throw new Exception('Unable to save MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
-			}
-
-			foreach ($existing_ids as $id) {
-				if (!in_array($id,$_POST['MultiSelect_not_app'])) {
-					$item = Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment::model()->find('element_id = :elementId and ophcianassessment_anesthesiaplan_not_app_id = :lookupfieldId',array(':elementId' => $this->id, ':lookupfieldId' => $id));
-					if (!$item->delete()) {
-						throw new Exception('Unable to delete MultiSelect item: '.print_r($item->getErrors(),true));
-					}
-				}
+		if ($this->acceptance && $this->acceptance->name == 'Other (please specify)') {
+			if (!$this->waiting_comments) {
+				$this->addError('waiting_comments',$this->getAttributeLabel('waiting_comments').' cannot be blank.');
 			}
 		}
 
-		return parent::afterSave();
+		return parent::beforeValidate();
 	}
 }
 ?>
