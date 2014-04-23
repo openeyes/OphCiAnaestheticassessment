@@ -200,5 +200,27 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 
 		OphCiAnaestheticassessment_Medical_History_Medication::model()->deleteAll($criteria);
 	}
+
+	public function afterSave()
+	{
+		if (Yii::app()->getController()->action->id == 'create') {
+			foreach ($this->medications as $medication) {
+				if (!Medication::model()->find('patient_id=? and drug_id=? and route_id=? and option_id=? and frequency_id=? and start_date=?',array($this->event->episode->patient_id,$medication->drug_id,$medication->route_id,$medication->option_id,$medication->frequency_id,$medication->start_date))) {
+					$_medication = new Medication;
+					$_medication->patient_id = $this->event->episode->patient_id;
+
+					foreach (array('drug_id','route_id','option_id','frequency_id','start_date') as $field) {
+						$_medication->$field = $medication->$field;
+					}
+
+					if (!$_medication->save()) {
+						throw new Exception("Unable to save medication: ".print_r($_medication->getErrors(),true));
+					}
+				}
+			}
+		}
+
+		return parent::afterSave();
+	}
 }
 ?>
