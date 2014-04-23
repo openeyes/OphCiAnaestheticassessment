@@ -273,6 +273,25 @@ class DefaultController extends BaseEventTypeController
 		}
 	}
 
+	protected function setElementDefaultOptions_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $action)
+	{
+		if ($action == 'create') {
+			$medications = array();
+
+			foreach ($this->patient->medications as $medication) {
+				$_medication = new OphCiAnaestheticassessment_Medical_History_Medication;
+
+				foreach (array('drug_id','route_id','option_id','frequency_id','start_date') as $field) {
+					$_medication->$field = $medication->$field;
+				}
+
+				$medications[] = $_medication;
+			}
+
+			$element->medications = $medications;
+		}
+	}
+
 	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
 	{
 		$medications = array();
