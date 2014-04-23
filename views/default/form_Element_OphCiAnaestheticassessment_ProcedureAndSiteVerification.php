@@ -45,10 +45,10 @@
 					<?php echo $element->getAttributeLabel('procedure_id')?>:
 				</label>
 			</div>
-			<div class="large-3 column end">
+			<div class="large-9 column end">
 				<?php foreach ($element->procedures as $procedure) {?>
-					<div><?php echo $procedure->term?></div>
-					<input type="hidden" name="<?php echo get_class($element)?>[procedure_id][]" value="<?php echo $procedure->id?>" />
+					<div><?php echo $procedure->procedure->term?></div>
+					<input type="hidden" name="<?php echo get_class($element)?>[procedure_id][]" value="<?php echo $procedure->proc_id?>" />
 				<?php }?>
 			</div>
 		</div>

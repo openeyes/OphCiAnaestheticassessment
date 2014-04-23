@@ -6,6 +6,22 @@ class DefaultController extends BaseEventTypeController
 	protected $unbooked = false;
 	protected $booking_procedures;
 
+	static protected $action_types = array(
+		'drugList' => self::ACTION_TYPE_FORM,
+		'validateMedication' => self::ACTION_TYPE_FORM,
+		'routeOptions' => self::ACTION_TYPE_FORM,
+	);
+
+	public function accessRules()
+	{
+		return array_merge(array(
+			array('allow',
+				'actions' => array('drugList','validateMedication','routeOptions'),
+				'roles' => array('OprnEditMedication'),
+			)
+		),parent::accessRules());
+	}
+
 	protected function initActionCreate()
 	{
 		parent::initActionCreate();
@@ -78,7 +94,18 @@ class DefaultController extends BaseEventTypeController
 				throw new Exception("Procedures not found for operation booking event: ".$_GET['booking_event_id']);
 			}
 
-			$element->procedures = $procedures;
+			$_procedures = array();
+
+			foreach ($procedures as $procedure) {
+				$assignment = new OphCiAnaestheticassessment_Procedures_Procedure_Assignment;
+				$assignment->element_id = $element->id;
+				$assignment->proc_id = $procedure->id;
+				$assignment->procedure = $procedure;
+
+				$_procedures[] = $assignment;
+			}
+
+			$element->procedures = $_procedures;
 
 			$site = $api->findSiteForBookingEvent(Event::model()->findByPk($_GET['booking_event_id']));
 
@@ -93,7 +120,11 @@ class DefaultController extends BaseEventTypeController
 
 		if (!empty($data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['procedure_id'])) {
 			foreach ($data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['procedure_id'] as $procedure_id) {
-				$procedures[] = Procedure::model()->findByPk($procedure_id);
+				$assignment = new OphCiAnaestheticassessment_Procedures_Procedure_Assignment;
+				$assignment->proc_id = $procedure_id;
+				$assignment->procedure = Procedure::model()->findByPk($procedure_id);
+
+				$procedures[] = $assignment;
 			}
 		}
 
@@ -178,5 +209,96 @@ class DefaultController extends BaseEventTypeController
 	{
 		Yii::app()->assetManager->registerScriptFile('js/spliteventtype.js', null, null, AssetManager::OUTPUT_SCREEN);
 		return parent::beforeAction($action);
+	}
+
+	public function actionDrugList()
+	{
+		if (Yii::app()->request->isAjaxRequest) {
+			$criteria = new CDbCriteria();
+			if (isset($_GET['term']) && $term = $_GET['term']) {
+				$criteria->addCondition(array('LOWER(name) LIKE :term', 'LOWER(aliases) LIKE :term'), 'OR');
+				$params[':term'] = '%' . strtolower(strtr($term, array('%' => '\%'))) . '%';
+			}
+			$criteria->order = 'name';
+			$criteria->params = $params;
+			$drugs = Drug::model()->findAll($criteria);
+			$return = array();
+			foreach ($drugs as $drug) {
+				$return[] = array(
+						'label' => $drug->tallmanlabel,
+						'value' => $drug->tallman,
+						'id' => $drug->id,
+				);
+			}
+			echo CJSON::encode($return);
+		}
+	}
+
+	public function actionValidateMedication()
+	{
+		$medication = new OphCiAnaestheticassessment_Medical_History_Medication;
+		$medication->attributes = Helper::convertNHS2MySQL($_POST);
+
+		$errors = array();
+
+		if (!$medication->validate()) {
+			foreach ($medication->getErrors() as $error) {
+				$errors[] = $error[0];
+			}
+		}
+
+		if (!empty($errors)) {
+			echo json_encode(array(
+				'status' => 'error',
+				'errors' => $errors,
+			));
+		} else {
+			echo json_encode(array(
+				'status' => 'ok',
+				'row' => $this->renderPartial('_medication_row',array('medication' => $medication,'i' => @$_POST['i'], 'edit' => true),true),
+			));
+		}
+	}
+
+	public function actionRouteOptions()
+	{
+		if (!$route = DrugRoute::model()->findByPk(@$_GET['route_id'])) {
+			throw new Exception("Route not found: ".@$_GET['route_id']);
+		}
+
+		echo '<option value="">- Select -</option>';
+
+		foreach (DrugRouteOption::model()->findAll(array('order'=>'id asc','condition' => 'drug_route_id=?','params' => array($route->id))) as $option) {
+			echo '<option value="'.$option->id.'">'.$option->name.'</option>';
+		}
+	}
+
+	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
+	{
+		$medications = array();
+
+		if (!empty($data['drug_ids'])) {
+			foreach ($data['drug_ids'] as $i => $drug_id) {
+				$medication = new OphCiAnaestheticassessment_Medical_History_Medication;
+				$medication->drug_id = $drug_id;
+				$medication->route_id = $data['route_ids'][$i];
+				$medication->option_id = $data['option_ids'][$i];
+				$medication->frequency_id = $data['frequency_ids'][$i];
+				$medication->start_date = $data['start_dates'][$i];
+
+				$medications[] = $medication;
+			}
+		}
+
+		$element->medications = $medications;
+	}
+
+	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
+	{
+		if (empty($data['drug_ids'])) {
+			$element->updateMedications();
+		} else {
+			$element->updateMedications($data['medication_ids'],$data['drug_ids'],$data['route_ids'],$data['option_ids'],$data['frequency_ids'],$data['start_dates']);
+		}
 	}
 }

@@ -28,6 +28,136 @@
 	</header>
 
 	<div class="element-fields">
+		<div class="row field-row">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-9 column end">
+				<table class="grid medications">
+					<thead>
+						<tr>
+							<th>Medication</th>
+							<th>Route</th>
+							<th>Option</th>
+							<th>Frequency</th>
+							<th>Start date</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if (empty($element->medications)) {?>
+							<tr class="no_medications">
+								<td colspan="7">
+									No medications have been entered for this patient.
+								</td>
+							</tr>
+						<?php } else {?>
+							<?php foreach ($element->medications as $i => $medication) {
+								echo $this->renderPartial('_medication_row',array('medication'=>$medication,'i'=>$i,'edit'=>true));
+							}?>
+						<?php }?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="addMedicationFields" style="display: none">
+			<div class="row field-row">
+				<div class="large-3 column">
+					<label>Medication:</label>
+				</div>
+				<div class="large-4 column end medicationName">
+					<span>None selected</span>
+					<input type="hidden" id="_medication_id" value="" />
+					<input type="hidden" id="_edit_row_id" value="" />
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column">
+					<label></label>
+				</div>
+				<div class="large-4 column end">
+					<?php echo CHtml::dropDownList('medication_id','',Drug::model()->listBySubspecialty(Firm::model()->findByPk(Yii::app()->session['selected_firm_id'])->getSubspecialtyID()),array('empty' => '- Select -'))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label></label></div>
+				<div class="large-4 column end">
+					<?php
+					$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+							'name' => 'drug_id',
+							'id' => 'autocomplete_drug_id',
+							'source' => "js:function(request, response) {
+								$.getJSON('".$this->createUrl('DrugList')."', {
+									term : request.term,
+								}, response);
+							}",
+							'options' => array(
+								'select' => "js:function(event, ui) {
+									$('.medicationName span').html(ui.item.value);
+									$('#_medication_id').val(ui.item.id);
+									$(this).val('');
+									return false;
+								}",
+							),
+							'htmlOptions' => array(
+								'placeholder' => 'or search formulary',
+							),
+						))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label>Route:</label></div>
+				<div class="large-4 column end">
+					<?php echo CHtml::dropDownList('route_id','',CHtml::listData(DrugRoute::model()->findAll(),'id','name'),array('empty'=>'- Select -'))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label>Option:</label></div>
+				<div class="large-4 column end">
+					<?php echo CHtml::dropDownList('option_id','',array(),array('empty'=>'- Select -'))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label>Frequency:</label></div>
+				<div class="large-4 column end">
+					<?php echo CHtml::dropDownList('frequency_id','',CHtml::listData(DrugFrequency::model()->findAll(),'id','name'),array('empty'=>'- Select -'))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label>Start date:</label></div>
+				<div class="large-4 column end">
+					<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+						'name'=>'start_date',
+						'id'=>'start_date',
+						'options'=>array(
+							'showAnim'=>'fold',
+							'dateFormat'=>Helper::NHS_DATE_FORMAT_JS
+						),
+					))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label></label></div>
+				<div class="large-9 column end">
+					<button class="saveMedication secondary small">Add</button>
+					<button class="cancelMedication warning small">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<div class="row field-row medicationErrors" style="display: none">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-5 column end">
+				<div class="alert-box alert with-icon">
+					<p>Please fix the following input errors:</p>
+					<ul class="medicationErrorList">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row field-row">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-9 column end">
+				<button class="addMedication secondary small">Add medication</button>
+			</div>
+		</div>
 		<?php echo $form->checkBox($element, 'medication_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->checkBox($element, 'allergies_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array(), array('label' => 3, 'field' => 4))?>

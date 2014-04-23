@@ -25,6 +25,37 @@
 
 	<div class="element-data">
 		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label">&nbsp;</div>
+			</div>
+			<div class="large-9 column end">
+				<table class="grid medications">
+					<thead>
+						<tr>
+							<th>Medication</th>
+							<th>Route</th>
+							<th>Option</th>
+							<th>Frequency</th>
+							<th>Start date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if (empty($element->medications)) {?>
+							<tr class="no_medications">
+								<td colspan="7">
+									No medications have been entered for this patient.
+								</td>
+							</tr>
+						<?php } else {?>
+							<?php foreach ($element->medications as $i => $medication) {
+								echo $this->renderPartial('_medication_row',array('medication'=>$medication,'i'=>$i,'edit'=>false));
+							}?>
+						<?php }?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('medication_verified'))?></div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->medication_verified ? 'Yes' : 'No'?></div></div>
 		</div>
