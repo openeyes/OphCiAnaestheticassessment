@@ -23,10 +23,10 @@
 		<h3 class="element-title"><?php echo $element->elementType->name?></h3>
 	</header>
 
-		<div class="element-data">
-				<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('speced_id'))?>:</div></div>
-			<div class="large-10 column end"><div class="data-value"><?php if (!$element->speced_ids) {?>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('speced_ids'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php if (!$element->speced_ids) {?>
 							None
 						<?php } else {?>
 								<?php foreach ($element->speced_ids as $item) {
@@ -35,13 +35,17 @@
 						<?php }?>
 			</div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('medications'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->medications)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('other'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->other)?></div></div>
-		</div>
+		<?php if ($element->hasMultiSelectValue('speced_ids','Medications')) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('medications'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->medications)?></div></div>
 			</div>
+		<?php }?>
+		<?php if ($element->hasMultiSelectValue('speced_ids','Other (please specify)')) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('other'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->other)?></div></div>
+			</div>
+		<?php }?>
+	</div>
 </section>

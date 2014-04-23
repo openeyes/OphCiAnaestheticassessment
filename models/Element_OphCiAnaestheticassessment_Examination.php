@@ -230,5 +230,10 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 
 		return parent::beforeValidate();
 	}
+
+	public function formatDecimal($field)
+	{
+		return preg_replace('/\.0*$/','',$this->$field);
+	}
 }
 ?>

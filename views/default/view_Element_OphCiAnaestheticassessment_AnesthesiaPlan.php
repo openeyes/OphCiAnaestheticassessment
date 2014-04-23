@@ -23,14 +23,14 @@
 		<h3 class="element-title"><?php echo $element->elementType->name?></h3>
 	</header>
 
-		<div class="element-data">
-				<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('surgery_approval_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->surgery_approval ? $element->surgery_approval->name : 'None'?></div></div>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('surgery_approval_id'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo $element->surgery_approval ? $element->surgery_approval->name : 'None'?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('not_app'))?>:</div></div>
-			<div class="large-10 column end"><div class="data-value"><?php if (!$element->not_apps) {?>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('not_app'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php if (!$element->not_apps) {?>
 							None
 						<?php } else {?>
 								<?php foreach ($element->not_apps as $item) {
@@ -39,29 +39,35 @@
 						<?php }?>
 			</div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('com_na'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->com_na)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('acceptance_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->acceptance ? $element->acceptance->name : 'None'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('waiting_comments'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->waiting_comments)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('asa_level_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->asa_level ? $element->asa_level->name : 'None'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anesthesia_plan_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->anesthesia_plan ? $element->anesthesia_plan->name : 'None'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anesthesia_plan_comment'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->anesthesia_plan_comment)?></div></div>
-		</div>
+		<?php if ($element->com_na) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('com_na'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->com_na)?></div></div>
 			</div>
+		<?php }?>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('acceptance_id'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo $element->acceptance ? $element->acceptance->name : 'None'?></div></div>
+		</div>
+		<?php if ($element->waiting_comments) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('waiting_comments'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->waiting_comments)?></div></div>
+			</div>
+		<?php }?>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('asa_level_id'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo $element->asa_level ? $element->asa_level->name : 'None'?></div></div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anesthesia_plan_id'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo $element->anesthesia_plan ? $element->anesthesia_plan->name : 'None'?></div></div>
+		</div>
+		<?php if ($element->anesthesia_plan_comment) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anesthesia_plan_comment'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->anesthesia_plan_comment)?></div></div>
+			</div>
+		<?php }?>
+	</div>
 </section>

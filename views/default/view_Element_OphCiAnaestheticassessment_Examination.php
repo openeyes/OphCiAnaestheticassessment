@@ -23,78 +23,62 @@
 		<h3 class="element-title"><?php echo $element->elementType->name?></h3>
 	</header>
 
-		<div class="element-data">
-				<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('weight_lb'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->weight_lb)?></div></div>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label">Weight</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->formatDecimal('weight_kg'))?> kg (<?php echo CHtml::encode($element->formatDecimal('weight_lb'))?> lb, <?php echo strtolower($element->weight_calculation->name)?>)</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('weight_kg'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->weight_kg)?></div></div>
+			<div class="large-3 column"><div class="data-label">Height</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->formatDecimal('height_cm'))?> cm (<?php echo $element->height_ft?>'<?php echo $element->height_in?>'', <?php echo strtolower($element->height_calculation->name)?>)</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('weight_calculation_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->weight_calculation ? $element->weight_calculation->name : 'None'?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('bmi'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->formatDecimal('bmi'))?> kg/m^2</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('height_ft'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->height_ft)?></div></div>
+			<div class="large-3 column"><div class="data-label">Blood pressure</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->bp_systolic)?>/<?php echo CHtml::encode($element->bp_diastolic)?> mmHg</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('height_cm'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->height_cm)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart_rate_pulse'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->heart_rate_pulse)?> bpm</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('height_calculation_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->height_calculation ? $element->height_calculation->name : 'None'?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('temperature'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->temperature)?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('bmi'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->bmi)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('respiratory_rate'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->respiratory_rate)?> insp/min</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('bp_systolic'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->bp_systolic)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('sao2'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->sao2)?> %</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart_rate_pulse'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->heart_rate_pulse)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('airway_class_id'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo $element->airway_class ? $element->airway_class->name : 'None'?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('temperature'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->temperature)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('blood_glucose'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->blood_glucose)?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('respiratory_rate'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->respiratory_rate)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->heart)?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('sao2'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->sao2)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('lungs'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->lungs)?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('airway_class_id'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo $element->airway_class ? $element->airway_class->name : 'None'?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('abdomen'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->abdomen)?></div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('blood_glucose'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->blood_glucose)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->heart)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('lungs'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->lungs)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('abdomen'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->abdomen)?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth'))?>:</div></div>
-			<div class="large-10 column end"><div class="data-value"><?php if (!$element->teeths) {?>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php if (!$element->teeths) {?>
 							None
 						<?php } else {?>
 								<?php foreach ($element->teeths as $item) {
@@ -104,8 +88,8 @@
 			</div></div>
 		</div>
 		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
-			<div class="large-10 column end"><div class="data-value"><?php if (!$element->dentals) {?>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php if (!$element->dentals) {?>
 							None
 						<?php } else {?>
 								<?php foreach ($element->dentals as $item) {
@@ -114,9 +98,11 @@
 						<?php }?>
 			</div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-2 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth_other'))?></div></div>
-			<div class="large-10 column end"><div class="data-value"><?php echo CHtml::encode($element->teeth_other)?></div></div>
-		</div>
+		<?php if ($element->teeth_other) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth_other'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->teeth_other)?></div></div>
 			</div>
+		<?php }?>
+	</div>
 </section>
