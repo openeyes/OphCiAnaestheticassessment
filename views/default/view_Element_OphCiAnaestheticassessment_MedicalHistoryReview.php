@@ -26,7 +26,7 @@
 	<div class="element-data">
 		<div class="row data-row">
 			<div class="large-3 column">
-				<div class="data-label">&nbsp;</div>
+				<div class="data-label">Medications:</div>
 			</div>
 			<div class="large-9 column end">
 				<table class="grid medications">
@@ -40,13 +40,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php if (empty($element->medications)) {?>
-							<tr class="no_medications">
-								<td colspan="7">
-									No medications have been entered for this patient.
-								</td>
-							</tr>
-						<?php } else {?>
+						<tr class="no_medications"<?php if (!empty($element->medications)) {?> style="display: none"<?php }?>>
+							<td colspan="7">
+								No medications have been entered for this patient.
+							</td>
+						</tr>
+						<?php if (!empty($element->medications)) {?>
 							<?php foreach ($element->medications as $i => $medication) {
 								echo $this->renderPartial('_medication_row',array('medication'=>$medication,'i'=>$i,'edit'=>false));
 							}?>
@@ -58,6 +57,35 @@
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('medication_verified'))?></div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->medication_verified ? 'Yes' : 'No'?></div></div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label">Allergies:</div>
+			</div>
+			<div class="large-9 column end">
+				<table class="grid allergies">
+					<thead>
+						<tr>
+							<th>Allergy</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if (empty($element->allergies)) {?>
+							<tr class="no_allergies">
+								<td>
+									No allergies have been entered for this patient.
+								</td>
+							</tr>
+						<?php } else {?>
+							<?php foreach ($element->allergies as $i => $allergy) {?>
+								<tr>
+									<td><?php echo $allergy->allergy->name?></td>
+								</tr>
+							<?php }?>
+						<?php }?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('allergies_verified'))?></div></div>

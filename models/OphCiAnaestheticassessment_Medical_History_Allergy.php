@@ -74,6 +74,7 @@ class OphCiAnaestheticassessment_Medical_History_Allergy extends BaseActiveRecor
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'allergy' => array(self::BELONGS_TO, 'Allergy', 'allergy_id'),
 		);
 	}
 

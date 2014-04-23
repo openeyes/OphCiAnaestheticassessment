@@ -28,19 +28,19 @@
 
 			<section class="element">
 				<?php $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
-						'id'=>'patient-admission-select',
+						'id'=>'anaesthetic-assessment-select',
 						'enableAjaxValidation'=>false,
 					));
 
 					// Event actions
 					if (count($bookings) >0) {
-						$this->event_actions[] = EventAction::button('Create Patient Admission', 'save', array('level' => 'secondary'), array('form'=>'patient-admission-select','class'=>'button small'));
+						$this->event_actions[] = EventAction::button('Create anaesthetic assessment', 'save', array('level' => 'secondary'), array('form'=>'patient-admission-select','class'=>'button small'));
 					}
 				?>
 					<?php  $this->displayErrors($errors)?>
 
 					<header class="element-header">
-						<h3 class="element-title">Create Patient Admission</h3>
+						<h3 class="element-title">Create anaesthetic assessment</h3>
 					</header>
 
 					<div class="element-fields">

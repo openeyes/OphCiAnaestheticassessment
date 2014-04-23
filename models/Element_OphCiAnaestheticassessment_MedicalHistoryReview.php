@@ -79,7 +79,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe'),
+			array('event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies', 'safe'),
 			array('medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'required'),
 			array('id, event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
 		);
@@ -97,6 +97,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'medications' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Medication', 'element_id'),
+			'allergies' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Allergy', 'element_id'),
 		);
 	}
 
@@ -129,6 +130,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'tobacco_use' => 'Tobacco use',
 			'alcohol_use' => 'Alcohol use',
 			'recreational_drug_use' => 'Recreational drug use',
+			'patient_has_no_allergies' => 'Confirm patient has no allergies',
 		);
 	}
 
@@ -204,10 +206,12 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 	public function afterSave()
 	{
 		if (Yii::app()->getController()->action->id == 'create') {
+			$patient = $this->event->episode->patient;
+
 			foreach ($this->medications as $medication) {
-				if (!Medication::model()->find('patient_id=? and drug_id=? and route_id=? and option_id=? and frequency_id=? and start_date=?',array($this->event->episode->patient_id,$medication->drug_id,$medication->route_id,$medication->option_id,$medication->frequency_id,$medication->start_date))) {
+				if (!Medication::model()->find('patient_id=? and drug_id=? and route_id=? and option_id=? and frequency_id=? and start_date=?',array($patient->id,$medication->drug_id,$medication->route_id,$medication->option_id,$medication->frequency_id,$medication->start_date))) {
 					$_medication = new Medication;
-					$_medication->patient_id = $this->event->episode->patient_id;
+					$_medication->patient_id = $patient->id;
 
 					foreach (array('drug_id','route_id','option_id','frequency_id','start_date') as $field) {
 						$_medication->$field = $medication->$field;
@@ -218,9 +222,89 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 					}
 				}
 			}
+
+			$ids = array();
+
+			foreach ($this->allergies as $allergy) {
+				if (!$paa = PatientAllergyAssignment::model()->find('patient_id=? and allergy_id=?',array($patient->id,$allergy->allergy_id))) {
+					$paa = new PatientAllergyAssignment;
+					$paa->patient_id = $patient->id;
+					$paa->allergy_id = $allergy->allergy_id;
+
+					if (!$paa->save()) {
+						throw new Exception("Unable to save allergy assignment: ".print_r($paa->getErrors(),true));
+					}
+				}
+
+				$ids[] = $paa->id;
+			}
+
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('patient_id = :patient_id');
+			$criteria->params[':patient_id'] = $patient->id;
+			!empty($ids) && $criteria->addNotInCondition('id',$ids);
+
+			PatientAllergyAssignment::model()->deleteAll($criteria);
+
+			if (empty($this->allergies) && $this->patient_has_no_allergies) {
+				if (!$patient->no_allergies_date) {
+					$patient->no_allergies_date = date('Y-m-d H:i:s');
+
+					if (!$patient->save()) {
+						throw new Exception("Unable to save patient: ".print_r($patient->getErrors(),true));
+					}
+				}
+			} else if (!empty($this->allergies) && $patient->no_allergies_date) {
+				$patient->no_allergies_date = null;
+
+				if (!$patient->save()) {
+					throw new Exception("Unable to save patient: ".print_r($patient->getErrors(),true));
+				}
+			}
 		}
 
 		return parent::afterSave();
+	}
+
+	public function getAvailableAllergyList()
+	{
+		$allergy_ids = array();
+
+		foreach ($this->allergies as $allergy) {
+			$allergy_ids[] = $allergy->allergy_id;
+		}
+
+		$criteria = new CDbCriteria;
+		!empty($allergy_ids) && $criteria->addNotInCondition('id',$allergy_ids);
+		$criteria->order = 'name asc';
+
+		return CHtml::listData(Allergy::model()->findAll($criteria),'id','name');
+	}
+
+	public function updateAllergies($allergy_ids)
+	{
+		$ids = array();
+
+		foreach ($allergy_ids as $allergy_id) {
+			if (!$allergy = OphCiAnaestheticassessment_Medical_History_Allergy::model()->find('element_id=? and allergy_id=?',array($this->id,$allergy_id))) {
+				$allergy = new OphCiAnaestheticassessment_Medical_History_Allergy;
+				$allergy->element_id = $this->id;
+				$allergy->allergy_id = $allergy_id;
+
+				if (!$allergy->save()) {
+					throw new Exception("Unable to save allergy: ".print_r($allergy->getErrors(),true));
+				}
+			}
+
+			$ids[] = $allergy->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+		!empty($ids) && $criteria->addNotInCondition('id',$ids);
+
+		OphCiAnaestheticassessment_Medical_History_Allergy::model()->deleteAll($criteria);
 	}
 }
 ?>

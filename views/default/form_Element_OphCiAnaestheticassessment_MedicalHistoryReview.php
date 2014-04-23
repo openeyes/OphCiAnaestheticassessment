@@ -159,6 +159,62 @@
 			</div>
 		</div>
 		<?php echo $form->checkBox($element, 'medication_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
+		<div class="row field-row">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-9 column end">
+				<table class="grid allergies">
+					<thead>
+						<tr>
+							<th>Allergy</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="no_allergies"<?php if (!empty($element->allergies)) {?> style="display: none"<?php }?>>
+							<td colspan="7">
+								No allergies have been entered for this patient.
+							</td>
+						</tr>
+						<?php if (!empty($element->allergies)) {?>
+							<?php foreach ($element->allergies as $i => $allergy) {?>
+								<tr>
+									<td>
+										<?php echo $allergy->allergy->name?>
+										<input type="hidden" name="allergies[]" value="<?php echo $allergy->allergy_id?>" />
+									</td>
+									<td>
+										<a href="#" class="removeAllergy">remove</a>
+									</td>
+								</tr>
+							<?php }?>
+						<?php }?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<?php echo $form->checkBox($element, 'patient_has_no_allergies', array('text-align' => 'right', 'disabled' => empty($element->allergies) ? '' : 'disabled'), array('label' => 3, 'field' => 4))?>
+		<div class="addAllergyFields" style="display: none">
+			<div class="row field-row">
+				<div class="large-3 column">
+					<label>Allergy:</label>
+				</div>
+				<div class="large-4 column end">
+					<?php echo CHtml::dropDownList('allergy_id','',$element->availableAllergyList,array('empty' => '- Select -'))?>
+				</div>
+			</div>
+			<div class="row field-row">
+				<div class="large-3 column"><label></label></div>
+				<div class="large-9 column end">
+					<button class="cancelAllergy warning small">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<div class="row field-row">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-9 column end">
+				<button class="addAllergy secondary small">Add allergy</button>
+			</div>
+		</div>
 		<?php echo $form->checkBox($element, 'allergies_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'patient_anesthesia', array(), array('label' => 3, 'field' => 4))?>

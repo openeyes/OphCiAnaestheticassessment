@@ -289,6 +289,17 @@ class DefaultController extends BaseEventTypeController
 			}
 
 			$element->medications = $medications;
+
+			$allergies = array();
+
+			foreach ($this->patient->allergies as $allergy) {
+				$_allergy = new OphCiAnaestheticassessment_Medical_History_Allergy;
+				$_allergy->allergy_id = $allergy->id;
+
+				$allergies[] = $_allergy;
+			}
+
+			$element->allergies = $allergies;
 		}
 	}
 
@@ -310,6 +321,19 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->medications = $medications;
+
+		$allergies = array();
+
+		if (!empty($data['allergies'])) {
+			foreach ($data['allergies'] as $i => $allergy_id) {
+				$allergy = new OphCiAnaestheticassessment_Medical_History_Allergy;
+				$allergy->allergy_id = $allergy_id;
+
+				$allergies[] = $allergy;
+			}
+		}
+
+		$element->allergies = $allergies;
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
@@ -319,5 +343,7 @@ class DefaultController extends BaseEventTypeController
 		} else {
 			$element->updateMedications($data['medication_ids'],$data['drug_ids'],$data['route_ids'],$data['option_ids'],$data['frequency_ids'],$data['start_dates']);
 		}
+
+		$element->updateAllergies(empty($data['allergies']) ? array() : $data['allergies']);
 	}
 }

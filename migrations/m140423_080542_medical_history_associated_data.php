@@ -52,10 +52,14 @@ class m140423_080542_medical_history_associated_data extends CDbMigration
 				'CONSTRAINT `ophcianassessment_medical_history_allergy_element_id_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianassessment_medical_history_review` (`id`)',
 				'CONSTRAINT `ophcianassessment_medical_history_allergy_allergy_id_fk` FOREIGN KEY (`allergy_id`) REFERENCES `allergy` (`id`)',
 			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+
+		$this->addColumn('et_ophcianassessment_medical_history_review','patient_has_no_allergies','tinyint(1) unsigned not null');
 	}
 
 	public function down()
 	{
+		$this->dropColumn('et_ophcianassessment_medical_history_review','patient_has_no_allergies');
+
 		$this->dropTable('ophcianassessment_medical_history_allergy');
 		$this->dropTable('ophcianassessment_medical_history_medication');
 	}
