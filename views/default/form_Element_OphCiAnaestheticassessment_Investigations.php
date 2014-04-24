@@ -28,6 +28,40 @@
 	</header>
 
 	<div class="element-fields">
-		<?php echo $form->textArea($element, 'investigations', array(), false, array(), array('label' => 3, 'field' => 4))?>
+		<div class="row field-row">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-9 column end">
+				<table class="grid investigations">
+					<thead>
+						<tr>
+							<th>Investigation</th>
+							<th>Ordered</th>
+							<th>Reviewed</th>
+							<th>Result</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="no_investigations"<?php if (!empty($element->investigations)) {?> style="display: none"<?php }?>>
+							<td colspan="7">
+								No investigations have been entered for this patient.
+							</td>
+						</tr>
+						<?php if (!empty($element->investigations)) {?>
+							<?php foreach ($element->investigations as $i => $investigation) {
+								echo $this->renderPartial('_investigation_row',array('investigation'=>$investigation,'i'=>$i,'edit'=>true));
+							}?>
+						<?php }?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row field-row">
+			<div class="large-3 column"><label></label></div>
+			<div class="large-9 column end">
+				<button class="addInvestigation secondary small">Add investigation</button>
+			</div>
+		</div>
+		<?php echo $form->textArea($element, 'comments', array(), false, array(), array('label' => 3, 'field' => 4))?>
 	</div>
 </section>

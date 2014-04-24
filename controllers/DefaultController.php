@@ -10,13 +10,14 @@ class DefaultController extends BaseEventTypeController
 		'drugList' => self::ACTION_TYPE_FORM,
 		'validateMedication' => self::ACTION_TYPE_FORM,
 		'routeOptions' => self::ACTION_TYPE_FORM,
+		'addInvestigation' => self::ACTION_TYPE_FORM,
 	);
 
 	public function accessRules()
 	{
 		return array_merge(array(
 			array('allow',
-				'actions' => array('drugList','validateMedication','routeOptions'),
+				'actions' => array('drugList','validateMedication','routeOptions','addInvestigation'),
 				'roles' => array('OprnEditMedication'),
 			)
 		),parent::accessRules());
@@ -345,5 +346,41 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->updateAllergies(empty($data['allergies']) ? array() : $data['allergies']);
+	}
+
+	public function actionAddInvestigation()
+	{
+		$investigation = new OphCiAnaestheticassessment_Investigations_Investigation;
+		$this->renderPartial('_investigation_row',array('investigation' => $investigation));
+	}
+
+	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_Investigations($element, $data, $index)
+	{
+		$investigations = array();
+
+		if (!empty($data['investigation_ids'])) {
+			foreach ($data['investigation_ids'] as $i => $investigation_id) {
+				$investigation = new OphCiAnaestheticassessment_Investigations_Investigation;
+				$investigation->id = $data['investigation_row_ids'][$i];
+				$investigation->investigation_id = $investigation_id;
+				$investigation->investigation_text = $data['investigation_text'][$i];
+				$investigation->ordered = $data['ordered'][$i];
+				$investigation->reviewed = $data['reviewed'][$i];
+				$investigation->result = $data['result'][$i];
+
+				$investigations[] = $investigation;
+			}
+		}
+
+		$element->investigations = $investigations;
+	}
+
+	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_Investigations($element, $data, $index)
+	{
+		if (empty($data['investigation_row_ids'])) {
+			$element->updateInvestigations();
+		} else {
+			$element->updateInvestigations($data['investigation_row_ids'],$data['investigation_ids'],$data['investigation_text'],$data['ordered'],$data['reviewed'],$data['result']);
+		}
 	}
 }

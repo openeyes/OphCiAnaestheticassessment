@@ -246,6 +246,52 @@ $(document).ready(function() {
 		$('.addAllergyFields').slideUp('fast');
 		$('.addAllergy').slideDown('fast');
 	});
+
+	$('.addInvestigation').click(function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl+'/OphCiAnaestheticassessment/default/addInvestigation',
+			'success': function(html) {
+				$('.investigations tbody').append(html);
+				$('.investigations tbody tr.no_investigations').hide();
+			}
+		});
+	});
+
+	$('.removeInvestigation').live('click',function(e) {
+		e.preventDefault();
+
+		$(this).closest('tr').remove();
+
+		if ($('.investigations tbody tr').length == 1) {
+			$('.investigations tbody tr.no_investigations').show();
+		}
+	});
+
+	$('.investigationType').live('change',function() {
+		if ($(this).val() == 'other') {
+			$(this).hide();
+			$(this).next('input').show().focus();
+		}
+	});
+
+	$('input[name="ordered[]"][type="checkbox"]').live('click',function() {
+		if ($(this).is(':checked')) {
+			$(this).prev('input[type="hidden"]').attr('disabled','disabled');
+		} else {
+			$(this).prev('input[type="hidden"]').removeAttr('disabled');
+		}
+	});
+
+	$('input[name="reviewed[]"][type="checkbox"]').live('click',function() {
+		if ($(this).is(':checked')) {
+			$(this).prev('input[type="hidden"]').attr('disabled','disabled');
+		} else {
+			$(this).prev('input[type="hidden"]').removeAttr('disabled');
+		} 
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }

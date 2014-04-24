@@ -1,5 +1,4 @@
-<?php
-/**
+<?php /**
  * OpenEyes
  *
  * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
@@ -18,12 +17,11 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_investigations".
+ * This is the model class for table "ophcianassessment_investigations_investigation_type".
  *
  * The followings are the available columns in table:
  * @property string $id
- * @property integer $event_id
- * @property string $investigations
+ * @property string $name
  *
  * The followings are the available model relations:
  *
@@ -34,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeElement
+class OphCiAnaestheticassessment_Investigations_Investigation_Type extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -50,7 +48,7 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_investigations';
+		return 'ophcianassessment_investigations_investigation_type';
 	}
 
 	/**
@@ -59,9 +57,9 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 	public function rules()
 	{
 		return array(
-			array('event_id, comments, ', 'safe'),
-			array('comments', 'required'),
-			array('id, event_id, investigations, ', 'safe', 'on' => 'search'),
+			array('name', 'safe'),
+			array('name', 'required'),
+			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -76,7 +74,6 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'investigations' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Investigations_Investigation', 'element_id'),
 		);
 	}
 
@@ -87,8 +84,7 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 	{
 		return array(
 			'id' => 'ID',
-			'event_id' => 'Event',
-			'investigations' => 'Investigations',
+			'name' => 'Name',
 		);
 	}
 
@@ -101,63 +97,25 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('investigations', $this->investigations);
+		$criteria->compare('name', $this->name, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
 	}
 
-	public function updateInvestigations($investigation_row_ids=array(), $investigation_ids=array(), $investigation_text=array(), $ordered=array(), $reviewed=array(), $result=array())
+	public function findOrCreate($name)
 	{
-		$ids = array();
-
-		foreach ($investigation_ids as $i => $investigation_id) {
-			if ($investigation_row_ids[$i]) {
-				$investigation = OphCiAnaestheticassessment_Investigations_Investigation::model()->findByPk($investigation_row_ids[$i]);
-			} else {
-				$investigation = new OphCiAnaestheticassessment_Investigations_Investigation;
-				$investigation->element_id = $this->id;
-			}
-
-			if ($investigation_text[$i]) {
-				$investigation_type = OphCiAnaestheticassessment_Investigations_Investigation_Type::model()->findOrCreate($investigation_text[$i]);
-				$investigation_id = $investigation_type->id;
-			}
-
-			$investigation->investigation_id = $investigation_id;
-			$investigation->ordered = $ordered[$i];
-			$investigation->reviewed = $reviewed[$i];
-			$investigation->result = $result[$i];
+		if (!$investigation = OphCiAnaestheticassessment_Investigations_Investigation_Type::model()->find('lower(name)=?',array(strtolower($name)))) {
+			$investigation = new OphCiAnaestheticassessment_Investigations_Investigation_Type;
+			$investigation->name = $name;
 
 			if (!$investigation->save()) {
 				throw new Exception("Unable to save investigation: ".print_r($investigation->getErrors(),true));
 			}
-
-			$ids[] = $investigation->id;
 		}
 
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id = :element_id');
-		$criteria->params[':element_id'] = $this->id;
-
-		!empty($ids) && $criteria->addNotInCondition('id',$ids);
-
-		OphCiAnaestheticassessment_Investigations_Investigation::model()->deleteAll($criteria);
-	}
-
-	public function beforeValidate()
-	{
-		foreach ($this->investigations as $investigation) {
-			if (!$investigation->validate()) {
-				foreach ($investigation->getErrors() as $field => $error) {
-					$this->addError($field,$error[0]);
-				}
-			}
-		}
-
-		return parent::beforeValidate();
+		return $investigation;
 	}
 }
 ?>
