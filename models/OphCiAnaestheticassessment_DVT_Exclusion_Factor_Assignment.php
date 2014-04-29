@@ -1,4 +1,5 @@
-<?php /**
+<?php
+/**
  * OpenEyes
  *
  * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
@@ -17,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_anesthesiaplan_anesthesia_plan".
+ * This is the model class for table "ophcianassessment_dvt_exclusion_factor_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -32,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan extends BaseActiveRecord
+class OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +49,7 @@ class OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan extends BaseActiv
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_anesthesiaplan_anesthesia_plan';
+		return 'ophcianassessment_dvt_exclusion_factor_assignment';
 	}
 
 	/**
@@ -57,8 +58,8 @@ class OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan extends BaseActiv
 	public function rules()
 	{
 		return array(
-			array('name', 'safe'),
-			array('name', 'required'),
+			array('element_id, exclusion_factor_id', 'safe'),
+			array('exclusion_factor_id', 'required'),
 			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
@@ -74,6 +75,7 @@ class OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan extends BaseActiv
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'exclusion_factor' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_DVT_Exclusion_Factor', 'exclusion_factor_id'),
 		);
 	}
 

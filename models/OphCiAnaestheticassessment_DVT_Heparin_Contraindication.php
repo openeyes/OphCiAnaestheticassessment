@@ -1,4 +1,5 @@
-<?php /**
+<?php
+/**
  * OpenEyes
  *
  * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
@@ -17,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_anesthesiaplan_anesthesia_plan".
+ * This is the model class for table "ophcianassessment_dvt_heparin_contraindication".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -32,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan extends BaseActiveRecord
+class OphCiAnaestheticassessment_DVT_Heparin_Contraindication extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +49,7 @@ class OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan extends BaseActiv
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_anesthesiaplan_anesthesia_plan';
+		return 'ophcianassessment_dvt_heparin_contraindication';
 	}
 
 	/**

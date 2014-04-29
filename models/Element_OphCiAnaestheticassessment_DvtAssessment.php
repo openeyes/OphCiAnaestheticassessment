@@ -76,6 +76,16 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'exclusion_factors' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Exclusion_Factor', 'ophcianassessment_dvt_exclusion_factor_assignment(element_id,exclusion_factor_id)'),
+			'exclusion_factors_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment', 'element_id'),
+			'risk_factors_a' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor', 'ophcianassessment_dvt_risk_factor_assignment(element_id,risk_factor_id)', 'condition' => 'section_id = 1'),
+			'risk_factors_a_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
+			'risk_factors_b' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor', 'ophcianassessment_dvt_risk_factor_assignment(element_id,risk_factor_id)', 'condition' => 'section_id = 2'),
+			'risk_factors_b_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
+			'stocking_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication', 'ophcianassessment_dvt_stocking_contraindication_assignment(element_id,contraindication_id)'),
+			'stocking_contraindications_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication_Assignment', 'element_id'),
+			'heparin_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication', 'ophcianassessment_dvt_heparin_contraindication_assignment(element_id,contraindication_id)'),
+			'heparin_contraindications_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment', 'element_id'),
 		);
 	}
 
@@ -88,6 +98,11 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'id' => 'ID',
 			'event_id' => 'Event',
 			'comments' => 'Comments',
+			'exclusion_factors' => 'Exclusion factors',
+			'risk_factors_a' => 'Risk factors A',
+			'risk_factors_b' => 'Risk factors B',
+			'stocking_contraindications' => 'Contraindications to graduated compression stockings',
+			'heparin_contraindications' => 'Contraindications to low molecular weight heparin (LMWH)',
 		);
 	}
 
@@ -108,12 +123,139 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 		));
 	}
 
-
-
-	protected function afterSave()
+	public function updateExclusionFactors($exclusion_factors)
 	{
+		$ids = array();
 
-		return parent::afterSave();
+		foreach ($exclusion_factors as $exclusion_factor_id) {
+			if (!$assignment = OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment::model()->find('element_id=? and exclusion_factor_id=?',array($this->id,$exclusion_factor_id))) {
+				$assignment = new OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->exclusion_factor_id = $exclusion_factor_id;
+
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+
+			$ids[] = $assignment->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+
+		!empty($ids) && $criteria->addNotInCondition('id',$ids);
+
+		OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment::model()->deleteAll($criteria);
+	}
+
+	public function updateRiskFactors($risk_factors)
+	{
+		$ids = array();
+
+		foreach ($risk_factors as $risk_factor_id) {
+			if (!$assignment = OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment::model()->find('element_id=? and risk_factor_id=?',array($this->id,$risk_factor_id))) {
+				$assignment = new OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->risk_factor_id = $risk_factor_id;
+
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+
+			$ids[] = $assignment->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+
+		!empty($ids) && $criteria->addNotInCondition('id',$ids);
+
+		OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment::model()->deleteAll($criteria);
+	}
+
+	public function updateStockingContraindications($contraindications)
+	{
+		$ids = array();
+
+		foreach ($contraindications as $contraindication_id) {
+			if (!$assignment = OphCiAnaestheticassessment_DVT_Stocking_Contraindication_Assignment::model()->find('element_id=? and contraindication_id=?',array($this->id,$contraindication_id))) {
+				$assignment = new OphCiAnaestheticassessment_DVT_Stocking_Contraindication_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->contraindication_id = $contraindication_id;
+
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+
+			$ids[] = $assignment->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+
+		!empty($ids) && $criteria->addNotInCondition('id',$ids);
+
+		OphCiAnaestheticassessment_DVT_Stocking_Contraindication_Assignment::model()->deleteAll($criteria);
+	}
+
+	public function updateHeparinContraindications($contraindications)
+	{
+		$ids = array();
+
+		foreach ($contraindications as $contraindication_id) {
+			if (!$assignment = OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment::model()->find('element_id=? and contraindication_id=?',array($this->id,$contraindication_id))) {
+				$assignment = new OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment;
+				$assignment->element_id = $this->id;
+				$assignment->contraindication_id = $contraindication_id;
+
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+
+			$ids[] = $assignment->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :element_id');
+		$criteria->params[':element_id'] = $this->id;
+
+		!empty($ids) && $criteria->addNotInCondition('id',$ids);
+
+		OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment::model()->deleteAll($criteria);
+	}
+
+	private function getRiskLevelProphylaxis()
+	{
+		$score = (count($this->risk_factors_a) * 2);
+		$score += count($this->risk_factors_b);
+
+		return OphCiAnaestheticassessment_DVT_Risk_Prophylaxis::model()->find('(score_from <= :score or score_from is null) and (score_to >= :score or score_to is null)',array(':score' => $score));
+	}
+
+	public function getRiskLevel()
+	{
+		return $this->getRiskLevelProphylaxis()->risk_level;
+	}
+
+	public function getRiskLevelColour()
+	{
+		switch ($this->getRiskLevelProphylaxis()->risk_level) {
+			case 'Low': return 'green';
+			case 'Medium': return 'blue';
+			case 'High': return 'red';
+		}
+	}
+
+	public function getProphylaxisRequired()
+	{
+		return $this->getRiskLevelProphylaxis()->prophylaxis_required;
 	}
 }
 ?>

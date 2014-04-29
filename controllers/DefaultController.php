@@ -11,6 +11,7 @@ class DefaultController extends BaseEventTypeController
 		'validateMedication' => self::ACTION_TYPE_FORM,
 		'routeOptions' => self::ACTION_TYPE_FORM,
 		'addInvestigation' => self::ACTION_TYPE_FORM,
+		'riskProphylaxis' => self::ACTION_TYPE_FORM,
 	);
 
 	public function accessRules()
@@ -382,5 +383,77 @@ class DefaultController extends BaseEventTypeController
 		} else {
 			$element->updateInvestigations($data['investigation_row_ids'],$data['investigation_ids'],$data['investigation_text'],$data['ordered'],$data['reviewed'],$data['result']);
 		}
+	}
+
+	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $data, $index)
+	{
+		$exclusion_factors = array();
+
+		if (!empty($data['MultiSelect_ExclusionFactors'])) {
+			foreach ($data['MultiSelect_ExclusionFactors'] as $i => $exclusion_factor_id) {
+				$exclusion_factors[] = OphCiAnaestheticassessment_DVT_Exclusion_Factor::model()->findByPk($exclusion_factor_id);
+			}
+		}
+
+		$element->exclusion_factors = $exclusion_factors;
+
+		$risk_factors_a = array();
+		$risk_factors_b = array();
+
+		if (!empty($data['MultiSelect_RiskFactors_A']) && empty($data['MultiSelect_ExclusionFactors'])) {
+			foreach ($data['MultiSelect_RiskFactors_A'] as $i => $risk_factor_id) {
+				$risk_factors_a[] = OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findByPk($risk_factor_id);
+			}
+		}
+
+		if (!empty($data['MultiSelect_RiskFactors_B']) && empty($data['MultiSelect_ExclusionFactors'])) {
+			foreach ($data['MultiSelect_RiskFactors_B'] as $i => $risk_factor_id) {
+				$risk_factors_b[] = OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findByPk($risk_factor_id);
+			}
+		}
+
+		$element->risk_factors_a = $risk_factors_a;
+		$element->risk_factors_b = $risk_factors_b;
+
+		$stocking_contraindications = array();
+
+		if (!empty($data['MultiSelect_stocking_contraindications']) && empty($data['MultiSelect_ExclusionFactors'])) {
+			foreach ($data['MultiSelect_stocking_contraindications'] as $i => $contraindication_id) {
+				$stocking_contraindications[] = OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findByPk($contraindication_id);
+			}
+		}
+
+		$element->stocking_contraindications = $stocking_contraindications;
+
+		$heparin_contraindications = array();
+
+		if (!empty($data['MultiSelect_heparin_contraindications']) && empty($data['MultiSelect_ExclusionFactors'])) {
+			foreach ($data['MultiSelect_heparin_contraindications'] as $i => $contraindication_id) {
+				$heparin_contraindications[] = OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findByPk($contraindication_id);
+			}
+		}
+
+		$element->heparin_contraindications = $heparin_contraindications;
+	}
+
+	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $data, $index)
+	{
+		$element->updateExclusionFactors(empty($data['MultiSelect_ExclusionFactors']) ? array() : $data['MultiSelect_ExclusionFactors']);
+		$element->updateRiskFactors(empty($data['MultiSelect_RiskFactors']) ? array() : $data['MultiSelect_RiskFactors']);
+		$element->updateStockingContraindications(empty($data['MultiSelect_stocking_contraindications']) ? array() : $data['MultiSelect_stocking_contraindications']);
+		$element->updateHeparinContraindications(empty($data['MultiSelect_heparin_contraindications']) ? array() : $data['MultiSelect_heparin_contraindications']);
+	}
+
+	public function actionRiskProphylaxis()
+	{
+		$element = new Element_OphCiAnaestheticassessment_DvtAssessment;
+
+		$this->setComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment(&$element, $_POST, 0);
+
+		echo json_encode(array(
+			'riskLevel' => $element->riskLevel,
+			'riskLevelColour' => $element->riskLevelColour,
+			'prophylaxisRequired' => $element->prophylaxisRequired,
+		));
 	}
 }

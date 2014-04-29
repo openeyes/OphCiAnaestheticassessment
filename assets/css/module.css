@@ -134,3 +134,18 @@
 #Element_OphCiAnaestheticassessment_Examination_bp_diastolic {
   width: 3em;
 }
+
+/* line 126, ../sass/components/_event.scss */
+.riskLevel.green {
+  color: #090;
+}
+
+/* line 129, ../sass/components/_event.scss */
+.riskLevel.red {
+  color: #f00;
+}
+
+/* line 132, ../sass/components/_event.scss */
+.riskLevel.blue {
+  color: #00f;
+}

@@ -292,6 +292,22 @@ $(document).ready(function() {
 			$(this).prev('input[type="hidden"]').removeAttr('disabled');
 		} 
 	});
+
+	$('#MultiSelect_ExclusionFactors').bind('MultiSelectChanged',function(e) {
+		if ($(this).parent().next('ul').children().length == 0) {
+			$('#dvt_excluded_fields').slideDown('fast');
+		} else {
+			$('#dvt_excluded_fields').slideUp('fast');
+		}
+	});
+
+	$('#MultiSelect_RiskFactors_A').bind('MultiSelectChanged',function(e) {
+		update_risk_prophylaxis();
+	});
+
+	$('#MultiSelect_RiskFactors_B').bind('MultiSelectChanged',function(e) {
+		update_risk_prophylaxis();
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
@@ -322,4 +338,22 @@ function medication_in_list(drug_id,start_date)
 	}
 
 	return false;
+}
+
+function update_risk_prophylaxis()
+{
+	var data = $('.event-content form').serialize();
+
+	$.ajax({
+		'type': 'POST',
+		'url': baseUrl+'/OphCiAnaestheticassessment/default/riskProphylaxis',
+		'data': $('.event-content form').serialize(),
+		'dataType': 'json',
+		'success': function(data) {
+			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level .riskLevel').text(data['riskLevel']);
+			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level .riskLevel').removeClass('red').removeClass('green').removeClass('blue').addClass(data['riskLevelColour']);
+
+			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required .prophylaxisRequired').html(data['prophylaxisRequired'].replace(/\n/g,'<br/>'));
+		}
+	});
 }
