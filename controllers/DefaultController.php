@@ -290,7 +290,7 @@ class DefaultController extends BaseEventTypeController
 	public function actionAddInvestigation()
 	{
 		$investigation = new OphCiAnaestheticassessment_Investigations_Investigation;
-		$this->renderPartial('_investigation_row',array('investigation' => $investigation));
+		$this->renderPartial('_investigation_row',array('investigation' => $investigation, 'edit' => true));
 	}
 
 	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_Investigations($element, $data, $index)
