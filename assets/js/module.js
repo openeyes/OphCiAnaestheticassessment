@@ -69,52 +69,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.addAllergy').click(function(e) {
-		e.preventDefault();
-
-		$('.addAllergyFields').slideDown('fast');
-
-		$(this).slideUp('fast');
-	});
-
-	$('#allergy_id').change(function(e) {
-		if ($(this).val() != '') {
-			$('.allergies tbody').append('<tr><td>'+$(this).children('option:selected').text()+'<input type="hidden" name="allergies[]" value="'+$(this).val()+'" /></td><td><a href="#" class="removeAllergy">remove</a></td></tr>');
-			$('.allergies tbody tr.no_allergies').hide();
-			$('#Element_OphCiAnaestheticassessment_MedicalHistoryReview_patient_has_no_allergies').removeAttr('checked');
-			$('#Element_OphCiAnaestheticassessment_MedicalHistoryReview_patient_has_no_allergies').attr('disabled','disabled');
-			$(this).children('option:selected').remove();
-
-			$('.addAllergyFields').slideUp('fast');
-			$('.addAllergy').slideDown('fast');
-		}
-	});
-
-	$('.removeAllergy').live('click',function(e) {
-		e.preventDefault();
-
-		var name = $(this).closest('tr').children('td:first').text().trim();
-		var id = $(this).closest('tr').children('td:first').children('input').val();
-
-		$(this).closest('tr').remove();
-
-		$('#allergy_id').append('<option value="'+id+'">'+name+'</option>');
-
-		sort_selectbox($('#allergy_id'));
-
-		if ($('.allergies tbody tr').length == 1) {
-			$('.allergies tbody tr.no_allergies').show();
-			$('#Element_OphCiAnaestheticassessment_MedicalHistoryReview_patient_has_no_allergies').removeAttr('disabled');
-		}
-	});
-
-	$('.cancelAllergy').click(function(e) {
-		e.preventDefault();
-
-		$('.addAllergyFields').slideUp('fast');
-		$('.addAllergy').slideDown('fast');
-	});
-
 	$('.addInvestigation').click(function(e) {
 		e.preventDefault();
 
