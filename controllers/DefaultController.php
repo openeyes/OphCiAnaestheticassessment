@@ -264,8 +264,8 @@ class DefaultController extends BaseEventTypeController
 
 		$allergies = array();
 
-		if (!empty($data['allergies'])) {
-			foreach ($data['allergies'] as $i => $allergy_id) {
+		if (!empty($data['allergies_allergies'])) {
+			foreach ($data['allergies_allergies'] as $i => $allergy_id) {
 				$allergy = new OphCiAnaestheticassessment_Medical_History_Allergy;
 				$allergy->allergy_id = $allergy_id;
 
@@ -284,7 +284,7 @@ class DefaultController extends BaseEventTypeController
 			$element->updateMedications($data['medication_history_medication_ids'],$data['medication_history_drug_ids'],$data['medication_history_route_ids'],$data['medication_history_option_ids'],$data['medication_history_frequency_ids'],$data['medication_history_start_dates']);
 		}
 
-		$element->updateAllergies(empty($data['allergies']) ? array() : $data['allergies']);
+		$element->updateAllergies(empty($data['allergies_allergies']) ? array() : $data['allergies_allergies']);
 	}
 
 	public function actionAddInvestigation()
