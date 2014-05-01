@@ -29,7 +29,7 @@
 
 	<div class="element-fields">
 		<div class="row field-row">
-			<div class="large-3 column"><label></label></div>
+			<div class="large-3 column"><label>Investigations:</label></div>
 			<div class="large-9 column end">
 				<table class="grid investigations">
 					<thead>
