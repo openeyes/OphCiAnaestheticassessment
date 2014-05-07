@@ -79,7 +79,7 @@
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth'))?>:</div></div>
 			<div class="large-9 column end"><div class="data-value"><?php if (!$element->teeths) {?>
-							None
+							No foreseen issues
 						<?php } else {?>
 								<?php foreach ($element->teeths as $item) {
 									echo $item->ophcianassessment_examination_teeth->name?><br/>
