@@ -61,7 +61,6 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 	{
 		return array(
 			array('event_id, procedures, eye_id, ', 'safe'),
-			array('procedures, eye_id, ', 'required'),
 			array('id, event_id, procedures, eye_id, ', 'safe', 'on' => 'search'),
 		);
 	}

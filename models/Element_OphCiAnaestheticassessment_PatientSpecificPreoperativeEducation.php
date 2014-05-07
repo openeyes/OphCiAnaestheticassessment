@@ -62,7 +62,6 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	{
 		return array(
 			array('event_id, medications, other, ', 'safe'),
-			array('', 'required'),
 			array('id, event_id, medications, other, ', 'safe', 'on' => 'search'),
 		);
 	}

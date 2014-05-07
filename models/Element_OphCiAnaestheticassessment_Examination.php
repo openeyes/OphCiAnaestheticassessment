@@ -82,7 +82,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	{
 		return array(
 			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe'),
-			array('weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'required'),
 			array('id, event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe', 'on' => 'search'),
 		);
 	}

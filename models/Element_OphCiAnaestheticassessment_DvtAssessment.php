@@ -60,7 +60,6 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 	{
 		return array(
 			array('event_id, prophylaxis_ordered', 'safe'),
-			array('prophylaxis_ordered', 'required'),
 			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}

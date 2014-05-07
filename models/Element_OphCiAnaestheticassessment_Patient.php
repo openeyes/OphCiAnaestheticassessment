@@ -63,7 +63,6 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	{
 		return array(
 			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe'),
-			array('patient_id_verified_with_two_identifiers, translator_present_id, ', 'required'),
 			array('id, event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe', 'on' => 'search'),
 		);
 	}

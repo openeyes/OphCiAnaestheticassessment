@@ -60,7 +60,6 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 	{
 		return array(
 			array('event_id, comments, ', 'safe'),
-			array('comments', 'required'),
 			array('id, event_id, investigations, ', 'safe', 'on' => 'search'),
 		);
 	}
