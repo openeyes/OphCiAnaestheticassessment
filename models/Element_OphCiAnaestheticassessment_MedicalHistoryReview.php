@@ -128,7 +128,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'tobacco_use' => 'Tobacco use',
 			'alcohol_use' => 'Alcohol use',
 			'recreational_drug_use' => 'Recreational drug use',
-			'patient_has_no_allergies' => 'Confirm patient has no allergies',
+			'patient_has_no_allergies' => 'Patient has no known allergies',
 		);
 	}
 
