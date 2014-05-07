@@ -1,5 +1,4 @@
-<?php
-/**
+<?php /**
  * OpenEyes
  *
  * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
@@ -18,13 +17,10 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_patient".
+ * This is the model class for table "ophcianaestheticassessment_patient_identifier_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
- * @property integer $event_id
- * @property integer $patient_id_verified_with_two_identifiers
- * @property integer $translator_present_id
  * @property string $name
  *
  * The followings are the available model relations:
@@ -34,10 +30,9 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property OphCiAnaestheticassessment_Patient_TranslatorPresent $translator_present
  */
 
-class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
+class OphCiAnaestheticassessment_Patient_Identifier_Assignment extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -53,7 +48,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_patient';
+		return 'ophcianaestheticassessment_patient_identifier_assignment';
 	}
 
 	/**
@@ -62,9 +57,9 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	public function rules()
 	{
 		return array(
-			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe'),
-			array('patient_id_verified_with_two_identifiers, translator_present_id, ', 'required'),
-			array('id, event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe', 'on' => 'search'),
+			array('identifier_id', 'safe'),
+			array('identifier_id', 'required'),
+			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -79,8 +74,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'translator_present' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_TranslatorPresent', 'translator_present_id'),
-			'identifiers' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Patient_Identifier_Assignment', 'element_id'),
+			'identifier' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_Identifier', 'identifier_id'),
 		);
 	}
 
@@ -91,11 +85,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	{
 		return array(
 			'id' => 'ID',
-			'event_id' => 'Event',
-			'patient_id_verified_with_two_identifiers' => 'Patient ID verified with two identifiers',
-			'translator_present_id' => 'Translator present',
-			'name' => 'Translator name',
-			'identifiers' => 'Two identifiers',
+			'name' => 'Name',
 		);
 	}
 
@@ -108,31 +98,11 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('patient_id_verified_with_two_identifiers', $this->patient_id_verified_with_two_identifiers);
-		$criteria->compare('translator_present_id', $this->translator_present_id);
-		$criteria->compare('name', $this->name);
+		$criteria->compare('name', $this->name, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function beforeValidate()
-	{
-		if ($this->translator_present && $this->translator_present->name == 'Yes') {
-			if (!$this->name) {
-				$this->addError('name',$this->getAttributeLabel('name').' cannot be blank.');
-			}
-		}
-
-		if ($this->patient_id_verified_with_two_identifiers) {
-			if (count($this->identifiers) != 2) {
-				$this->addError('identifiers','Please select exactly 2 identifiers');
-			}
-		}
-
-		return parent::beforeValidate();
 	}
 }
 ?>
