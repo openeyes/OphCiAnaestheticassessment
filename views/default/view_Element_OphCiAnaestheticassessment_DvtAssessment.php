@@ -71,7 +71,7 @@
 				<div class="large-3 column"><div class="data-label">Risk level</div></div>
 				<div class="large-9 column end">
 					<div class="data-value riskLevel <?php echo $element->riskLevelColour?>">
-						<?php echo $element->riskLevel?>
+						<?php echo $element->riskLevel?> (<?php echo $element->riskScore?> point<?php echo $element->riskScore == 1 ? '' : 's'?>)
 					</div>
 				</div>
 			</div>
@@ -113,8 +113,12 @@
 			</div>
 		<?php }?>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('comments'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->comments)?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('prophylaxis_ordered'))?></div></div>
+			<div class="large-9 column end">
+				<div class="data-value">
+					<?php echo $element->prophylaxis_ordered ? 'Yes' : 'No'?>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>

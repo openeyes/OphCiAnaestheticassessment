@@ -116,7 +116,7 @@ $(document).ready(function() {
 	});
 
 	$('#MultiSelect_ExclusionFactors').bind('MultiSelectChanged',function(e) {
-		if ($(this).parent().next('ul').children().length == 0) {
+		if ($(this).parent().next('ul').children().length == 1) {
 			$('#dvt_excluded_fields').slideDown('fast');
 		} else {
 			$('#dvt_excluded_fields').slideUp('fast');
@@ -172,7 +172,7 @@ function update_risk_prophylaxis()
 		'data': $('.event-content form').serialize(),
 		'dataType': 'json',
 		'success': function(data) {
-			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level .riskLevel').text(data['riskLevel']);
+			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level .riskLevel').text(data['riskText']);
 			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level .riskLevel').removeClass('red').removeClass('green').removeClass('blue').addClass(data['riskLevelColour']);
 
 			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required .prophylaxisRequired').html(data['prophylaxisRequired'].replace(/\n/g,'<br/>'));

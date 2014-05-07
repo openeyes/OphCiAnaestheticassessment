@@ -59,9 +59,9 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 	public function rules()
 	{
 		return array(
-			array('event_id, comments, ', 'safe'),
-			array('comments, ', 'required'),
-			array('id, event_id, comments, ', 'safe', 'on' => 'search'),
+			array('event_id, prophylaxis_ordered', 'safe'),
+			array('prophylaxis_ordered', 'required'),
+			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -99,10 +99,11 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'event_id' => 'Event',
 			'comments' => 'Comments',
 			'exclusion_factors' => 'Exclusion factors',
-			'risk_factors_a' => 'Risk factors A',
-			'risk_factors_b' => 'Risk factors B',
+			'risk_factors_a' => 'Risk factors (2 points)',
+			'risk_factors_b' => 'Risk factors (1 points)',
 			'stocking_contraindications' => 'Contraindications to graduated compression stockings',
 			'heparin_contraindications' => 'Contraindications to low molecular weight heparin (LMWH)',
+			'prophylaxis_ordered' => 'I have reviewed the above and have ordered the appropriate prophylaxis',
 		);
 	}
 
@@ -116,7 +117,6 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('comments', $this->comments);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
@@ -231,12 +231,14 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 		OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment::model()->deleteAll($criteria);
 	}
 
+	public function getRiskScore()
+	{
+		return (count($this->risk_factors_a) * 2) + count($this->risk_factors_b);
+	}
+
 	private function getRiskLevelProphylaxis()
 	{
-		$score = (count($this->risk_factors_a) * 2);
-		$score += count($this->risk_factors_b);
-
-		return OphCiAnaestheticassessment_DVT_Risk_Prophylaxis::model()->find('(score_from <= :score or score_from is null) and (score_to >= :score or score_to is null)',array(':score' => $score));
+		return OphCiAnaestheticassessment_DVT_Risk_Prophylaxis::model()->find('(score_from <= :score or score_from is null) and (score_to >= :score or score_to is null)',array(':score' => $this->riskScore));
 	}
 
 	public function getRiskLevel()

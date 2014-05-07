@@ -403,6 +403,7 @@ class DefaultController extends BaseEventTypeController
 			'riskLevel' => $element->riskLevel,
 			'riskLevelColour' => $element->riskLevelColour,
 			'prophylaxisRequired' => $element->prophylaxisRequired,
+			'riskText' => $element->riskLevel.' ('.$element->riskScore.' point'.($element->riskScore == 1 ? '' : 's').')',
 		));
 	}
 
