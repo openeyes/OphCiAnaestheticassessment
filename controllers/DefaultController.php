@@ -386,7 +386,7 @@ class DefaultController extends BaseEventTypeController
 	{
 		$element = new Element_OphCiAnaestheticassessment_DvtAssessment;
 
-		$this->setComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment(&$element, $_POST, 0);
+		$this->setComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $_POST, 0);
 
 		echo json_encode(array(
 			'riskLevel' => $element->riskLevel,
