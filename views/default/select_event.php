@@ -33,7 +33,7 @@
 					));
 
 					// Event actions
-					if (count($bookings) >0) {
+					if (count($operations) >0) {
 						$this->event_actions[] = EventAction::button('Create anaesthetic assessment', 'save', array('level' => 'secondary'), array('form'=>'anaesthetic-assessment-select','class'=>'button small'));
 					}
 				?>
@@ -47,37 +47,37 @@
 
 						<div class="field-row">
 							<div class="field-info">
-								<?php if (count($bookings) >0) {?>
+								<?php if (count($operations) >0) {?>
 									Please indicate which booking this anaesthetic assessment event relates to:
 								<?php } else {?>
-									There are no open bookings in the current episode so the anaesthetic assessment event cannot be created.
+									There are no operations in the current episode so the anaesthetic assessment event cannot be created.
 								<?php }?>
 							</div>
 						</div>
 
-						<?php if (count($bookings) >0) {?>
+						<?php if (count($operations) >0) {?>
 							<fieldset class="row field-row">
 								<legend class="large-2 column">Select:</legend>
 								<div class="large-6 column end">
-									<?php foreach ($bookings as $booking) {?>
+									<?php foreach ($operations as $operation) {?>
 										<label class="highlight booking">
 											<span class="row">
 												<span class="large-1 column">
-													<input type="radio" value="booking<?php echo $booking->operation->event_id?>" name="SelectBooking" />
+													<input type="radio" value="booking<?php echo $operation->event_id?>" name="SelectBooking" />
 												</span>
 												<span class="large-1 column">
 													<img src="<?php echo Yii::app()->assetManager->createUrl('img/small.png', $assetAliasPath)?>" alt="op" style="height:15px" />
 												</span>
 												<span class="large-3 column">
-													<?php echo $booking->operation->booking->session->NHSDate('date')?>
+													<?php echo $operation->booking ? $operation->booking->session->NHSDate('date') : 'Unbooked'?>
 												</span>
 												<span class="large-3 column">
 													Operation
 												</span>
 												<span class="large-4 column">
-													<?php foreach ($booking->operation->procedures as $i => $procedure) {
+													<?php foreach ($operation->procedures as $i => $procedure) {
 													if ($i >0) { echo "<br/>"; }
-														 echo $booking->operation->eye->name.' '.$procedure->term;
+														 echo $operation->eye->name.' '.$procedure->term;
 												}?>
 												</span>
 											</span>

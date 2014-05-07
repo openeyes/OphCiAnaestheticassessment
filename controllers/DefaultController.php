@@ -60,13 +60,13 @@ class DefaultController extends BaseEventTypeController
 			$bookings = array();
 
 			if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
-				$bookings = $api->getOpenBookingsForEpisode($this->episode->id);
+				$operations = $api->getOperationsForEpisode($this->episode->id);
 			}
 
-			$this->title = !empty($bookings) ? 'Please select booking' : 'No bookings created';
+			$this->title = !empty($operations) ? 'Please select operation' : 'No operations created';
 			$this->event_tabs = array(
 				array(
-					'label' => !empty($bookings) ? 'Select a booking' : 'No bookings created',
+					'label' => !empty($operations) ? 'Select an operation' : 'No operations created',
 					'active' => true,
 				),
 			);
@@ -80,7 +80,7 @@ class DefaultController extends BaseEventTypeController
 
 			$this->render('select_event',array(
 				'errors' => $errors,
-				'bookings' => $bookings,
+				'operations' => $operations,
 			));
 		}
 	}
