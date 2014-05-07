@@ -131,8 +131,8 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->procedures = $procedures;
-		$element->site_id = $data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['site_id'];
-		$element->site = Site::model()->findByPk($element->site_id);
+		$element->eye_id = $data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['eye_id'];
+		$element->eye = Eye::model()->findByPk($element->eye_id);
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification($element, $data, $index)
