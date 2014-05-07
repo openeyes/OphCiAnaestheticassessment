@@ -52,8 +52,8 @@
 					<?php echo str_replace("\n","<br/>",$element->prophylaxisRequired)?>
 				</div>
 			</div>
-			<?php echo $form->multiSelectList($element, 'MultiSelect_stocking_contraindications', 'stocking_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to graduated compression stockings'),false,false,null,false,false,array('label' => 3,'field' => 5))?>
-			<?php echo $form->multiSelectList($element, 'MultiSelect_heparin_contraindications', 'heparin_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to low molecular weight heparin (LMWH)'),false,false,null,false,false,array('label' => 3,'field' => 5))?>
+			<?php echo $form->multiSelectList($element, 'MultiSelect_stocking_contraindications', 'stocking_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to graduated compression stockings'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
+			<?php echo $form->multiSelectList($element, 'MultiSelect_heparin_contraindications', 'heparin_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to low molecular weight heparin (LMWH)'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
 		</div>
 		<?php echo $form->textArea($element, 'comments', array(), false, array(), array('label' => 3, 'field' => 4))?>
 	</div>
