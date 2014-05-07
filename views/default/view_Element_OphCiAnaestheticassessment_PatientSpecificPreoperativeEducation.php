@@ -47,5 +47,16 @@
 				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->other)?></div></div>
 			</div>
 		<?php }?>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('diabetes_items'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php if (!$element->diabetes_items) {?>
+							None
+						<?php } else {?>
+								<?php foreach ($element->diabetes_items as $item) {
+									echo $item->item->name?><br/>
+								<?php }?>
+						<?php }?>
+			</div></div>
+		</div>
 	</div>
 </section>

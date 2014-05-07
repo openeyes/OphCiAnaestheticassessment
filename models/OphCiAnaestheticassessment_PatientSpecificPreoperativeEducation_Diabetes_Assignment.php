@@ -18,13 +18,11 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_specificeducation".
+ * This is the model class for table "ophcianassessment_specificeducation_diabetes_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
- * @property integer $event_id
- * @property string $medications
- * @property string $other
+ * @property string $name
  *
  * The followings are the available model relations:
  *
@@ -33,10 +31,9 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment $speced_ids
  */
 
-class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  extends	BaseEventTypeElement
+class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -52,7 +49,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_specificeducation';
+		return 'ophcianassessment_specificeducation_diabetes_assignment';
 	}
 
 	/**
@@ -61,9 +58,9 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	public function rules()
 	{
 		return array(
-			array('event_id, medications, other, ', 'safe'),
-			array('', 'required'),
-			array('id, event_id, medications, other, ', 'safe', 'on' => 'search'),
+			array('item_id', 'safe'),
+			array('item_id', 'required'),
+			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -78,8 +75,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'speced_ids' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment', 'element_id'),
-			'diabetes_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment', 'element_id'),
+			'item' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes', 'item_id'),
 		);
 	}
 
@@ -90,10 +86,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	{
 		return array(
 			'id' => 'ID',
-			'event_id' => 'Event',
-			'speced_ids' => 'Patient specific education',
-			'medications' => 'Medications',
-			'other' => 'Other education',
+			'name' => 'Name',
 		);
 	}
 
@@ -106,53 +99,11 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('speced_id', $this->speced_id);
-		$criteria->compare('medications', $this->medications);
-		$criteria->compare('other', $this->other);
+		$criteria->compare('name', $this->name, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function updateSpeceds($speced_ids)
-	{
-		foreach ($speced_ids as $speced_id) {
-			if (!$assignment = Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->find('element_id=? and ophcianassessment_specificeducation_speced_id_id=?',array($this->id,$speced_id))) {
-				$assignment = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment;
-				$assignment->element_id = $this->id;
-				$assignment->ophcianassessment_specificeducation_speced_id_id = $speced_id;
-
-				if (!$assignment->save()) {
-					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
-				}
-			}
-		}
-
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id = :element_id');
-		$criteria->params[':element_id'] = $this->id;
-		$criteria->addNotInCondition('ophcianassessment_specificeducation_speced_id_id',$speced_ids);
-
-		Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->deleteAll($criteria);
-	}
-
-	protected function beforeValidate()
-	{
-		if ($this->hasMultiSelectValue('speced_ids','Other (please specify)')) {
-			if (!$this->other) {
-				$this->addError('other',$this->getAttributeLabel('other').' cannot be blank.');
-			}
-		}
-
-		if ($this->hasMultiSelectValue('speced_ids','Medications')) {
-			if (!$this->medications) {
-				$this->addError('medications',$this->getAttributeLabel('medications').' cannot be blank.');
-			}
-		}
-
-		return parent::beforeValidate();
 	}
 }
 ?>

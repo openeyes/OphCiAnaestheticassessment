@@ -179,11 +179,22 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->speced_ids = $speceds;
+
+		$diabetes_items = array();
+
+		if (!empty($data['MultiSelect_Diabetes'])) {
+			foreach ($data['MultiSelect_Diabetes'] as $item_id) {
+				$diabetes_items[] = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes::model()->findByPk($item_id);
+			}
+		}
+
+		$element->diabetes_items = $diabetes_items;
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
 	{
 		$element->updateSpeceds($data['MultiSelect_speced_id']);
+		$element->updateMultiSelectData('OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment',empty($data['MultiSelect_Diabetes']) ? array() : $data['MultiSelect_Diabetes'],'item_id');
 	}
 
 	public function actionUpdate($id)
