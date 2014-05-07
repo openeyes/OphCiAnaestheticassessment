@@ -28,27 +28,31 @@
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('surgery_approval_id'))?></div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->surgery_approval ? $element->surgery_approval->name : 'None'?></div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('not_app'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php if (!$element->not_apps) {?>
-							None
-						<?php } else {?>
-								<?php foreach ($element->not_apps as $item) {
-									echo $item->ophcianassessment_anesthesiaplan_not_app->name?><br/>
-								<?php }?>
-						<?php }?>
-			</div></div>
-		</div>
+		<?php if ($element->surgery_approval && $element->surgery_approval->name == 'Not approved for surgery') {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('not_app'))?>:</div></div>
+				<div class="large-9 column end"><div class="data-value"><?php if (!$element->not_apps) {?>
+								None
+							<?php } else {?>
+									<?php foreach ($element->not_apps as $item) {
+										echo $item->ophcianassessment_anesthesiaplan_not_app->name?><br/>
+									<?php }?>
+							<?php }?>
+				</div></div>
+			</div>
+		<?php }?>
 		<?php if ($element->com_na) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('com_na'))?></div></div>
 				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->com_na)?></div></div>
 			</div>
 		<?php }?>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('acceptance_id'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->acceptance ? $element->acceptance->name : 'None'?></div></div>
-		</div>
+		<?php if ($element->surgery_approval && $element->surgery_approval->name == 'Awaiting further information do not schedule') {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('acceptance_id'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo $element->acceptance ? $element->acceptance->name : 'None'?></div></div>
+			</div>
+		<?php }?>
 		<?php if ($element->waiting_comments) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('waiting_comments'))?></div></div>

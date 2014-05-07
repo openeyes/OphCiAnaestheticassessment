@@ -71,7 +71,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 	{
 		return array(
 			array('event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe'),
-			array('surgery_approval_id, acceptance_id, asa_level_id, anesthesia_plan_id', 'required'),
+			array('surgery_approval_id, asa_level_id, anesthesia_plan_id', 'required'),
 			array('id, event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -143,6 +143,18 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 		if ($this->acceptance && $this->acceptance->name == 'Other (please specify)') {
 			if (!$this->waiting_comments) {
 				$this->addError('waiting_comments',$this->getAttributeLabel('waiting_comments').' cannot be blank.');
+			}
+		}
+
+		if ($this->surgery_approval && $this->surgery_approval->name == 'Not approved for surgery') {
+			if (count($this->not_apps) == 0) {
+				$this->addError('not_apps','Please select at least one reason for the patient not being approved for surgery');
+			}
+		}
+
+		if ($this->surgery_approval && $this->surgery_approval->name == 'Awaiting further information do not schedule') {
+			if (!$this->acceptance) {
+				$this->addError('acceptance_id',$this->getAttributeLabel('acceptance_id').' cannot be blank.');
 			}
 		}
 
