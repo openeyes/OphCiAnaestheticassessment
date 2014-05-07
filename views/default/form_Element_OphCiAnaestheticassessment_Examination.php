@@ -90,7 +90,7 @@
 		<div id="div_Element_OphCiAnaestheticassessment_Examination_bp_systolic" class="row field-row">
 			<div class="large-3 column">
 				<label for="Element_OphCiAnaestheticassessment_Examination_bp_systolic">
-					<?php echo $element->getAttributeLabel('bp_systolic')?>:
+					Blood pressure:
 				</label>
 			</div>
 			<div class="large-4 column end">
