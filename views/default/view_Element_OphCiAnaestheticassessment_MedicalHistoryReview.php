@@ -44,10 +44,6 @@
 			'edit' => false,
 		))?>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('allergies_verified'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->allergies_verified ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('previous_surgical_procedures'))?>:</div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->previous_surgical_procedures ? 'Yes' : 'No'?></div></div>
 		</div>

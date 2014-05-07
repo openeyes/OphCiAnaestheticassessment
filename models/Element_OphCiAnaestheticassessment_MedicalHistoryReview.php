@@ -24,7 +24,6 @@
  * @property string $id
  * @property integer $event_id
  * @property integer $medication_verified
- * @property integer $allergies_verified
  * @property integer $previous_surgical_procedures
  * @property integer $patient_anesthesia
  * @property integer $family_anesthesia
@@ -79,9 +78,9 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies', 'safe'),
-			array('medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'required'),
-			array('id, event_id, medication_verified, allergies_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies', 'safe'),
+			array('medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'required'),
+			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -109,8 +108,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'medication_verified' => 'Medication verified',
-			'allergies_verified' => 'Allergies verified',
+			'medication_verified' => 'Patient not on any known medications',
 			'previous_surgical_procedures' => 'Previous surgical procedures',
 			'patient_anesthesia' => 'Previous patient anesthesia problems',
 			'family_anesthesia' => 'Previous family anesthesia  problems',
@@ -145,7 +143,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
 		$criteria->compare('medication_verified', $this->medication_verified);
-		$criteria->compare('allergies_verified', $this->allergies_verified);
 		$criteria->compare('previous_surgical_procedures', $this->previous_surgical_procedures);
 		$criteria->compare('patient_anesthesia', $this->patient_anesthesia);
 		$criteria->compare('family_anesthesia', $this->family_anesthesia);
