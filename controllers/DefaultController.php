@@ -164,8 +164,8 @@ class DefaultController extends BaseEventTypeController
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_Examination($element, $data, $index)
 	{
-		$element->updateTeeth($data['MultiSelect_teeth']);
-		$element->updateDental($data['MultiSelect_dental']);
+		$element->updateTeeth(empty($data['MultiSelect_teeth']) ? array() : $data['MultiSelect_teeth']);
+		$element->updateDental(empty($data['MultiSelect_dental']) ? array() : $data['MultiSelect_dental']);
 	}
 
 	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
@@ -193,7 +193,7 @@ class DefaultController extends BaseEventTypeController
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
 	{
-		$element->updateSpeceds($data['MultiSelect_speced_id']);
+		$element->updateSpeceds(empty($data['MultiSelect_speced_id']) ? array() : $data['MultiSelect_speced_id']);
 		$element->updateMultiSelectData('OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment',empty($data['MultiSelect_Diabetes']) ? array() : $data['MultiSelect_Diabetes'],'item_id');
 	}
 
