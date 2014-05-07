@@ -28,15 +28,15 @@
 	</header>
 
 	<div class="element-fields">
-		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_site_id" class="row field-row">
+		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id" class="row field-row">
 			<div class="large-3 column">
-				<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_site_id">
-					<?php echo $element->getAttributeLabel('site_id')?>:
+				<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id">
+					<?php echo $element->getAttributeLabel('eye_id')?>:
 				</label>
 			</div>
 			<div class="large-3 column end">
-				<?php echo $element->site->name?>
-				<input type="hidden" name="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification[site_id]" value="<?php echo $element->site_id?>" />
+				<?php echo $element->eye->name?>
+				<input type="hidden" name="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification[eye_id]" value="<?php echo $element->eye_id?>" />
 			</div>
 		</div>
 		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id" class="row field-row">

@@ -109,10 +109,10 @@ class DefaultController extends BaseEventTypeController
 
 			$element->procedures = $_procedures;
 
-			$site = $api->findSiteForBookingEvent(Event::model()->findByPk($_GET['booking_event_id']));
+			$eye = $api->getEyeForOperation($_GET['booking_event_id']);
 
-			$element->site_id = $site->id;
-			$element->site = $site;
+			$element->eye_id = $eye->id;
+			$element->eye = $eye;
 		}
 	}
 
