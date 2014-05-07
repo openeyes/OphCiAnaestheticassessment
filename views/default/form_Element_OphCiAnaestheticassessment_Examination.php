@@ -111,7 +111,17 @@
 				<span class="metric">bpm</span>
 			</div>
 		</div>
-		<?php echo $form->textField($element, 'temperature', array(), array(), array('label' => 3, 'field' => 1))?>
+		<div id="div_Element_OphCiAnaestheticassessment_Examination_temperature" class="row field-row">
+			<div class="large-3 column">
+				<label for="Element_OphCiAnaestheticassessment_Examination_temperature">
+					<?php echo $element->getAttributeLabel('temperature')?>:
+				</label>
+			</div>
+			<div class="large-2 column end">
+				<?php echo $form->textField($element, 'temperature', array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
+				<span class="metric">C</span>
+			</div>
+		</div>
 		<div id="div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate" class="row field-row">
 			<div class="large-3 column">
 				<label for="Element_OphCiAnaestheticassessment_Examination_respiratory_rate">
@@ -139,7 +149,7 @@
 		<?php echo $form->textField($element, 'heart', array(), array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->textField($element, 'lungs', array(), array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->textField($element, 'abdomen', array(), array(), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->multiSelectList($element, 'MultiSelect_teeth', 'teeths', 'ophcianassessment_examination_teeth_id', CHtml::listData(OphCiAnaestheticassessment_Examination_Teeth::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Teeth'),false,false,null,false,false,array('label' => 3, 'field' => 4))?>
+		<?php echo $form->multiSelectList($element, 'MultiSelect_teeth', 'teeths', 'ophcianassessment_examination_teeth_id', CHtml::listData(OphCiAnaestheticassessment_Examination_Teeth::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Teeth'),false,false,null,false,false,array('label' => 3, 'field' => 4),false,'No foreseen issues')?>
 		<?php echo $form->multiSelectList($element, 'MultiSelect_dental', 'dentals', 'ophcianassessment_examination_dental_id', CHtml::listData(OphCiAnaestheticassessment_Examination_Dental::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Removable dental work','class' => 'linked-fields', 'data-linked-fields' => 'teeth_other', 'data-linked-values' => 'Other (please specify)'),false,false,null,false,false,array('label' => 3, 'field' => 4))?>
 		<?php echo $form->textField($element, 'teeth_other', array('hide' => !$element->hasMultiSelectValue('dentals','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
 	</div>

@@ -46,7 +46,7 @@
 		</div>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('temperature'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->temperature)?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->temperature)?> C</div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('respiratory_rate'))?></div></div>

@@ -130,9 +130,26 @@ $(document).ready(function() {
 	$('#MultiSelect_RiskFactors_B').bind('MultiSelectChanged',function(e) {
 		update_risk_prophylaxis();
 	});
+
+	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
+		if ($(this).val() != '' && $('#Element_OphCiAnaestheticassessment_Examination_height_cm').val() != '') {
+			update_bmi();
+		}
+	});
+
+	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
+		if ($(this).val() != '' && $('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val() != '') {
+			update_bmi();
+		}
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
+
+function update_bmi()
+{
+	$('#Element_OphCiAnaestheticassessment_Examination_bmi').val((parseFloat($('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val()) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100)).toFixed(1).replace(/\.0$/,''));
+}
 
 function eDparameterListener(_drawing) {
 	if (_drawing.selectedDoodle != null) {

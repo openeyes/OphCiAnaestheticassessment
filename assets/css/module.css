@@ -104,48 +104,59 @@
 }
 
 /* line 97, ../sass/components/_event.scss */
-#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate input {
+#div_Element_OphCiAnaestheticassessment_Examination_temperature input {
   display: inline;
   width: 5em;
 }
 /* line 101, ../sass/components/_event.scss */
-#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate .metric {
+#div_Element_OphCiAnaestheticassessment_Examination_temperature .metric {
   display: inline;
   font-size: 0.8125em;
 }
 
 /* line 108, ../sass/components/_event.scss */
-#div_Element_OphCiAnaestheticassessment_Examination_sao2 input {
+#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate input {
   display: inline;
   width: 5em;
 }
 /* line 112, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate .metric {
+  display: inline;
+  font-size: 0.8125em;
+}
+
+/* line 119, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_Examination_sao2 input {
+  display: inline;
+  width: 5em;
+}
+/* line 123, ../sass/components/_event.scss */
 #div_Element_OphCiAnaestheticassessment_Examination_sao2 .metric {
   display: inline;
   font-size: 0.8125em;
 }
 
-/* line 118, ../sass/components/_event.scss */
+/* line 129, ../sass/components/_event.scss */
 #Element_OphCiAnaestheticassessment_Examination_bp_systolic {
   width: 4em;
 }
 
-/* line 122, ../sass/components/_event.scss */
+/* line 133, ../sass/components/_event.scss */
 #Element_OphCiAnaestheticassessment_Examination_bp_diastolic {
   width: 3em;
 }
 
-/* line 126, ../sass/components/_event.scss */
+/* line 137, ../sass/components/_event.scss */
 .riskLevel.green {
   color: #090;
 }
 
-/* line 129, ../sass/components/_event.scss */
+/* line 140, ../sass/components/_event.scss */
 .riskLevel.red {
   color: #f00;
 }
 
-/* line 132, ../sass/components/_event.scss */
+/* line 143, ../sass/components/_event.scss */
 .riskLevel.blue {
   color: #00f;
 }
