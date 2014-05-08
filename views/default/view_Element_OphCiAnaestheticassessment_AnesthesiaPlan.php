@@ -70,7 +70,7 @@
 		<?php if ($element->anesthesia_plan_comment) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anesthesia_plan_comment'))?></div></div>
-				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->anesthesia_plan_comment)?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo $element->textWithLineBreaks('anesthesia_plan_comment')?></div></div>
 			</div>
 		<?php }?>
 	</div>

@@ -39,13 +39,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
-		$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').val(parseFloat($(this).val() * 2.20462).toFixed(1));
-	});
 
-	$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').change(function() {
-		$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val(parseFloat($(this).val() / 2.20462).toFixed(1));
-	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val() != '') {
@@ -132,15 +126,21 @@ $(document).ready(function() {
 	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
-		if ($(this).val() != '' && $('#Element_OphCiAnaestheticassessment_Examination_height_cm').val() != '') {
-			update_bmi();
-		}
+		$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').val(parseFloat($(this).val() * 2.20462).toFixed(1));
+		update_bmi();
+	});
+
+	$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').change(function() {
+		$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val(parseFloat($(this).val() / 2.20462).toFixed(1));
+		update_bmi();
+	});
+
+	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
+		update_bmi();
 	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
-		if ($(this).val() != '' && $('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val() != '') {
-			update_bmi();
-		}
+		update_bmi();
 	});
 });
 
@@ -148,7 +148,8 @@ function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f
 
 function update_bmi()
 {
-	$('#Element_OphCiAnaestheticassessment_Examination_bmi').val((parseFloat($('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val()) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100)).toFixed(1).replace(/\.0$/,''));
+	var bmi = ((parseFloat($('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val()) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100)));
+	if(!isNaN(bmi)) $('#Element_OphCiAnaestheticassessment_Examination_bmi').val(bmi.toFixed(2).replace(/\.0$/,''));
 }
 
 function eDparameterListener(_drawing) {

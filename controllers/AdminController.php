@@ -21,7 +21,6 @@ class AdminController extends ModuleAdminController
 {
 	public function actionEditTeeth()
 	{
-			//$this->widget('ReferenceTable');
 		$this->Render('EditTeeth');
 	}
 }
