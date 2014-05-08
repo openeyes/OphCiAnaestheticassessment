@@ -43,100 +43,29 @@
 			'no_allergies_field' => 'patient_has_no_allergies',
 			'edit' => false,
 		))?>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('previous_surgical_procedures'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->previous_surgical_procedures ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('patient_anesthesia'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->patient_anesthesia ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('family_anesthesia'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->family_anesthesia ? 'Yes' : 'No'?></div></div>
-		</div>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'previous_surgical_procedures', 'relation' => 'surgery', 'other_field' => 'surgery_other', 'text_fields' => array('surgery_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'patient_anesthesia', 'relation' => 'patient_anesthesia_items', 'other_field' => 'patientan_other'))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'family_anesthesia', 'relation' => 'family_anesthesia_items', 'other_field' => 'familyan_other'))?>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pain'))?>:</div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->pain ? 'Yes' : 'No'?></div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('cardiovascular'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->cardiovascular ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('respiratory'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->respiratory ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('gastro_intestinal'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->gastro_intestinal ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('diabetes'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->diabetes ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('genitourinary_renal_endocrine'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->genitourinary_renal_endocrine ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('neuro_musculoskeletal'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->neuro_musculoskeletal ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('falls_mobility_risk'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->falls_mobility_risk ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('Miscellaneous'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->Miscellaneous ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('psychiatric'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->psychiatric ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pregnancy_status'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->pregnancy_status ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('exposure'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->exposure ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->dental ? 'Yes' : 'No'?></div></div>
-		</div>
-		<?php if ($element->dental) {?>
-			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
-				<div class="large-9 column end"><div class="data-value"><?php if (!$element->dentals) {?>
-								None
-							<?php } else {?>
-									<?php foreach ($element->dentals as $item) {
-										echo $item->dental->name?><br/>
-									<?php }?>
-							<?php }?>
-				</div></div>
-			</div>
-			<?php if ($element->teeth_other) {?>
-				<div class="row data-row">
-					<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth_other'))?></div></div>
-					<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->teeth_other)?></div></div>
-				</div>
-			<?php }?>
-		<?php }?>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('tobacco_use'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->tobacco_use ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('alcohol_use'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->alcohol_use ? 'Yes' : 'No'?></div></div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('recreational_drug_use'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo $element->recreational_drug_use ? 'Yes' : 'No'?></div></div>
-		</div>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'cardiovascular', 'relations' => array('cardio'), 'other_field' => 'cardio_other', 'text_fields' => array('cardio_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'respiratory', 'relations' => array('pulmonary'), 'other_field' => 'pulmonary_other', 'text_fields' => array('pulmonary_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'gastro_intestinal', 'relations' => array('gi'), 'other_field' => 'gi_other', 'text_fields' => array('gi_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'diabetes', 'relations' => array('diabetes_treatment','diabetes_monitor'), 'text_fields' => array('diabetes_average_glucose','diabetes_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'genitourinary_renal_endocrine', 'relations' => array('gre'), 'other_field' => 'gre_other', 'text_fields' => array('gre_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'neuro_musculoskeletal', 'relations' => array('neuro'), 'other_field' => 'neuro_other', 'text_fields' => array('neuro_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'falls_mobility_risk', 'relations' => array('falls'), 'text_fields' => array('falls_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'miscellaneous', 'relations' => array('misc'), 'other_field' => 'misc_other', 'text_fields' => array('misc_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'psychiatric', 'relations' => array('psychiatric_items'), 'other_field' => 'psych_other', 'text_fields' => array('psych_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'pregnancy_status', 'relations' => array('pregnancy'), 'other_field' => 'preg_test', 'other_text' => 'Test (please specify)'))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'exposure', 'text_fields' => array('recent_cough')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'dental', 'relations' => array('cardiac_devices'), 'other_field' => 'cardev_other', 'text_fields' => array('cardev_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'dental', 'dont_show_boolean_field' => true, 'relations' => array('dentals'), 'other_field' => 'teeth_other', 'text_fields' => array('noncardiac_implants')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'dental', 'dont_show_boolean_field' => true, 'relations' => array('prosthetics'), 'other_field' => 'prosthetic_other'))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'tobacco_use', 'text_fields' => array('smoke_amount','smoke_duration','smoke_quit_date')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'alcohol_use', 'text_fields' => array('alcohol_type','alcohol_amount','alcohol_quit_date')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'recreational_drug_use', 'text_fields' => array('drug_name','drug_amount','drug_quit_date')))?>
 	</div>
 </section>

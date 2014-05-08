@@ -17,22 +17,22 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_medical_history_dental_assignment".
+ * This is the model class for table "ophcianassessment_medical_history_cardio".
  *
  * The followings are the available columns in table:
  * @property string $id
- * @property integer $element_id
- * @property integer $dental_id
+ * @property string $name
  *
  * The followings are the available model relations:
  *
- * @property Element_OphCiAnaestheticassessment_Examination $element
- * @property OphCiAnaestheticassessment_Examination_Dental $ophcianassessment_examination_dental
+ * @property ElementType $element_type
+ * @property EventType $eventType
+ * @property Event $event
  * @property User $user
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_Medical_History_Dental_Assignment extends BaseActiveRecord
+class OphCiAnaestheticassessment_Medical_History_Cardio extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class OphCiAnaestheticassessment_Medical_History_Dental_Assignment extends BaseA
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_medical_history_dental_assignment';
+		return 'ophcianassessment_medical_history_cardio';
 	}
 
 	/**
@@ -57,9 +57,9 @@ class OphCiAnaestheticassessment_Medical_History_Dental_Assignment extends BaseA
 	public function rules()
 	{
 		return array(
-			array('element_id, dental_id', 'safe'),
-			array('element_id, dental_id', 'required'),
-			array('id, element_id, dental_id', 'safe', 'on' => 'search'),
+			array('name', 'safe'),
+			array('name', 'required'),
+			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -69,9 +69,9 @@ class OphCiAnaestheticassessment_Medical_History_Dental_Assignment extends BaseA
 	public function relations()
 	{
 		return array(
-			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_Medical_History', 'element_id'),
-			'dental' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Medical_History_Dental', 'dental_id'),
-			'item' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Medical_History_Dental', 'dental_id'),
+			'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
+			'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
+			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 		);
@@ -102,11 +102,6 @@ class OphCiAnaestheticassessment_Medical_History_Dental_Assignment extends BaseA
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getName()
-	{
-		return $this->dental->name;
 	}
 }
 ?>
