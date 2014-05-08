@@ -53,7 +53,7 @@
  * @property User $usermodified
  */
 
-class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEventTypeElement
+class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -78,7 +78,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies', 'safe'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other', 'safe'),
 			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, Miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -96,6 +96,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'medications' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Medication', 'element_id'),
 			'allergies' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Allergy', 'element_id'),
+			'dentals' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Dental_Assignment', 'element_id'),
 		);
 	}
 
@@ -110,7 +111,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'medication_verified' => 'Patient not on any known medications',
 			'previous_surgical_procedures' => 'Previous surgical procedures',
 			'patient_anesthesia' => 'Previous patient anesthesia problems',
-			'family_anesthesia' => 'Previous family anesthesia  problems',
+			'family_anesthesia' => 'Previous family anesthesia	problems',
 			'pain' => 'Pain',
 			'cardiovascular' => 'Cardiovascular',
 			'respiratory' => 'Respiratory',
@@ -128,6 +129,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 			'alcohol_use' => 'Alcohol use',
 			'recreational_drug_use' => 'Recreational drug use',
 			'patient_has_no_allergies' => 'Patient has no known allergies',
+			'dental' => 'Removable dental work',
+			'teeth_other' => 'Other removable dental work',
 		);
 	}
 
@@ -301,6 +304,17 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends  BaseEven
 		!empty($ids) && $criteria->addNotInCondition('id',$ids);
 
 		OphCiAnaestheticassessment_Medical_History_Allergy::model()->deleteAll($criteria);
+	}
+
+	protected function beforeValidate()
+	{
+		if ($this->hasMultiSelectValue('dentals','Other (please specify)')) {
+			if (!$this->teeth_other) {
+				$this->addError('teeth_other',$this->getAttributeLabel('teeth_other').' cannot be blank.');
+			}
+		}
+
+		return parent::beforeValidate();
 	}
 }
 ?>

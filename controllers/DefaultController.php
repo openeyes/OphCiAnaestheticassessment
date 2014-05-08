@@ -150,22 +150,12 @@ class DefaultController extends BaseEventTypeController
 			}
 		}
 
-		$dental = array();
-
-		if (!empty($data['MultiSelect_dental'])) {
-			foreach ($data['MultiSelect_dental'] as $dental_id) {
-				$dental[] = OphCiAnaestheticassessment_Examination_Dental::model()->findByPk($dental_id);
-			}
-		}
-
 		$element->teeths = $teeth;
-		$element->dentals = $dental;
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_Examination($element, $data, $index)
 	{
 		$element->updateTeeth(empty($data['MultiSelect_teeth']) ? array() : $data['MultiSelect_teeth']);
-		$element->updateDental(empty($data['MultiSelect_dental']) ? array() : $data['MultiSelect_dental']);
 	}
 
 	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
@@ -285,6 +275,16 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->allergies = $allergies;
+
+		$dental = array();
+
+		if (!empty($data['MultiSelect_dental'])) {
+			foreach ($data['MultiSelect_dental'] as $dental_id) {
+				$dental[] = OphCiAnaestheticassessment_Medical_History_Dental::model()->findByPk($dental_id);
+			}
+		}
+
+		$element->dentals = $dental;
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
@@ -296,6 +296,7 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->updateAllergies(empty($data['allergies_allergies']) ? array() : $data['allergies_allergies']);
+		$element->updateMultiSelectData('OphCiAnaestheticassessment_Medical_History_Dental_Assignment',empty($data['MultiSelect_dental']) ? array() : $data['MultiSelect_dental'],'dental_id');
 	}
 
 	public function actionAddInvestigation()

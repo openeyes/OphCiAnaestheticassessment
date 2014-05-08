@@ -57,7 +57,9 @@
 		<?php echo $form->radioBoolean($element, 'psychiatric', array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'pregnancy_status', array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'exposure', array(), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->radioBoolean($element, 'dental', array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->radioBoolean($element, 'dental', array('class' => 'linked-fields','data-linked-fields' => 'MultiSelect_dental', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->multiSelectList($element, 'MultiSelect_dental', 'dentals', 'dental_id', CHtml::listData(OphCiAnaestheticassessment_Medical_History_Dental::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Removable dental work','class' => 'linked-fields', 'data-linked-fields' => 'teeth_other', 'data-linked-values' => 'Other (please specify)'),!$element->dental,false,null,false,false,array('label' => 3, 'field' => 4))?>
+		<?php echo $form->textField($element, 'teeth_other', array('hide' => !$element->hasMultiSelectValue('dentals','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'tobacco_use', array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'alcohol_use', array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->radioBoolean($element, 'recreational_drug_use', array(), array('label' => 3, 'field' => 4))?>

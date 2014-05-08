@@ -155,22 +155,5 @@
 						<?php }?>
 			</div></div>
 		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php if (!$element->dentals) {?>
-							None
-						<?php } else {?>
-								<?php foreach ($element->dentals as $item) {
-									echo $item->ophcianassessment_examination_dental->name?><br/>
-								<?php }?>
-						<?php }?>
-			</div></div>
-		</div>
-		<?php if ($element->teeth_other) {?>
-			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth_other'))?></div></div>
-				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->teeth_other)?></div></div>
-			</div>
-		<?php }?>
 	</div>
 </section>

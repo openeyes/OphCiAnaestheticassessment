@@ -107,6 +107,25 @@
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->dental ? 'Yes' : 'No'?></div></div>
 		</div>
+		<?php if ($element->dental) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('dental'))?>:</div></div>
+				<div class="large-9 column end"><div class="data-value"><?php if (!$element->dentals) {?>
+								None
+							<?php } else {?>
+									<?php foreach ($element->dentals as $item) {
+										echo $item->dental->name?><br/>
+									<?php }?>
+							<?php }?>
+				</div></div>
+			</div>
+			<?php if ($element->teeth_other) {?>
+				<div class="row data-row">
+					<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('teeth_other'))?></div></div>
+					<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->teeth_other)?></div></div>
+				</div>
+			<?php }?>
+		<?php }?>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('tobacco_use'))?>:</div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->tobacco_use ? 'Yes' : 'No'?></div></div>

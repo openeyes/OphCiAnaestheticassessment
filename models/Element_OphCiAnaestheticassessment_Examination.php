@@ -81,8 +81,8 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public function rules()
 	{
 		return array(
-			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe'),
-			array('id, event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeth_other, ', 'safe', 'on' => 'search'),
+			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'safe'),
+			array('id, event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -101,7 +101,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'height_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_HeightCalculation', 'height_calculation_id'),
 			'airway_class' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_AirwayClass', 'airway_class_id'),
 			'teeths' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment', 'element_id'),
-			'dentals' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_Examination_Dental_Assignment', 'element_id'),
 		);
 	}
 
@@ -134,8 +133,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'lungs' => 'Lungs',
 			'abdomen' => 'Abdomen',
 			'teeth' => 'Teeth',
-			'dental' => 'Removable dental work',
-			'teeth_other' => 'Other removable dental work',
 		);
 	}
 
@@ -195,39 +192,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		$criteria->addNotInCondition('ophcianassessment_examination_teeth_id',$teeth_ids);
 
 		Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->deleteAll($criteria);
-	}
-
-	public function updateDental($dental_ids)
-	{
-		foreach ($dental_ids as $dental_id) {
-			if (!$assignment = Element_OphCiAnaestheticassessment_Examination_Dental_Assignment::model()->find('element_id=? and ophcianassessment_examination_dental_id=?',array($this->id,$dental_id))) {
-				$assignment = new Element_OphCiAnaestheticassessment_Examination_Dental_Assignment;
-				$assignment->element_id = $this->id;
-				$assignment->ophcianassessment_examination_dental_id = $dental_id;
-
-				if (!$assignment->save()) {
-					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
-				}
-			}
-		}
-
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id = :element_id');
-		$criteria->params[':element_id'] = $this->id;
-		$criteria->addNotInCondition('ophcianassessment_examination_dental_id',$dental_ids);
-
-		Element_OphCiAnaestheticassessment_Examination_Dental_Assignment::model()->deleteAll($criteria);
-	}
-
-	protected function beforeValidate()
-	{
-		if ($this->hasMultiSelectValue('dentals','Other (please specify)')) {
-			if (!$this->teeth_other) {
-				$this->addError('teeth_other',$this->getAttributeLabel('teeth_other').' cannot be blank.');
-			}
-		}
-
-		return parent::beforeValidate();
 	}
 
 	public function formatDecimal($field)
