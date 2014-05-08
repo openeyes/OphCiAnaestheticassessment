@@ -285,6 +285,41 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->dentals = $dental;
+
+		$relations = $element->relations();
+
+		foreach (array(
+			'MultiSelect_surgery' => 'surgery',
+			'MultiSelect_patient_anesthesia' => 'patient_anesthesia_items',
+			'MultiSelect_family_anesthesia' => 'family_anesthesia_items',
+			'MultiSelect_cardio' => 'cardio',
+			'MultiSelect_pulmonary' => 'pulmonary',
+			'MultiSelect_gi' => 'gi',
+			'MultiSelect_diabetes_treatment' => 'diabetes_treatment',
+			'MultiSelect_diabetes_monitor' => 'diabetes_monitor',
+			'MultiSelect_gre' => 'gre',
+			'MultiSelect_neuro' => 'neuro',
+			'MultiSelect_falls' => 'falls',
+			'MultiSelect_misc' => 'misc',
+			'MultiSelect_psychiatric' => 'psychiatric_items',
+			'MultiSelect_pregnancy' => 'pregnancy',
+			'MultiSelect_cardiac_devices' => 'cardiac_devices',
+			'MultiSelect_prosthetics' => 'prosthetics',
+			'MultiSelect_tobacco_type' => 'smoking',
+			) as $multiselect => $relation) {
+
+			$data = array();
+
+			if (!empty($data[$multiselect])) {
+				foreach ($data[$multiselect] as $item_id) {
+					$model = preg_replace('/_Assignment$/','',$relations[$relation][1]);
+
+					$data[] = $model::model()->findByPk($item_id);
+				}
+			}
+
+			$element->$relation = $data;
+		}
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
@@ -297,6 +332,31 @@ class DefaultController extends BaseEventTypeController
 
 		$element->updateAllergies(empty($data['allergies_allergies']) ? array() : $data['allergies_allergies']);
 		$element->updateMultiSelectData('OphCiAnaestheticassessment_Medical_History_Dental_Assignment',empty($data['MultiSelect_dental']) ? array() : $data['MultiSelect_dental'],'dental_id');
+
+		$relations = $element->relations();
+
+		foreach (array(
+			'MultiSelect_surgery' => 'surgery',
+			'MultiSelect_patient_anesthesia' => 'patient_anesthesia_items',
+			'MultiSelect_family_anesthesia' => 'family_anesthesia_items',
+			'MultiSelect_cardio' => 'cardio',
+			'MultiSelect_pulmonary' => 'pulmonary',
+			'MultiSelect_gi' => 'gi',
+			'MultiSelect_diabetes_treatment' => 'diabetes_treatment',
+			'MultiSelect_diabetes_monitor' => 'diabetes_monitor',
+			'MultiSelect_gre' => 'gre',
+			'MultiSelect_neuro' => 'neuro',
+			'MultiSelect_falls' => 'falls',
+			'MultiSelect_misc' => 'misc',
+			'MultiSelect_psychiatric' => 'psychiatric_items',
+			'MultiSelect_pregnancy' => 'pregnancy',
+			'MultiSelect_cardiac_devices' => 'cardiac_devices',
+			'MultiSelect_prosthetics' => 'prosthetics',
+			'MultiSelect_tobacco_type' => 'smoking',
+			) as $multiselect => $relation) {
+
+			$element->updateMultiSelectData($relations[$relation][1],empty($data[$multiselect]) ? array() : $data[$multiselect],'item_id');
+		}
 	}
 
 	public function actionAddInvestigation()
