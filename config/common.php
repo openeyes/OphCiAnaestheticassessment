@@ -18,10 +18,26 @@
  */
 
 return array(
-		'params' => array(
-				'admin_menu' => array(
-						'Teeth' => '/OphCiAnaestheticassessment/admin/editTeeth',
-				),
-
-		)
+	'params' => array(
+		'admin_menu' => array(
+			'Previous surgery' => '/OphCiAnaestheticassessment/admin/editPreviousSurgery',
+			'Patient anesthesia reaction' => '/OphCiAnaestheticassessment/admin/editPatientAnesthesiaReaction',
+			'Family anesthesia reaction' => '/OphCiAnaestheticassessment/admin/editFamilyAnesthesiaReaction',
+			'Cardiovascular' => '/OphCiAnaestheticassessment/admin/editCardiovascular',
+			'Respiratory' => '/OphCiAnaestheticassessment/admin/editRespiratory',
+			'Gastro intestinal' => '/OphCiAnaestheticassessment/admin/editGastroIntestinal',
+			'Diabetes treated with' => '/OphCiAnaestheticassessment/admin/editDiabetesTreatedWith',
+			'Diabetes monitored with' => '/OphCiAnaestheticassessment/admin/editDiabetesMonitoredWith',
+			'Genitourinary / renal / endocrine' => '/OphCiAnaestheticassessment/admin/editGRE',
+			'Neuro / musculoskeletal' => '/OphCiAnaestheticassessment/admin/editNeuroMusculoskeletal',
+			'Falls / mobility risk' => '/OphCiAnaestheticassessment/admin/editFallsMobility',
+			'Miscellaneous' => '/OphCiAnaestheticassessment/admin/editMiscellaneous',
+			'Psychiatric' => '/OphCiAnaestheticassessment/admin/editPsychiatric',
+			'Pregnancy' => '/OphCiAnaestheticassessment/admin/editPregnancy',
+			'Implanted cardiac device' => '/OphCiAnaestheticassessment/admin/editImplantedCardiacDevice',
+			'Removable dental work' => '/OphCiAnaestheticassessment/admin/editRemovableDentalWork',
+			'Prosthetics' => '/OphCiAnaestheticassessment/admin/editProsthetics',
+			'Teeth' => '/OphCiAnaestheticassessment/admin/editTeeth',
+		),
+	)
 );

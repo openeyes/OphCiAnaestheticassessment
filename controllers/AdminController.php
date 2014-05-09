@@ -23,4 +23,89 @@ class AdminController extends ModuleAdminController
 	{
 		$this->referenceTableAdmin('OphCiAnaestheticassessment_Examination_Teeth','Teeth admin');
 	}
+
+	public function actionEditPreviousSurgery()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Surgery','Previous surgeries');
+	}
+
+	public function actionEditPatientAnesthesiaReaction()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia','Patient anesthesia reactions');
+	}
+
+	public function actionEditFamilyAnesthesiaReaction()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Family_Anesthesia','Family anesthesia reactions');
+	}
+
+	public function actionEditCardiovascular()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Cardio','Cardiovascular');
+	}
+
+	public function actionEditRespiratory()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Pulmonary','Respiratory');
+	}
+
+	public function actionEditGastroIntestinal()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_GI','Gastro intestinal');
+	}
+
+	public function actionEditDiabetesTreatedWith()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Diabetes_Treatment','Diabetes treated with');
+	}
+
+	public function actionEditDiabetesMonitoredWith()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Diabetes_Monitor','Diabetes monitored with');
+	}
+
+	public function actionEditGRE()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_GRE','Genitourinary / renal / endocrine');
+	}
+
+	public function actionEditNeuroMusculoskeletal()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Neuro','Neuro / musculoskeletal');
+	}
+
+	public function actionEditFallsMobility()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Falls','Falls / mobility risk');
+	}
+
+	public function actionEditMiscellaneous()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Misc','Miscellaneous');
+	}
+
+	public function actionEditPsychiatric()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Psychiatric','Psychiatric');
+	}
+
+	public function actionEditPregnancy()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Pregnancy','Pregnancy');
+	}
+
+	public function actionEditImplantedCardiacDevice()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Implant_Cardiac_Device','Implanted cardiac devices');
+	}
+
+	public function actionEditRemovableDentalWork()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Dental','Removable dental work');
+	}
+
+	public function actionEditProsthetics()
+	{
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Medical_History_Implant_Prosthetic','Prosthetics');
+	}
 }
