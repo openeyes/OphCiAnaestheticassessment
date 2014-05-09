@@ -21,6 +21,6 @@ class AdminController extends ModuleAdminController
 {
 	public function actionEditTeeth()
 	{
-		$this->Render('EditTeeth');
+		$this->referenceTableAdmin('OphCiAnaestheticassessment_Examination_Teeth','Teeth admin');
 	}
 }
