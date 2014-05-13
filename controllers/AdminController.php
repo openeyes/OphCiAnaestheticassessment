@@ -200,6 +200,45 @@ class AdminController extends ModuleAdminController
 			'title' => 'Contraindications',
 			'model' => 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication',
 		));
-		$this->referenceTableAdmin('OphCiAnaestheticassessment_DVT_Heparin_Contraindication','Contraindications');
+	}
+
+	public function actionEditApprovalForSurgery()
+	{
+		$this->render('//admin/generic_admin',array(
+			'title' => 'Anesthesia patient approval for surgery',
+			'model' => 'OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval',
+		));
+	}
+
+	public function actionEditASALevel()
+	{
+		$this->render('//admin/generic_admin',array(
+			'title' => 'ASA level',
+			'model' => 'OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel',
+		));
+	}
+
+	public function actionEditAnesthesiaPlan()
+	{
+		$this->render('//admin/generic_admin',array(
+			'title' => 'Anesthesia plan',
+			'model' => 'OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan',
+		));
+	}
+
+	public function actionEditPatientSpecificEducation()
+	{
+		$this->render('//admin/generic_admin',array(
+			'title' => 'Patient specific education',
+			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId',
+		));
+	}
+
+	public function actionEditDiabetesInstructions()
+	{
+		$this->render('//admin/generic_admin',array(
+			'title' => 'Diabetes instructions',
+			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes',
+		));
 	}
 }

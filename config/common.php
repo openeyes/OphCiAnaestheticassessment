@@ -42,6 +42,11 @@ return array(
 			'DVT risk factors' => '/OphCiAnaestheticassessment/admin/editRiskFactors',
 			'DVT Contraindications to graduated compression stockings' => '/OphCiAnaestheticassessment/admin/editStockingContraindications',
 			'DVT Contraindications to low molecular weight heparin' => '/OphCiAnaestheticassessment/admin/editHeparinContraindications',
+			'Anesthesia patient approval for surgery' => '/OphCiAnaestheticassessment/admin/editApprovalForSurgery',
+			'ASA level' => '/OphCiAnaestheticassessment/admin/editASALevel',
+			'Anesthesia plan' => '/OphCiAnaestheticassessment/admin/editAnesthesiaPlan',
+			'Patient specific education' => '/OphCiAnaestheticassessment/admin/editPatientSpecificEducation',
+			'Diabetes instructions' => '/OphCiAnaestheticassessment/admin/editDiabetesInstructions',
 		),
 	)
 );
