@@ -19,6 +19,14 @@
 
 class AdminController extends ModuleAdminController
 {
+	public function actionEditPatientIdentifiers()
+	{
+		$this->render('//admin/generic_admin',array(
+			'title' => 'Patient identifiers',
+			'model' => 'OphCiAnaestheticassessment_Patient_Identifier',
+		));
+	}
+
 	public function actionEditTeeth()
 	{
 		$this->render('//admin/generic_admin',array(

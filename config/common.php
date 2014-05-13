@@ -20,6 +20,7 @@
 return array(
 	'params' => array(
 		'admin_menu' => array(
+			'Patient identifiers' => '/OphCiAnaestheticassessment/admin/editPatientIdentifiers',
 			'Previous surgery' => '/OphCiAnaestheticassessment/admin/editPreviousSurgery',
 			'Patient anesthesia reaction' => '/OphCiAnaestheticassessment/admin/editPatientAnesthesiaReaction',
 			'Family anesthesia reaction' => '/OphCiAnaestheticassessment/admin/editFamilyAnesthesiaReaction',
