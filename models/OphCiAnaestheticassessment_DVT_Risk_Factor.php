@@ -87,6 +87,7 @@ class OphCiAnaestheticassessment_DVT_Risk_Factor extends BaseActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'section_id' => 'Section',
 		);
 	}
 

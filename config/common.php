@@ -38,6 +38,10 @@ return array(
 			'Removable dental work' => '/OphCiAnaestheticassessment/admin/editRemovableDentalWork',
 			'Prosthetics' => '/OphCiAnaestheticassessment/admin/editProsthetics',
 			'Teeth' => '/OphCiAnaestheticassessment/admin/editTeeth',
+			'DVT exclusion factors' => '/OphCiAnaestheticassessment/admin/editExclusionFactors',
+			'DVT risk factors' => '/OphCiAnaestheticassessment/admin/editRiskFactors',
+			'DVT Contraindications to graduated compression stockings' => '/OphCiAnaestheticassessment/admin/editStockingContraindications',
+			'DVT Contraindications to low molecular weight heparin' => '/OphCiAnaestheticassessment/admin/editHeparinContraindications',
 		),
 	)
 );
