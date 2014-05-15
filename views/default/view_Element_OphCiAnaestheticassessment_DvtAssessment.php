@@ -25,19 +25,29 @@
 
 	<div class="element-data">
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('exclusion_factors'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('exclusion_criteria_met'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if (!empty($element->exclusion_factors)) {
-						foreach ($element->exclusion_factors as $exclusion_factor) {
-							echo $exclusion_factor->name."<br/>";
-						}
-					}else{?>
-						None
-					<?php }?>
+					<?php echo $element->exclusion_criteria_met ? 'Yes' : 'No'?>
 				</div>
 			</div>
 		</div>
+		<?php if ($element->exclusion_criteria_met) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('exclusion_factors'))?></div></div>
+				<div class="large-9 column end">
+					<div class="data-value">
+						<?php if (!empty($element->exclusion_factors)) {
+							foreach ($element->exclusion_factors as $exclusion_factor) {
+								echo $exclusion_factor->name."<br/>";
+							}
+						}else{?>
+							None
+						<?php }?>
+					</div>
+				</div>
+			</div>
+		<?php }?>
 		<?php if (empty($element->exclusion_factors)) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risk_factors_a'))?></div></div>

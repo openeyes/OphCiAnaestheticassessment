@@ -59,7 +59,7 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 	public function rules()
 	{
 		return array(
-			array('event_id, prophylaxis_ordered', 'safe'),
+			array('event_id, prophylaxis_ordered, exclusion_criteria_met', 'safe'),
 			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}
@@ -103,6 +103,7 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'stocking_contraindications' => 'Contraindications to graduated compression stockings',
 			'heparin_contraindications' => 'Contraindications to low molecular weight heparin (LMWH)',
 			'prophylaxis_ordered' => 'I have reviewed the above and have ordered the appropriate prophylaxis',
+			'exclusion_criteria_met' => 'Does patient meet exclusion criteria for DVT assessment?',
 		);
 	}
 
