@@ -1,0 +1,16 @@
+id,name,display_order
+1,Appendectomy,1
+2,Arthroscopy,2
+3,Bowel resection,3
+4,CABG,4
+5,Carpal tunnel,5
+6,Cholecystectomy,6
+7,Gastric bypass,7
+8,Hernia repair,8
+9,Hip replacement,9
+10,Hysterectomy,10
+11,Joint replacement,11
+12,Knee replacement,12
+13,Tonsillectomy,13
+14,Valve replacement,14
+15,Other (please specify),15
