@@ -43,9 +43,9 @@
 			'no_allergies_field' => 'patient_has_no_allergies',
 			'edit' => false,
 		))?>
-		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'previous_surgical_procedures', 'relation' => 'surgery', 'other_field' => 'surgery_other', 'text_fields' => array('surgery_comments')))?>
-		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'patient_anesthesia', 'relation' => 'patient_anesthesia_items', 'other_field' => 'patientan_other'))?>
-		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'family_anesthesia', 'relation' => 'family_anesthesia_items', 'other_field' => 'familyan_other'))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'previous_surgical_procedures', 'relations' => array('surgery'), 'other_field' => 'surgery_other', 'text_fields' => array('surgery_comments')))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'patient_anesthesia', 'relations' => array('patient_anesthesia_items'), 'other_field' => 'patientan_other'))?>
+		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'family_anesthesia', 'relations' => array('family_anesthesia_items'), 'other_field' => 'familyan_other'))?>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pain'))?>:</div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->pain ? 'Yes' : 'No'?></div></div>
