@@ -385,6 +385,126 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			}
 		}
 
+		foreach (array(
+				'previous_surgical_procedures' => array(
+					'surgery' => 'surgery_other',
+					'surgery_comments',
+				),
+				'patient_anesthesia' => array(
+					'patient_anesthesia_items' => 'patientan_other',
+				),
+				'family_anesthesia' => array(
+					'family_anesthesia_items' => 'familyan_other',
+				),
+				'cardiovascular' => array(
+					'cardio' => 'cardio_other',
+					'cardio_comments',
+				),
+				'respiratory' => array(
+					'pulmonary' => 'pulmonary_other',
+					'pulmonary_comments',
+				),
+				'gastro_intestinal' => array(
+					'gi' => 'gi_other',
+					'gi_comments',
+				),
+				'diabetes' => array(
+					'diabetes_treatment',
+					'diabetes_monitor',
+					'diabetes_average_glucose',
+					'diabetes_comments',
+				),
+				'genitourinary_renal_endocrine' => array(
+					'gre' => 'gre_other',
+					'gre_comments',
+				),
+				'neuro_musculoskeletal' => array(
+					'neuro' => 'neuro_other',
+					'neuro_comments',
+				),
+				'falls_mobility_risk' => array(
+					'falls',
+					'falls_comments',
+				),
+				'miscellaneous' => array(
+					'misc' => 'misc_other',
+					'misc_comments',
+				),
+				'psychiatric' => array(
+					'psychiatric_items' => 'psych_other',
+					'psych_comments',
+				),
+				'pregnancy_status' => array(
+					'pregnancy' => 'preg_test',
+				),
+				'exposure' => array(
+					'recent_cough',
+				),
+				'dental' => array(
+					'cardiac_devices' => 'cardev_other',
+					'cardev_comments',
+					'dentals' => 'teeth_other',
+					'noncardiac_implants',
+					'prosthetics' => 'prosthetic_other',
+				),
+			) as $boolean => $fields) {
+
+			if ($this->$boolean) {
+				$data_entered = false;
+
+				foreach ($fields as $key => $value) {
+					if (is_int($key)) {
+						if (!empty($this->$value)) {
+							$data_entered = true;
+						}
+					} else {
+						if (!empty($this->$key)) {
+							$data_entered = true;
+						}
+
+						foreach ($this->$key as $item) {
+							if (preg_match('/\(please specify\)/',$item->name)) {
+								if (!$this->$value) {
+									$this->addError($value,$this->getAttributeLabel($value).' cannot be blank.');
+								}
+							}
+						}
+					}
+				}
+
+				if (!$data_entered) {
+					$this->addError($boolean,'Please complete at least one field in the '.$this->getAttributeLabel($boolean).' section.');
+				}
+			}
+		}
+
+		foreach (array(
+			'tobacco_use' => array(
+				'tobacco_use',
+				'smoke_amount',
+				'smoke_duration',
+				'smoke_quit_date',
+			),
+			'alcohol_use' => array(
+				'alcohol_type',
+				'alcohol_amount',
+				'alcohol_quit_date',
+			),
+			'recreational_drug_use' => array(
+				'drug_name',
+				'drug_amount',
+				'drug_quit_date',
+			)) as $boolean => $fields) {
+
+			if ($this->$boolean) {
+				foreach ($fields as $field) {
+					if (empty($this->$field)) {
+						$this->addError($field,$this->getAttributeLabel($field).' cannot be blank.');
+					}
+				}
+			}
+		}
+
 		return parent::beforeValidate();
 	}
 }
