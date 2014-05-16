@@ -91,7 +91,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'patient_id_verified_with_two_identifiers' => 'Patient ID verified with two identifiers',
+			'patient_id_verified_with_two_identifiers' => 'Patient ID/wristband verified with two identifiers',
 			'translator_present_id' => 'Translator present',
 			'name' => 'Translator name',
 			'identifiers' => 'Two identifiers',
