@@ -308,17 +308,17 @@ class DefaultController extends BaseEventTypeController
 			'MultiSelect_tobacco_type' => 'smoking',
 			) as $multiselect => $relation) {
 
-			$data = array();
+			$_data = array();
 
 			if (!empty($data[$multiselect])) {
 				foreach ($data[$multiselect] as $item_id) {
 					$model = preg_replace('/_Assignment$/','',$relations[$relation][1]);
 
-					$data[] = $model::model()->findByPk($item_id);
+					$_data[] = $model::model()->findByPk($item_id);
 				}
 			}
 
-			$element->$relation = $data;
+			$element->$relation = $_data;
 		}
 	}
 
