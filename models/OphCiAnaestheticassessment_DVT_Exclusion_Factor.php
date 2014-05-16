@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_DVT_Exclusion_Factor extends BaseActiveRecord
+class OphCiAnaestheticassessment_DVT_Exclusion_Factor extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

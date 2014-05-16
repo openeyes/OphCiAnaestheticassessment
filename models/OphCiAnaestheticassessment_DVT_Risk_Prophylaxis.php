@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_DVT_Risk_Prophylaxis extends BaseActiveRecord
+class OphCiAnaestheticassessment_DVT_Risk_Prophylaxis extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

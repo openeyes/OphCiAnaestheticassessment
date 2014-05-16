@@ -36,7 +36,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_Investigations_Investigation extends BaseActiveRecord
+class OphCiAnaestheticassessment_Investigations_Investigation extends BaseActiveRecordVersioned
 {
 	public $investigation_text;
 

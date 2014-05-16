@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment extends BaseActiveRecord
+class Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

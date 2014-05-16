@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_Patient_Identifier extends BaseActiveRecord
+class OphCiAnaestheticassessment_Patient_Identifier extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

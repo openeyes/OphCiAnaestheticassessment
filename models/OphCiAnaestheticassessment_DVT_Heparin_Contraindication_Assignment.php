@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment extends BaseActiveRecord
+class OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

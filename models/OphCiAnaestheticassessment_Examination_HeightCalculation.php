@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_Examination_HeightCalculation extends BaseActiveRecord
+class OphCiAnaestheticassessment_Examination_HeightCalculation extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
