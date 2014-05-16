@@ -53,7 +53,7 @@
 				foreach ($text_fields as $text_field) {?>
 					<div class="row data-row">
 						<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($text_field))?>:</div></div>
-						<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->$text_field)?></div></div>
+						<div class="large-9 column end"><div class="data-value"><?php echo str_replace("\n",'<br/>',CHtml::encode($element->$text_field))?></div></div>
 					</div>
 				<?php }
 			}
