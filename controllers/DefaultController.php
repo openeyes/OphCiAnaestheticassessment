@@ -449,7 +449,7 @@ class DefaultController extends BaseEventTypeController
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $data, $index)
 	{
 		$element->updateExclusionFactors(empty($data['MultiSelect_ExclusionFactors']) ? array() : $data['MultiSelect_ExclusionFactors']);
-		$element->updateRiskFactors(empty($data['MultiSelect_RiskFactors']) ? array() : $data['MultiSelect_RiskFactors']);
+		$element->updateRiskFactors(empty($data['MultiSelect_RiskFactors_A']) ? array() : $data['MultiSelect_RiskFactors_A'],empty($data['MultiSelect_RiskFactors_B']) ? array() : $data['MultiSelect_RiskFactors_B']);
 		$element->updateStockingContraindications(empty($data['MultiSelect_stocking_contraindications']) ? array() : $data['MultiSelect_stocking_contraindications']);
 		$element->updateHeparinContraindications(empty($data['MultiSelect_heparin_contraindications']) ? array() : $data['MultiSelect_heparin_contraindications']);
 	}
