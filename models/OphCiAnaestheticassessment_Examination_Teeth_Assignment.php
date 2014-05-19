@@ -17,12 +17,12 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_examination_teeth_assignment".
+ * This is the model class for table "ophcianassessment_examination_teeth_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $element_id
- * @property integer $ophcianassessment_examination_teeth_id
+ * @property integer $teeth_id
  *
  * The followings are the available model relations:
  *
@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment extends BaseActiveRecordVersioned
+class OphCiAnaestheticassessment_Examination_Teeth_Assignment extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment extends Ba
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_examination_teeth_assignment';
+		return 'ophcianassessment_examination_teeth_assignment';
 	}
 
 	/**
@@ -57,9 +57,9 @@ class Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment extends Ba
 	public function rules()
 	{
 		return array(
-			array('element_id, ophcianassessment_examination_teeth_id', 'safe'),
-			array('element_id, ophcianassessment_examination_teeth_id', 'required'),
-			array('id, element_id, ophcianassessment_examination_teeth_id', 'safe', 'on' => 'search'),
+			array('element_id, teeth_id', 'safe'),
+			array('element_id, teeth_id', 'required'),
+			array('id, element_id, teeth_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -70,7 +70,7 @@ class Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment extends Ba
 	{
 		return array(
 			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_Examination', 'element_id'),
-			'ophcianassessment_examination_teeth' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_Teeth', 'ophcianassessment_examination_teeth_id'),
+			'ophcianassessment_examination_teeth' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_Teeth', 'teeth_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 		);

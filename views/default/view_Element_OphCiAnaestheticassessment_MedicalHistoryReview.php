@@ -17,12 +17,6 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<section class="element">
-	<header class="element-header">
-		<h3 class="element-title"><?php echo $element->elementType->name?></h3>
-	</header>
-
 	<div class="element-data">
 		<?php $this->widget('application.widgets.MedicationSelection', array(
 			'element' => $element,
@@ -68,4 +62,3 @@
 		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'alcohol_use', 'text_fields' => array('alcohol_type','alcohol_amount','alcohol_quit_date')))?>
 		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'recreational_drug_use', 'text_fields' => array('drug_name','drug_amount','drug_quit_date')))?>
 	</div>
-</section>

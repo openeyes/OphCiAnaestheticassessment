@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_dvt_heparin_contraindication_assignment".
+ * This is the model class for table "ophcianassessment_dvt_heparin_contra_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -49,7 +49,7 @@ class OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment extends
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_dvt_heparin_contraindication_assignment';
+		return 'ophcianassessment_dvt_heparin_contra_assignment';
 	}
 
 	/**

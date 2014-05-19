@@ -81,9 +81,9 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'risk_factors_a_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
 			'risk_factors_b' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor', 'ophcianassessment_dvt_risk_factor_assignment(element_id,risk_factor_id)', 'condition' => 'section_id = 2'),
 			'risk_factors_b_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
-			'stocking_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication', 'ophcianassessment_dvt_stocking_contraindication_assignment(element_id,contraindication_id)'),
+			'stocking_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication', 'ophcianassessment_dvt_stocking_contra_assignment(element_id,contraindication_id)'),
 			'stocking_contraindications_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication_Assignment', 'element_id'),
-			'heparin_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication', 'ophcianassessment_dvt_heparin_contraindication_assignment(element_id,contraindication_id)'),
+			'heparin_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication', 'ophcianassessment_dvt_heparin_contra_assignment(element_id,contraindication_id)'),
 			'heparin_contraindications_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment', 'element_id'),
 		);
 	}

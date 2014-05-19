@@ -52,7 +52,7 @@
  * @property OphCiAnaestheticassessment_Examination_WeightCalculation $weight_calculation
  * @property OphCiAnaestheticassessment_Examination_HeightCalculation $height_calculation
  * @property OphCiAnaestheticassessment_Examination_AirwayClass $airway_class
- * @property Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment $teeths
+ * @property OphCiAnaestheticassessment_Examination_Teeth_Assignment $teeths
  * @property Element_OphCiAnaestheticassessment_Examination_Dental_Assignment $dentals
  */
 
@@ -100,7 +100,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'weight_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_WeightCalculation', 'weight_calculation_id'),
 			'height_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_HeightCalculation', 'height_calculation_id'),
 			'airway_class' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_AirwayClass', 'airway_class_id'),
-			'teeths' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment', 'element_id'),
+			'teeths' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Examination_Teeth_Assignment', 'element_id'),
 		);
 	}
 
@@ -175,10 +175,10 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public function updateTeeth($teeth_ids)
 	{
 		foreach ($teeth_ids as $teeth_id) {
-			if (!$assignment = Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->find('element_id=? and ophcianassessment_examination_teeth_id=?',array($this->id,$teeth_id))) {
-				$assignment = new Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment;
+			if (!$assignment = OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->find('element_id=? and teeth_id=?',array($this->id,$teeth_id))) {
+				$assignment = new OphCiAnaestheticassessment_Examination_Teeth_Assignment;
 				$assignment->element_id = $this->id;
-				$assignment->ophcianassessment_examination_teeth_id = $teeth_id;
+				$assignment->teeth_id = $teeth_id;
 
 				if (!$assignment->save()) {
 					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
@@ -189,9 +189,9 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		$criteria = new CDbCriteria;
 		$criteria->addCondition('element_id = :element_id');
 		$criteria->params[':element_id'] = $this->id;
-		$criteria->addNotInCondition('ophcianassessment_examination_teeth_id',$teeth_ids);
+		$criteria->addNotInCondition('teeth_id',$teeth_ids);
 
-		Element_OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->deleteAll($criteria);
+		OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->deleteAll($criteria);
 	}
 
 	public function formatDecimal($field)
