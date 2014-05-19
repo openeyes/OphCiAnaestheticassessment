@@ -17,45 +17,34 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<section class="element <?php echo $element->elementType->class_name?>"
-	data-element-type-id="<?php echo $element->elementType->id?>"
-	data-element-type-class="<?php echo $element->elementType->class_name?>"
-	data-element-type-name="<?php echo $element->elementType->name?>"
-	data-element-display-order="<?php echo $element->elementType->display_order?>">
-	<header class="element-header">
-		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
-	</header>
-
-	<div class="element-fields">
-		<?php echo $form->radioBoolean($element, 'exclusion_criteria_met', array('class' => 'linked-fields','data-linked-fields' => 'MultiSelect_ExclusionFactors', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->multiSelectList($element, 'MultiSelect_ExclusionFactors', 'exclusion_factors_assignment', 'exclusion_factor_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Exclusion_Factor::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Exclusion factors'),!$element->exclusion_criteria_met,false,null,false,false,array('label' => 3,'field' => 5))?>
-		<div id="dvt_excluded_fields"<?php if (!empty($element->exclusion_factors)) {?> style="display: none"<?php }?>>
-			<?php echo $form->multiSelectList($element, 'MultiSelect_RiskFactors_A', 'risk_factors_a_assignment', 'risk_factor_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findAll(array('condition'=>'section_id=1','order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Risk factors A'),false,false,null,false,false,array('label' => 3,'field' => 5))?>
-			<?php echo $form->multiSelectList($element, 'MultiSelect_RiskFactors_B', 'risk_factors_b_assignment', 'risk_factor_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findAll(array('condition'=>'section_id=2','order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Risk factors B'),false,false,null,false,false,array('label' => 3,'field' => 5))?>
-			<div id="div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level" class="eventDetail row field-row widget">
-				<div class="large-3 column">
-					<label for="Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level">
-						Risk level
-					</label>
-				</div>
-				<div class="large-4 column end riskLevel <?php echo $element->riskLevelColour?>">
-					<?php echo $element->riskLevel?> (<?php echo $element->riskScore?> point<?php echo $element->riskScore == 1 ? '' : 's'?>)
-				</div>
+<div class="element-fields">
+	<?php echo $form->radioBoolean($element, 'exclusion_criteria_met', array('class' => 'linked-fields','data-linked-fields' => 'MultiSelect_ExclusionFactors', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->multiSelectList($element, 'MultiSelect_ExclusionFactors', 'exclusion_factors_assignment', 'exclusion_factor_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Exclusion_Factor::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Exclusion factors'),!$element->exclusion_criteria_met,false,null,false,false,array('label' => 3,'field' => 5))?>
+	<div id="dvt_excluded_fields"<?php if (!empty($element->exclusion_factors)) {?> style="display: none"<?php }?>>
+		<?php echo $form->multiSelectList($element, 'MultiSelect_RiskFactors_A', 'risk_factors_a_assignment', 'risk_factor_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findAll(array('condition'=>'section_id=1','order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Risk factors A'),false,false,null,false,false,array('label' => 3,'field' => 5))?>
+		<?php echo $form->multiSelectList($element, 'MultiSelect_RiskFactors_B', 'risk_factors_b_assignment', 'risk_factor_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findAll(array('condition'=>'section_id=2','order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Risk factors B'),false,false,null,false,false,array('label' => 3,'field' => 5))?>
+		<div id="div_Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level" class="eventDetail row field-row widget">
+			<div class="large-3 column">
+				<label for="Element_OphCiAnaestheticassessment_DvtAssessment_Risk_Level">
+					Risk level
+				</label>
 			</div>
-			<div id="div_Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required" class="eventDetail row field-row widget">
-				<div class="large-3 column">
-					<label for="Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required">
-						Prophylaxis required
-					</label>
-				</div>
-				<div class="large-9 column end prophylaxisRequired">
-					<?php echo str_replace("\n","<br/>",$element->prophylaxisRequired)?>
-				</div>
+			<div class="large-4 column end riskLevel <?php echo $element->riskLevelColour?>">
+				<?php echo $element->riskLevel?> (<?php echo $element->riskScore?> point<?php echo $element->riskScore == 1 ? '' : 's'?>)
 			</div>
-			<?php echo $form->multiSelectList($element, 'MultiSelect_stocking_contraindications', 'stocking_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to graduated compression stockings'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
-			<?php echo $form->multiSelectList($element, 'MultiSelect_heparin_contraindications', 'heparin_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to low molecular weight heparin (LMWH)'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
-			<?php echo $form->checkBox($element, 'prophylaxis_ordered', array('text-align' => 'right'), array('label' => 3, 'field' => 9))?>
 		</div>
+		<div id="div_Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required" class="eventDetail row field-row widget">
+			<div class="large-3 column">
+				<label for="Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required">
+					Prophylaxis required
+				</label>
+			</div>
+			<div class="large-9 column end prophylaxisRequired">
+				<?php echo str_replace("\n","<br/>",$element->prophylaxisRequired)?>
+			</div>
+		</div>
+		<?php echo $form->multiSelectList($element, 'MultiSelect_stocking_contraindications', 'stocking_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to graduated compression stockings'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
+		<?php echo $form->multiSelectList($element, 'MultiSelect_heparin_contraindications', 'heparin_contraindications_assignment', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to low molecular weight heparin (LMWH)'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
+		<?php echo $form->checkBox($element, 'prophylaxis_ordered', array('text-align' => 'right'), array('label' => 3, 'field' => 9))?>
 	</div>
-</section>
+</div>

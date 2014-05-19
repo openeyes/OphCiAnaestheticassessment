@@ -17,40 +17,29 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<section class="element <?php echo $element->elementType->class_name?>"
-	data-element-type-id="<?php echo $element->elementType->id?>"
-	data-element-type-class="<?php echo $element->elementType->class_name?>"
-	data-element-type-name="<?php echo $element->elementType->name?>"
-	data-element-display-order="<?php echo $element->elementType->display_order?>">
-	<header class="element-header">
-		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
-	</header>
-
-	<div class="element-fields">
-		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id" class="row field-row">
-			<div class="large-3 column">
-				<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id">
-					<?php echo $element->getAttributeLabel('eye_id')?>:
-				</label>
-			</div>
-			<div class="large-3 column end">
-				<?php echo $element->eye->name?>
-				<input type="hidden" name="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification[eye_id]" value="<?php echo $element->eye_id?>" />
-			</div>
+<div class="element-fields">
+	<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id" class="row field-row">
+		<div class="large-3 column">
+			<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id">
+				<?php echo $element->getAttributeLabel('eye_id')?>:
+			</label>
 		</div>
-		<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id" class="row field-row">
-			<div class="large-3 column">
-				<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id">
-					<?php echo $element->getAttributeLabel('procedure_id')?>:
-				</label>
-			</div>
-			<div class="large-9 column end">
-				<?php foreach ($element->procedures as $procedure) {?>
-					<div><?php echo $procedure->procedure->term?></div>
-					<input type="hidden" name="<?php echo get_class($element)?>[procedure_id][]" value="<?php echo $procedure->proc_id?>" />
-				<?php }?>
-			</div>
+		<div class="large-3 column end">
+			<?php echo $element->eye->name?>
+			<input type="hidden" name="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification[eye_id]" value="<?php echo $element->eye_id?>" />
 		</div>
 	</div>
-</section>
+	<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id" class="row field-row">
+		<div class="large-3 column">
+			<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id">
+				<?php echo $element->getAttributeLabel('procedure_id')?>:
+			</label>
+		</div>
+		<div class="large-9 column end">
+			<?php foreach ($element->procedures as $procedure) {?>
+				<div><?php echo $procedure->procedure->term?></div>
+				<input type="hidden" name="<?php echo get_class($element)?>[procedure_id][]" value="<?php echo $procedure->proc_id?>" />
+			<?php }?>
+		</div>
+	</div>
+</div>

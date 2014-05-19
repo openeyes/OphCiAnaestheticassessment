@@ -39,7 +39,7 @@
  * @property User $user
  * @property User $usermodified
  * @property OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval $surgery_approval
- * @property Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment $not_apps
+ * @property OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment $not_apps
  * @property OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance $acceptance
  * @property OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel $asa_level
  * @property OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan $anesthesia_plan
@@ -87,7 +87,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'surgery_approval' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval', 'surgery_approval_id'),
-			'not_apps' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment', 'element_id'),
+			'not_apps' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment', 'element_id'),
 			'acceptance' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance', 'acceptance_id'),
 			'asa_level' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel', 'asa_level_id'),
 			'anesthesia_plan' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan', 'anesthesia_plan_id'),

@@ -30,7 +30,7 @@
 							None
 						<?php } else {?>
 								<?php foreach ($element->speced_ids as $item) {
-									echo $item->ophcianassessment_specificeducation_speced_id->name?><br/>
+									echo $item->ophcianassessment_speced_instructions->name?><br/>
 								<?php }?>
 						<?php }?>
 			</div></div>

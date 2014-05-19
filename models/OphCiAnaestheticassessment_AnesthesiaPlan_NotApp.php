@@ -17,7 +17,7 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_anesthesiaplan_not_app".
+ * This is the model class for table "ophcianassessment_anesthesiaplan_na".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -48,7 +48,7 @@ class OphCiAnaestheticassessment_AnesthesiaPlan_NotApp extends BaseActiveRecordV
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_anesthesiaplan_not_app';
+		return 'ophcianassessment_anesthesiaplan_na';
 	}
 
 	/**

@@ -17,20 +17,9 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<section class="element <?php echo $element->elementType->class_name?>"
-	data-element-type-id="<?php echo $element->elementType->id?>"
-	data-element-type-class="<?php echo $element->elementType->class_name?>"
-	data-element-type-name="<?php echo $element->elementType->name?>"
-	data-element-display-order="<?php echo $element->elementType->display_order?>">
-	<header class="element-header">
-		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
-	</header>
-
-	<div class="element-fields">
-		<?php echo $form->multiSelectList($element, 'MultiSelect_speced_id', 'speced_ids', 'ophcianassessment_specificeducation_speced_id_id', CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Patient specific education','class' => 'linked-fields','data-linked-fields'=>'medications,other','data-linked-values'=>'Medications,Other (please specify)'),false,false,null,false,false,array('label'=>3,'field'=>4))?>
-		<?php echo $form->textField($element, 'medications', array('hide' => !$element->hasMultiSelectValue('speced_ids','Medications')), array(), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->textField($element, 'other', array('hide' => !$element->hasMultiSelectValue('speced_ids','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->multiSelectList($element, 'MultiSelect_Diabetes', 'diabetes_items', 'item_id', CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Diabetes instructions'),false,false,null,false,false,array('label'=>3,'field'=>4))?>
-	</div>
-</section>
+<div class="element-fields">
+	<?php echo $form->multiSelectList($element, 'MultiSelect_speced_id', 'speced_ids', 'instruction_id', CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Patient specific education','class' => 'linked-fields','data-linked-fields'=>'medications,other','data-linked-values'=>'Medications,Other (please specify)'),false,false,null,false,false,array('label'=>3,'field'=>4))?>
+	<?php echo $form->textField($element, 'medications', array('hide' => !$element->hasMultiSelectValue('speced_ids','Medications')), array(), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->textField($element, 'other', array('hide' => !$element->hasMultiSelectValue('speced_ids','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->multiSelectList($element, 'MultiSelect_Diabetes', 'diabetes_items', 'item_id', CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Diabetes instructions'),false,false,null,false,false,array('label'=>3,'field'=>4))?>
+</div>

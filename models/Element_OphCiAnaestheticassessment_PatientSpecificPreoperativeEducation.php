@@ -118,10 +118,10 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	public function updateSpeceds($speced_ids)
 	{
 		foreach ($speced_ids as $speced_id) {
-			if (!$assignment = Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->find('element_id=? and ophcianassessment_specificeducation_speced_id_id=?',array($this->id,$speced_id))) {
+			if (!$assignment = Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->find('element_id=? and instruction_id=?',array($this->id,$speced_id))) {
 				$assignment = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment;
 				$assignment->element_id = $this->id;
-				$assignment->ophcianassessment_specificeducation_speced_id_id = $speced_id;
+				$assignment->instruction_id = $speced_id;
 
 				if (!$assignment->save()) {
 					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
@@ -132,7 +132,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		$criteria = new CDbCriteria;
 		$criteria->addCondition('element_id = :element_id');
 		$criteria->params[':element_id'] = $this->id;
-		$criteria->addNotInCondition('ophcianassessment_specificeducation_speced_id_id',$speced_ids);
+		$criteria->addNotInCondition('instruction_id',$speced_ids);
 
 		Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->deleteAll($criteria);
 	}

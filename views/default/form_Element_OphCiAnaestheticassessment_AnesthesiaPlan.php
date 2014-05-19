@@ -17,24 +17,13 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<section class="element <?php echo $element->elementType->class_name?>"
-	data-element-type-id="<?php echo $element->elementType->id?>"
-	data-element-type-class="<?php echo $element->elementType->class_name?>"
-	data-element-type-name="<?php echo $element->elementType->name?>"
-	data-element-display-order="<?php echo $element->elementType->display_order?>">
-	<header class="element-header">
-		<h3 class="element-title"><?php echo $element->elementType->name; ?></h3>
-	</header>
-
-	<div class="element-fields">
-		<?php echo $form->dropDownList($element, 'surgery_approval_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -','class'=>'linked-fields','data-linked-fields'=>'MultiSelect_not_app,acceptance_id','data-linked-values'=>'Not approved for surgery,Awaiting further information do not schedule'),false,array('label' => 3, 'field' => 4))?>
-		<?php echo $form->multiSelectList($element, 'MultiSelect_not_app', 'not_apps', 'ophcianassessment_anesthesiaplan_not_app_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_NotApp::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Reason for not approving patient for surgery','class'=>'linked-fields','data-linked-fields'=>'com_na','data-linked-values'=>'Other (please specify)'),!$element->surgery_approval || $element->surgery_approval->name != 'Not approved for surgery',false,null,false,false,array('label' => 3,'field' => 4))?>
-		<?php echo $form->textField($element, 'com_na', array('hide' => !$element->hasMultiSelectValue('not_apps','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->dropDownList($element, 'acceptance_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -','class' => 'linked-fields','data-linked-fields'=>'waiting_comments','data-linked-values'=>'Other (please specify)'),!$element->surgery_approval || $element->surgery_approval->name != 'Awaiting further information do not schedule',array('label' => 3, 'field' => 4))?>
-		<?php echo $form->textField($element, 'waiting_comments', array('hide' => !$element->acceptance || $element->acceptance->name != 'Other (please specify)'), array(), array('label' => 3, 'field' => 4))?>
-		<?php echo $form->dropDownList($element, 'asa_level_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'),false,array('label' => 3, 'field' => 4))?>
-		<?php echo $form->dropDownList($element, 'anesthesia_plan_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'),false,array('label' => 3, 'field' => 4))?>
-		<?php echo $form->textArea($element, 'anesthesia_plan_comment', array(), false, array(), array('label' => 3, 'field' => 4))?>
-	</div>
-</section>
+<div class="element-fields">
+	<?php echo $form->dropDownList($element, 'surgery_approval_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -','class'=>'linked-fields','data-linked-fields'=>'MultiSelect_not_app,acceptance_id','data-linked-values'=>'Not approved for surgery,Awaiting further information do not schedule'),false,array('label' => 3, 'field' => 4))?>
+	<?php echo $form->multiSelectList($element, 'MultiSelect_not_app', 'not_apps', 'na_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_NotApp::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Reason for not approving patient for surgery','class'=>'linked-fields','data-linked-fields'=>'com_na','data-linked-values'=>'Other (please specify)'),!$element->surgery_approval || $element->surgery_approval->name != 'Not approved for surgery',false,null,false,false,array('label' => 3,'field' => 4))?>
+	<?php echo $form->textField($element, 'com_na', array('hide' => !$element->hasMultiSelectValue('not_apps','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->dropDownList($element, 'acceptance_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -','class' => 'linked-fields','data-linked-fields'=>'waiting_comments','data-linked-values'=>'Other (please specify)'),!$element->surgery_approval || $element->surgery_approval->name != 'Awaiting further information do not schedule',array('label' => 3, 'field' => 4))?>
+	<?php echo $form->textField($element, 'waiting_comments', array('hide' => !$element->acceptance || $element->acceptance->name != 'Other (please specify)'), array(), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->dropDownList($element, 'asa_level_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'),false,array('label' => 3, 'field' => 4))?>
+	<?php echo $form->dropDownList($element, 'anesthesia_plan_id', CHtml::listData(OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'),false,array('label' => 3, 'field' => 4))?>
+	<?php echo $form->textArea($element, 'anesthesia_plan_comment', array(), false, array(), array('label' => 3, 'field' => 4))?>
+</div>

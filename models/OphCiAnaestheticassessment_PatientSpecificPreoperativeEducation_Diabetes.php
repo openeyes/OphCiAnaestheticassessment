@@ -17,7 +17,7 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_specificeducation_diabetes".
+ * This is the model class for table "ophcianassessment_speced_diabetes".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -48,7 +48,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes e
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_specificeducation_diabetes';
+		return 'ophcianassessment_speced_diabetes';
 	}
 
 	/**

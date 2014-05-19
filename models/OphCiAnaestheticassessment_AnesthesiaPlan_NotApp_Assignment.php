@@ -17,12 +17,12 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_anesthesiaplan_not_app_assignment".
+ * This is the model class for table "ophcianassessment_anesthesiaplan_na_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $element_id
- * @property integer $ophcianassessment_anesthesiaplan_not_app_id
+ * @property integer $na_id
  *
  * The followings are the available model relations:
  *
@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment extends BaseActiveRecordVersioned
+class OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment extend
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_anesthesiaplan_not_app_assignment';
+		return 'ophcianassessment_anesthesiaplan_na_assignment';
 	}
 
 	/**
@@ -57,9 +57,9 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment extend
 	public function rules()
 	{
 		return array(
-			array('element_id, ophcianassessment_anesthesiaplan_not_app_id', 'safe'),
-			array('element_id, ophcianassessment_anesthesiaplan_not_app_id', 'required'),
-			array('id, element_id, ophcianassessment_anesthesiaplan_not_app_id', 'safe', 'on' => 'search'),
+			array('element_id, na_id', 'safe'),
+			array('element_id, na_id', 'required'),
+			array('id, element_id, na_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -70,7 +70,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment extend
 	{
 		return array(
 			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_AnesthesiaPlan', 'element_id'),
-			'ophcianassessment_anesthesiaplan_not_app' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_NotApp', 'ophcianassessment_anesthesiaplan_not_app_id'),
+			'ophcianassessment_anesthesiaplan_not_app' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_NotApp', 'na_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 		);

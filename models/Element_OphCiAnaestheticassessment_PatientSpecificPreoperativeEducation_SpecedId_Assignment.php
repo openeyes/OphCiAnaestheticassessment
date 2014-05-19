@@ -17,17 +17,17 @@
  */
 
 /**
- * This is the model class for table "et_ophcianassessment_specificeducation_speced_id_assignment".
+ * This is the model class for table "ophcianassessment_speced_instructions_assignment".
  *
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $element_id
- * @property integer $ophcianassessment_specificeducation_speced_id_id
+ * @property integer $instruction_id
  *
  * The followings are the available model relations:
  *
  * @property Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation $element
- * @property OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId $ophcianassessment_specificeducation_speced_id
+ * @property OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId $ophcianassessment_speced_instructions
  * @property User $user
  * @property User $usermodified
  */
@@ -48,7 +48,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Sp
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianassessment_specificeducation_speced_id_assignment';
+		return 'ophcianassessment_speced_instructions_assignment';
 	}
 
 	/**
@@ -57,9 +57,9 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Sp
 	public function rules()
 	{
 		return array(
-			array('element_id, ophcianassessment_specificeducation_speced_id_id', 'safe'),
-			array('element_id, ophcianassessment_specificeducation_speced_id_id', 'required'),
-			array('id, element_id, ophcianassessment_specificeducation_speced_id_id', 'safe', 'on' => 'search'),
+			array('element_id, instruction_id', 'safe'),
+			array('element_id, instruction_id', 'required'),
+			array('id, element_id, instruction_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -70,7 +70,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Sp
 	{
 		return array(
 			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'element_id'),
-			'ophcianassessment_specificeducation_speced_id' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId', 'ophcianassessment_specificeducation_speced_id_id'),
+			'ophcianassessment_speced_instructions' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId', 'instruction_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 		);
@@ -105,7 +105,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Sp
 
 	public function getName()
 	{
-		return $this->ophcianassessment_specificeducation_speced_id->name;
+		return $this->ophcianassessment_speced_instructions->name;
 	}
 }
 ?>
