@@ -17,7 +17,7 @@
  */
 
 /**
- * This is the model class for table "ophcianaestheticassessment_patient_identifier".
+ * This is the model class for table "ophcianassessment_patient_identifier".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -48,7 +48,7 @@ class OphCiAnaestheticassessment_Patient_Identifier extends BaseActiveRecordVers
 	 */
 	public function tableName()
 	{
-		return 'ophcianaestheticassessment_patient_identifier';
+		return 'ophcianassessment_patient_identifier';
 	}
 
 	/**
