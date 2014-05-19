@@ -150,11 +150,11 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 		OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment::model()->deleteAll($criteria);
 	}
 
-	public function updateRiskFactors($risk_factors)
+	public function updateRiskFactors($risk_factors_a, $risk_factors_b)
 	{
 		$ids = array();
 
-		foreach ($risk_factors as $risk_factor_id) {
+		foreach (array_merge($risk_factors_a,$risk_factors_b) as $risk_factor_id) {
 			if (!$assignment = OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment::model()->find('element_id=? and risk_factor_id=?',array($this->id,$risk_factor_id))) {
 				$assignment = new OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment;
 				$assignment->element_id = $this->id;
