@@ -164,7 +164,7 @@ class DefaultController extends BaseEventTypeController
 
 		if (!empty($data['MultiSelect_speced_id'])) {
 			foreach ($data['MultiSelect_speced_id'] as $speced_id) {
-				$speceds[] = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId::model()->findByPk($speced_id);
+				$speceds[] = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findByPk($speced_id);
 			}
 		}
 

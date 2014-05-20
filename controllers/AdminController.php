@@ -238,7 +238,7 @@ class AdminController extends ModuleAdminController
 	{
 		$this->render('//admin/generic_admin',array(
 			'title' => 'Patient specific education',
-			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId',
+			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions',
 		));
 	}
 

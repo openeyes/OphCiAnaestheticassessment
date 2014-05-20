@@ -27,7 +27,7 @@
  * The followings are the available model relations:
  *
  * @property Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation $element
- * @property OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId $ophcianassessment_speced_instructions
+ * @property OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions $ophcianassessment_speced_instructions
  * @property User $user
  * @property User $usermodified
  */
@@ -70,7 +70,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 	{
 		return array(
 			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'element_id'),
-			'ophcianassessment_speced_instructions' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId', 'instruction_id'),
+			'ophcianassessment_speced_instructions' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 		);
