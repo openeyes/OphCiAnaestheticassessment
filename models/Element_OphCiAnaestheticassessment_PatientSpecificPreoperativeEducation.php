@@ -33,7 +33,7 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment $speced_ids
+ * @property OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment $speced_ids
  */
 
 class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  extends	BaseEventTypeElement
@@ -77,7 +77,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'speced_ids' => array(self::HAS_MANY, 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment', 'element_id'),
+			'speced_ids' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment', 'element_id'),
 			'diabetes_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment', 'element_id'),
 		);
 	}
@@ -118,8 +118,8 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	public function updateSpeceds($speced_ids)
 	{
 		foreach ($speced_ids as $speced_id) {
-			if (!$assignment = Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->find('element_id=? and instruction_id=?',array($this->id,$speced_id))) {
-				$assignment = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment;
+			if (!$assignment = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment::model()->find('element_id=? and instruction_id=?',array($this->id,$speced_id))) {
+				$assignment = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment;
 				$assignment->element_id = $this->id;
 				$assignment->instruction_id = $speced_id;
 
@@ -134,7 +134,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		$criteria->params[':element_id'] = $this->id;
 		$criteria->addNotInCondition('instruction_id',$speced_ids);
 
-		Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_SpecedId_Assignment::model()->deleteAll($criteria);
+		OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment::model()->deleteAll($criteria);
 	}
 
 	protected function beforeValidate()
