@@ -45,7 +45,6 @@ $(document).ready(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val() != '') {
 			var ft = Math.floor($(this).val() * 0.032808399);
 			var inch = Math.round(($(this).val() - (ft / 0.032808399)) * 0.393700787);
-
 			$('#Element_OphCiAnaestheticassessment_Examination_height_ft').val(ft);
 			$('#Element_OphCiAnaestheticassessment_Examination_height_in').val(inch);
 		}
@@ -54,12 +53,14 @@ $(document).ready(function() {
 	$('#Element_OphCiAnaestheticassessment_Examination_height_ft').change(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() != '') {
 			$('#Element_OphCiAnaestheticassessment_Examination_height_cm').val(Math.round(($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() * 30.48) + ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() * 2.54)));
+			update_bmi();
 		}
 	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_height_in').change(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() != '') {
 			$('#Element_OphCiAnaestheticassessment_Examination_height_cm').val(Math.round(($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() * 30.48) + ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() * 2.54)));
+			update_bmi();
 		}
 	});
 
@@ -127,19 +128,13 @@ $(document).ready(function() {
 
 	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
 		$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').val(parseFloat($(this).val() * 2.20462).toFixed(1));
+		debugger;
 		update_bmi();
 	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').change(function() {
 		$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val(parseFloat($(this).val() / 2.20462).toFixed(1));
-		update_bmi();
-	});
-
-	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
-		update_bmi();
-	});
-
-	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
+		debugger;
 		update_bmi();
 	});
 });
