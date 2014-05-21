@@ -36,7 +36,7 @@
 										None
 									<?php } else {?>
 											<?php foreach ($element->$relation as $item) {
-												echo $item->item->name?><br/>
+												echo $item->name?><br/>
 											<?php }?>
 									<?php }?>
 						</div></div>

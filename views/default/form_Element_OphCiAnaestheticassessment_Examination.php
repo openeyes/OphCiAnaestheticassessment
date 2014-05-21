@@ -139,5 +139,5 @@
 	<?php echo $form->textField($element, 'heart', array(), array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'lungs', array(), array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'abdomen', array(), array(), array('label' => 3, 'field' => 4))?>
-	<?php echo $form->multiSelectList($element, 'MultiSelect_teeth', 'teeths', 'teeth_id', CHtml::listData(OphCiAnaestheticassessment_Examination_Teeth::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Teeth'),false,false,null,false,false,array('label' => 3, 'field' => 4),false,'No foreseen issues')?>
+	<?php echo $form->multiSelectList($element, 'teeths', 'teeths', 'teeth_id', CHtml::listData(OphCiAnaestheticassessment_Examination_Teeth::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Teeth'),false,false,null,false,false,array('label' => 3, 'field' => 4),false,'No foreseen issues')?>
 </div>

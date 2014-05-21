@@ -39,6 +39,8 @@
 
 class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 {
+	protected $auto_update_relations = true;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -62,7 +64,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	public function rules()
 	{
 		return array(
-			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe'),
+			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, identifiers', 'safe'),
 			array('id, event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -74,12 +76,12 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	{
 		return array(
 			'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
-			'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'translator_present' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_TranslatorPresent', 'translator_present_id'),
-			'identifiers' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Patient_Identifier_Assignment', 'element_id'),
+			'identifiers_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Patient_Identifier_Assignment', 'element_id'),
+			'identifiers' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Patient_Identifier', 'identifier_id', 'through' => 'identifiers_assignment'),
 		);
 	}
 

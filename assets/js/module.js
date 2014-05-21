@@ -39,8 +39,6 @@ $(document).ready(function() {
 		}
 	});
 
-
-
 	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val() != '') {
 			var ft = Math.floor($(this).val() * 0.032808399);
@@ -109,7 +107,7 @@ $(document).ready(function() {
 		} 
 	});
 
-	$('#MultiSelect_ExclusionFactors').bind('MultiSelectChanged',function(e) {
+	$('select[id="Element_OphCiAnaestheticassessment_DvtAssessment[exclusion_factors]"]').bind('MultiSelectChanged',function(e) {
 		if ($(this).parent().next('ul').children().length == 1) {
 			$('#dvt_excluded_fields').slideDown('fast');
 		} else {
@@ -117,11 +115,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#MultiSelect_RiskFactors_A').bind('MultiSelectChanged',function(e) {
-		update_risk_prophylaxis();
-	});
-
-	$('#MultiSelect_RiskFactors_B').bind('MultiSelectChanged',function(e) {
+	$('select[id="Element_OphCiAnaestheticassessment_DvtAssessment[risk_factors]"]').bind('MultiSelectChanged',function(e) {
 		update_risk_prophylaxis();
 	});
 

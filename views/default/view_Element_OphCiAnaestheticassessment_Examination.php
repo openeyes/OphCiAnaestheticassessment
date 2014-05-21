@@ -144,7 +144,7 @@
 							No foreseen issues
 						<?php } else {?>
 								<?php foreach ($element->teeths as $item) {
-									echo $item->ophcianassessment_examination_teeth->name?><br/>
+									echo $item->name?><br/>
 								<?php }?>
 						<?php }?>
 			</div></div>

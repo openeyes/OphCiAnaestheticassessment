@@ -47,6 +47,8 @@
 
 class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeElement
 {
+	protected $auto_update_relations = true;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -70,7 +72,7 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 	public function rules()
 	{
 		return array(
-			array('event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe'),
+			array('event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, not_apps', 'safe'),
 			array('id, event_id, surgery_approval_id, com_na, acceptance_id, waiting_comments, asa_level_id, anesthesia_plan_id, anesthesia_plan_comment, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -87,7 +89,8 @@ class Element_OphCiAnaestheticassessment_AnesthesiaPlan  extends  BaseEventTypeE
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'surgery_approval' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval', 'surgery_approval_id'),
-			'not_apps' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment', 'element_id'),
+			'not_apps_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_AnesthesiaPlan_NotApp_Assignment', 'element_id'),
+			'not_apps' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_AnesthesiaPlan_NotApp', 'na_id', 'through' => 'not_apps_assignment'),
 			'acceptance' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_Acceptance', 'acceptance_id'),
 			'asa_level' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel', 'asa_level_id'),
 			'anesthesia_plan' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan', 'anesthesia_plan_id'),

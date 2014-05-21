@@ -29,7 +29,7 @@
 								None
 							<?php } else {?>
 									<?php foreach ($element->not_apps as $item) {
-										echo $item->ophcianassessment_anesthesiaplan_not_app->name?><br/>
+										echo $item->name?><br/>
 									<?php }?>
 							<?php }?>
 				</div></div>

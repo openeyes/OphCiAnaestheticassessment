@@ -58,6 +58,8 @@
 
 class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeElement
 {
+	protected $auto_update_relations = true;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -81,7 +83,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public function rules()
 	{
 		return array(
-			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'safe'),
+			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeths', 'safe'),
 			array('id, event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'safe', 'on' => 'search'),
 		);
 	}
@@ -93,14 +95,14 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	{
 		return array(
 			'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
-			'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'weight_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_WeightCalculation', 'weight_calculation_id'),
 			'height_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_HeightCalculation', 'height_calculation_id'),
 			'airway_class' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_AirwayClass', 'airway_class_id'),
-			'teeths' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Examination_Teeth_Assignment', 'element_id'),
+			'teeths' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Examination_Teeth', 'teeth_id', 'through' => 'teeths_assignment'),
+			'teeths_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Examination_Teeth_Assignment', 'element_id'),
 		);
 	}
 

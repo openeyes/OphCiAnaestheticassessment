@@ -55,6 +55,8 @@
 
 class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEventTypeElement
 {
+	protected $auto_update_relations = true;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -78,7 +80,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date', 'safe'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, surgery', 'safe'),
 			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
 			array('previous_surgical_procedures,patient_anesthesia,family_anesthesia,pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use', 'required'),
 		);
@@ -97,24 +99,42 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'medications' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Medication', 'element_id'),
 			'allergies' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Allergy', 'element_id'),
-			'dentals' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Dental_Assignment', 'element_id'),
-			'cardio' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Cardio_Assignment', 'element_id'),
-			'diabetes_monitor' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Diabetes_Monitor_Assignment', 'element_id'),
-			'diabetes_treatment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Diabetes_Treatment_Assignment', 'element_id'),
-			'falls' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Falls_Assignment', 'element_id'),
-			'family_anesthesia_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Family_Anesthesia_Assignment', 'element_id'),
-			'gi' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_GI_Assignment', 'element_id'),
-			'gre' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_GRE_Assignment', 'element_id'),
-			'cardiac_devices' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Implant_Cardiac_Device_Assignment', 'element_id'),
-			'prosthetics' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Implant_Prosthetic_Assignment', 'element_id'),
-			'misc' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Misc_Assignment', 'element_id'),
-			'neuro' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Neuro_Assignment', 'element_id'),
-			'patient_anesthesia_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia_Assignment', 'element_id'),
-			'pregnancy' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pregnancy_Assignment', 'element_id'),
-			'psychiatric_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Psychiatric_Assignment', 'element_id'),
-			'pulmonary' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pulmonary_Assignment', 'element_id'),
-			'smoking' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking_Assignment', 'element_id'),
-			'surgery' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Surgery_Assignment', 'element_id'),
+			'dentals' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Dental', 'dental_id', 'through' => 'dentals_assignments'),
+			'dentals_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Dental_Assignment', 'element_id'),
+			'cardio' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Cardio', 'item_id', 'through' => 'cardio_assignments'),
+			'cardio_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Cardio_Assignment', 'element_id'),
+			'diabetes_monitor' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Diabetes_Monitor', 'item_id', 'through' => 'diabetes_monitor_assignments'),
+			'diabetes_monitor_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Diabetes_Monitor_Assignment', 'element_id'),
+			'diabetes_treatment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Diabetes_Treatment', 'item_id', 'through' => 'diabetes_treatment_assignments'),
+			'diabetes_treatment_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Diabetes_Treatment_Assignment', 'element_id'),
+			'falls' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Falls', 'item_id', 'through' => 'falls_assignments'),
+			'falls_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Falls_Assignment', 'element_id'),
+			'family_anesthesia_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Family_Anesthesia', 'item_id', 'through' => 'family_anesthesia_items_assignments'),
+			'family_anesthesia_items_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Family_Anesthesia_Assignment', 'element_id'),
+			'gi' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_GI', 'item_id', 'through' => 'gi_assignments'),
+			'gi_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_GI_Assignment', 'element_id'),
+			'gre' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_GRE', 'item_id', 'through' => 'gre_assignments'),
+			'gre_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_GRE_Assignment', 'element_id'),
+			'cardiac_devices' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Implant_Cardiac_Device', 'item_id', 'through' => 'cardiac_devices_assignments'),
+			'cardiac_devices_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Implant_Cardiac_Device_Assignment', 'element_id'),
+			'prosthetics' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Implant_Prosthetic', 'item_id', 'through' => 'prosthetics_assignments'),
+			'prosthetics_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Implant_Prosthetic_Assignment', 'element_id'),
+			'misc' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Misc', 'item_id', 'through' => 'misc_assignments'),
+			'misc_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Misc_Assignment', 'element_id'),
+			'neuro' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Neuro', 'item_id', 'through' => 'neuro_assignments'),
+			'neuro_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Neuro_Assignment', 'element_id'),
+			'patient_anesthesia_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia', 'item_id', 'through' => 'patient_anesthesia_items_assignments'),
+			'patient_anesthesia_items_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia_Assignment', 'element_id'),
+			'pregnancy' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pregnancy', 'item_id', 'through' => 'pregnancy_assignments'),
+			'pregnancy_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pregnancy_Assignment', 'element_id'),
+			'psychiatric_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Psychiatric', 'item_id', 'through' => 'psychiatric_items_assignments'),
+			'psychiatric_items_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Psychiatric_Assignment', 'element_id'),
+			'pulmonary' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pulmonary', 'item_id', 'through' => 'pulmonary_assignments'),
+			'pulmonary_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pulmonary_Assignment', 'element_id'),
+			'smoking' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking', 'item_id', 'through' => 'smoking_assignments'),
+			'smoking_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking_Assignment', 'element_id'),
+			'surgery' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Surgery', 'item_id', 'through' => 'surgery_assignments'),
+			'surgery_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Surgery_Assignment', 'element_id'),
 		);
 	}
 

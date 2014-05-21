@@ -75,7 +75,8 @@ class Element_OphCiAnaestheticassessment_Investigations  extends  BaseEventTypeE
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'investigations' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Investigations_Investigation', 'element_id'),
+			'investigations' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Investigations_Investigation_Type', 'investigation_id', 'through' => 'investigations_assignments'),
+			'investigations_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Investigations_Investigation', 'element_id'),
 		);
 	}
 

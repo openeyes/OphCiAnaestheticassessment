@@ -44,25 +44,11 @@
 		<?php }?>
 		<?php if (empty($element->exclusion_factors)) {?>
 			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risk_factors_a'))?></div></div>
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risk_factors'))?></div></div>
 				<div class="large-9 column end">
 					<div class="data-value">
-						<?php if (!empty($element->risk_factors_a)) {
-							foreach ($element->risk_factors_a as $risk_factor) {
-								echo $risk_factor->name."<br/>";
-							}
-						}else{?>
-							None
-						<?php }?>
-					</div>
-				</div>
-			</div>
-			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risk_factors_b'))?></div></div>
-				<div class="large-9 column end">
-					<div class="data-value">
-						<?php if (!empty($element->risk_factors_b)) {
-							foreach ($element->risk_factors_b as $risk_factor) {
+						<?php if (!empty($element->risk_factors)) {
+							foreach ($element->risk_factors as $risk_factor) {
 								echo $risk_factor->name."<br/>";
 							}
 						}else{?>

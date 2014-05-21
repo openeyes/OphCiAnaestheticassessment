@@ -19,23 +19,23 @@
 ?>
 	<div class="element-data">
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('speced_ids'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php if (!$element->speced_ids) {?>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php if (!$element->instructions) {?>
 							None
 						<?php } else {?>
-								<?php foreach ($element->speced_ids as $item) {
-									echo $item->ophcianassessment_speced_instructions->name?><br/>
+								<?php foreach ($element->instructions as $item) {
+									echo $item->name?><br/>
 								<?php }?>
 						<?php }?>
 			</div></div>
 		</div>
-		<?php if ($element->hasMultiSelectValue('speced_ids','Medications')) {?>
+		<?php if ($element->hasMultiSelectValue('instructions','Medications')) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('medications'))?></div></div>
 				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->medications)?></div></div>
 			</div>
 		<?php }?>
-		<?php if ($element->hasMultiSelectValue('speced_ids','Other (please specify)')) {?>
+		<?php if ($element->hasMultiSelectValue('instructions','Other (please specify)')) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('other'))?></div></div>
 				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->other)?></div></div>
@@ -47,7 +47,7 @@
 							None
 						<?php } else {?>
 								<?php foreach ($element->diabetes_items as $item) {
-									echo $item->item->name?><br/>
+									echo $item->name?><br/>
 								<?php }?>
 						<?php }?>
 			</div></div>

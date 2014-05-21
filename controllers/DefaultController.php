@@ -140,53 +140,6 @@ class DefaultController extends BaseEventTypeController
 		$element->updateProcedures($data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['procedure_id']);
 	}
 
-	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_Examination($element, $data, $index)
-	{
-		$teeth = array();
-
-		if (!empty($data['MultiSelect_teeth'])) {
-			foreach ($data['MultiSelect_teeth'] as $teeth_id) {
-				$teeth[] = OphCiAnaestheticassessment_Examination_Teeth::model()->findByPk($teeth_id);
-			}
-		}
-
-		$element->teeths = $teeth;
-	}
-
-	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_Examination($element, $data, $index)
-	{
-		$element->updateTeeth(empty($data['MultiSelect_teeth']) ? array() : $data['MultiSelect_teeth']);
-	}
-
-	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
-	{
-		$speceds = array();
-
-		if (!empty($data['MultiSelect_speced_id'])) {
-			foreach ($data['MultiSelect_speced_id'] as $speced_id) {
-				$speceds[] = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findByPk($speced_id);
-			}
-		}
-
-		$element->speced_ids = $speceds;
-
-		$diabetes_items = array();
-
-		if (!empty($data['MultiSelect_Diabetes'])) {
-			foreach ($data['MultiSelect_Diabetes'] as $item_id) {
-				$diabetes_items[] = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes::model()->findByPk($item_id);
-			}
-		}
-
-		$element->diabetes_items = $diabetes_items;
-	}
-
-	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
-	{
-		$element->updateSpeceds(empty($data['MultiSelect_speced_id']) ? array() : $data['MultiSelect_speced_id']);
-		$element->updateMultiSelectData('OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment',empty($data['MultiSelect_Diabetes']) ? array() : $data['MultiSelect_Diabetes'],'item_id');
-	}
-
 	public function actionUpdate($id)
 	{
 		parent::actionUpdate($id);
@@ -275,51 +228,6 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->allergies = $allergies;
-
-		$dental = array();
-
-		if (!empty($data['MultiSelect_dental'])) {
-			foreach ($data['MultiSelect_dental'] as $dental_id) {
-				$dental[] = OphCiAnaestheticassessment_Medical_History_Dental::model()->findByPk($dental_id);
-			}
-		}
-
-		$element->dentals = $dental;
-
-		$relations = $element->relations();
-
-		foreach (array(
-			'MultiSelect_surgery' => 'surgery',
-			'MultiSelect_patient_anesthesia' => 'patient_anesthesia_items',
-			'MultiSelect_family_anesthesia' => 'family_anesthesia_items',
-			'MultiSelect_cardio' => 'cardio',
-			'MultiSelect_pulmonary' => 'pulmonary',
-			'MultiSelect_gi' => 'gi',
-			'MultiSelect_diabetes_treatment' => 'diabetes_treatment',
-			'MultiSelect_diabetes_monitor' => 'diabetes_monitor',
-			'MultiSelect_gre' => 'gre',
-			'MultiSelect_neuro' => 'neuro',
-			'MultiSelect_falls' => 'falls',
-			'MultiSelect_misc' => 'misc',
-			'MultiSelect_psychiatric' => 'psychiatric_items',
-			'MultiSelect_pregnancy' => 'pregnancy',
-			'MultiSelect_cardiac_devices' => 'cardiac_devices',
-			'MultiSelect_prosthetics' => 'prosthetics',
-			'MultiSelect_tobacco_type' => 'smoking',
-			) as $multiselect => $relation) {
-
-			$_data = array();
-
-			if (!empty($data[$multiselect])) {
-				foreach ($data[$multiselect] as $item_id) {
-					$model = preg_replace('/_Assignment$/','',$relations[$relation][1]);
-
-					$_data[] = $model::model()->findByPk($item_id);
-				}
-			}
-
-			$element->$relation = $_data;
-		}
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
@@ -331,32 +239,6 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->updateAllergies(empty($data['allergies_allergies']) ? array() : $data['allergies_allergies']);
-		$element->updateMultiSelectData('OphCiAnaestheticassessment_Medical_History_Dental_Assignment',empty($data['MultiSelect_dental']) ? array() : $data['MultiSelect_dental'],'dental_id');
-
-		$relations = $element->relations();
-
-		foreach (array(
-			'MultiSelect_surgery' => 'surgery',
-			'MultiSelect_patient_anesthesia' => 'patient_anesthesia_items',
-			'MultiSelect_family_anesthesia' => 'family_anesthesia_items',
-			'MultiSelect_cardio' => 'cardio',
-			'MultiSelect_pulmonary' => 'pulmonary',
-			'MultiSelect_gi' => 'gi',
-			'MultiSelect_diabetes_treatment' => 'diabetes_treatment',
-			'MultiSelect_diabetes_monitor' => 'diabetes_monitor',
-			'MultiSelect_gre' => 'gre',
-			'MultiSelect_neuro' => 'neuro',
-			'MultiSelect_falls' => 'falls',
-			'MultiSelect_misc' => 'misc',
-			'MultiSelect_psychiatric' => 'psychiatric_items',
-			'MultiSelect_pregnancy' => 'pregnancy',
-			'MultiSelect_cardiac_devices' => 'cardiac_devices',
-			'MultiSelect_prosthetics' => 'prosthetics',
-			'MultiSelect_tobacco_type' => 'smoking',
-			) as $multiselect => $relation) {
-
-			$element->updateMultiSelectData($relations[$relation][1],empty($data[$multiselect]) ? array() : $data[$multiselect],'item_id');
-		}
 	}
 
 	public function actionAddInvestigation()
@@ -395,70 +277,11 @@ class DefaultController extends BaseEventTypeController
 		}
 	}
 
-	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $data, $index)
-	{
-		$exclusion_factors = array();
-
-		if (!empty($data['MultiSelect_ExclusionFactors'])) {
-			foreach ($data['MultiSelect_ExclusionFactors'] as $i => $exclusion_factor_id) {
-				$exclusion_factors[] = OphCiAnaestheticassessment_DVT_Exclusion_Factor::model()->findByPk($exclusion_factor_id);
-			}
-		}
-
-		$element->exclusion_factors = $exclusion_factors;
-
-		$risk_factors_a = array();
-		$risk_factors_b = array();
-
-		if (!empty($data['MultiSelect_RiskFactors_A']) && empty($data['MultiSelect_ExclusionFactors'])) {
-			foreach ($data['MultiSelect_RiskFactors_A'] as $i => $risk_factor_id) {
-				$risk_factors_a[] = OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findByPk($risk_factor_id);
-			}
-		}
-
-		if (!empty($data['MultiSelect_RiskFactors_B']) && empty($data['MultiSelect_ExclusionFactors'])) {
-			foreach ($data['MultiSelect_RiskFactors_B'] as $i => $risk_factor_id) {
-				$risk_factors_b[] = OphCiAnaestheticassessment_DVT_Risk_Factor::model()->findByPk($risk_factor_id);
-			}
-		}
-
-		$element->risk_factors_a = $risk_factors_a;
-		$element->risk_factors_b = $risk_factors_b;
-
-		$stocking_contraindications = array();
-
-		if (!empty($data['MultiSelect_stocking_contraindications']) && empty($data['MultiSelect_ExclusionFactors'])) {
-			foreach ($data['MultiSelect_stocking_contraindications'] as $i => $contraindication_id) {
-				$stocking_contraindications[] = OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findByPk($contraindication_id);
-			}
-		}
-
-		$element->stocking_contraindications = $stocking_contraindications;
-
-		$heparin_contraindications = array();
-
-		if (!empty($data['MultiSelect_heparin_contraindications']) && empty($data['MultiSelect_ExclusionFactors'])) {
-			foreach ($data['MultiSelect_heparin_contraindications'] as $i => $contraindication_id) {
-				$heparin_contraindications[] = OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findByPk($contraindication_id);
-			}
-		}
-
-		$element->heparin_contraindications = $heparin_contraindications;
-	}
-
-	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $data, $index)
-	{
-		$element->updateExclusionFactors(empty($data['MultiSelect_ExclusionFactors']) ? array() : $data['MultiSelect_ExclusionFactors']);
-		$element->updateRiskFactors(empty($data['MultiSelect_RiskFactors_A']) ? array() : $data['MultiSelect_RiskFactors_A'],empty($data['MultiSelect_RiskFactors_B']) ? array() : $data['MultiSelect_RiskFactors_B']);
-		$element->updateStockingContraindications(empty($data['MultiSelect_stocking_contraindications']) ? array() : $data['MultiSelect_stocking_contraindications']);
-		$element->updateHeparinContraindications(empty($data['MultiSelect_heparin_contraindications']) ? array() : $data['MultiSelect_heparin_contraindications']);
-	}
-
 	public function actionRiskProphylaxis()
 	{
 		$element = new Element_OphCiAnaestheticassessment_DvtAssessment;
 
-		$this->setComplexAttributes_Element_OphCiAnaestheticassessment_DvtAssessment($element, $_POST, 0);
+		$element->risk_factors = $_POST['Element_OphCiAnaestheticassessment_DvtAssessment']['risk_factors'];
 
 		echo json_encode(array(
 			'riskLevel' => $element->riskLevel,
@@ -466,26 +289,5 @@ class DefaultController extends BaseEventTypeController
 			'prophylaxisRequired' => $element->prophylaxisRequired,
 			'riskText' => $element->riskLevel.' ('.$element->riskScore.' point'.($element->riskScore == 1 ? '' : 's').')',
 		));
-	}
-
-	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_Patient($element, $data, $index)
-	{
-		$identifiers = array();
-
-		if (!empty($data['MultiSelect_identifiers'])) {
-			foreach ($data['MultiSelect_identifiers'] as $identifier_id) {
-				$assignment = new OphCiAnaestheticassessment_Patient_Identifier_Assignment;
-				$assignment->identifier_id = $identifier_id;
-
-				$identifiers[] = $assignment;
-			}
-		}
-
-		$element->identifiers = $identifiers;
-	}
-
-	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_Patient($element, $data, $index)
-	{
-		$element->updateMultiSelectData('OphCiAnaestheticassessment_Patient_Identifier_Assignment',empty($data['MultiSelect_identifiers']) ? array() : $data['MultiSelect_identifiers'],'identifier_id');
 	}
 }

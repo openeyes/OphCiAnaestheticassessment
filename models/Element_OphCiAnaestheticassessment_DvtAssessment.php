@@ -36,6 +36,8 @@
 
 class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeElement
 {
+	protected $auto_update_relations = true;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -59,7 +61,7 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 	public function rules()
 	{
 		return array(
-			array('event_id, prophylaxis_ordered, exclusion_criteria_met', 'safe'),
+			array('event_id, prophylaxis_ordered, exclusion_criteria_met, exclusion_factors, risk_factors, stocking_contraindications, heparin_contraindications', 'safe'),
 			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}
@@ -75,15 +77,13 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'exclusion_factors' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Exclusion_Factor', 'ophcianassessment_dvt_exclusion_factor_assignment(element_id,exclusion_factor_id)'),
+			'exclusion_factors' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Exclusion_Factor', 'exclusion_factor_id', 'through' => 'exclusion_factors_assignment'),
 			'exclusion_factors_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Exclusion_Factor_Assignment', 'element_id'),
-			'risk_factors_a' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor', 'ophcianassessment_dvt_risk_factor_assignment(element_id,risk_factor_id)', 'condition' => 'section_id = 1'),
-			'risk_factors_a_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
-			'risk_factors_b' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor', 'ophcianassessment_dvt_risk_factor_assignment(element_id,risk_factor_id)', 'condition' => 'section_id = 2'),
-			'risk_factors_b_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
-			'stocking_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication', 'ophcianassessment_dvt_stocking_contra_assignment(element_id,contraindication_id)'),
+			'risk_factors' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor', 'risk_factor_id', 'through' => 'risk_factors_assignment'),
+			'risk_factors_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Risk_Factor_Assignment', 'element_id'),
+			'stocking_contraindications' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication', 'contraindication_id', 'through' => 'stocking_contraindications_assignment'),
 			'stocking_contraindications_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication_Assignment', 'element_id'),
-			'heparin_contraindications' => array(self::MANY_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication', 'ophcianassessment_dvt_heparin_contra_assignment(element_id,contraindication_id)'),
+			'heparin_contraindications' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication', 'contraindication_id', 'through' => 'heparin_contraindications_assignment'),
 			'heparin_contraindications_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication_Assignment', 'element_id'),
 		);
 	}
@@ -98,8 +98,7 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 			'event_id' => 'Event',
 			'comments' => 'Comments',
 			'exclusion_factors' => 'Exclusion factors',
-			'risk_factors_a' => 'Risk factors (2 points)',
-			'risk_factors_b' => 'Risk factors (1 points)',
+			'risk_factors' => 'Risk factors',
 			'stocking_contraindications' => 'Contraindications to graduated compression stockings',
 			'heparin_contraindications' => 'Contraindications to low molecular weight heparin (LMWH)',
 			'prophylaxis_ordered' => 'I have reviewed the above and have ordered the appropriate prophylaxis',
@@ -233,7 +232,17 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 
 	public function getRiskScore()
 	{
-		return (count($this->risk_factors_a) * 2) + count($this->risk_factors_b);
+		$score = 0;
+
+		foreach ($this->risk_factors as $risk_factor) {
+			if ($risk_factor->section->name == 'A') {
+				$score += 2;
+			} else {
+				$score += 1;
+			}
+		}
+
+		return $score;
 	}
 
 	private function getRiskLevelProphylaxis()
