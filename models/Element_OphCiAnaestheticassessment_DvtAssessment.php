@@ -126,11 +126,9 @@ class Element_OphCiAnaestheticassessment_DvtAssessment  extends  BaseEventTypeEl
 	{
 		$score = 0;
 
-		foreach ($this->risk_factors as $risk_factor) {
-			if ($risk_factor->section->name == 'A') {
-				$score += 2;
-			} else {
-				$score += 1;
+		if (!empty($this->risk_factors)) {
+			foreach ($this->risk_factors as $risk_factor) {
+				$score += ($risk_factor->section->name == 'A') ? 2 : 1;
 			}
 		}
 

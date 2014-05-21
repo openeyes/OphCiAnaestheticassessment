@@ -96,48 +96,13 @@ class DefaultController extends BaseEventTypeController
 				throw new Exception("Procedures not found for operation booking event: ".$_GET['booking_event_id']);
 			}
 
-			$_procedures = array();
-
-			foreach ($procedures as $procedure) {
-				$assignment = new OphCiAnaestheticassessment_Procedures_Procedure_Assignment;
-				$assignment->element_id = $element->id;
-				$assignment->proc_id = $procedure->id;
-				$assignment->procedure = $procedure;
-
-				$_procedures[] = $assignment;
-			}
-
-			$element->procedures = $_procedures;
+			$element->procedures = $procedures;
 
 			$eye = $api->getEyeForOperation($_GET['booking_event_id']);
 
 			$element->eye_id = $eye->id;
 			$element->eye = $eye;
 		}
-	}
-
-	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification($element, $data, $index)
-	{
-		$procedures = array();
-
-		if (!empty($data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['procedure_id'])) {
-			foreach ($data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['procedure_id'] as $procedure_id) {
-				$assignment = new OphCiAnaestheticassessment_Procedures_Procedure_Assignment;
-				$assignment->proc_id = $procedure_id;
-				$assignment->procedure = Procedure::model()->findByPk($procedure_id);
-
-				$procedures[] = $assignment;
-			}
-		}
-
-		$element->procedures = $procedures;
-		$element->eye_id = $data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['eye_id'];
-		$element->eye = Eye::model()->findByPk($element->eye_id);
-	}
-
-	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification($element, $data, $index)
-	{
-		$element->updateProcedures($data['Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification']['procedure_id']);
 	}
 
 	public function actionUpdate($id)

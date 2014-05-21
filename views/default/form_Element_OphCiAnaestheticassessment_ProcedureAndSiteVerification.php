@@ -37,8 +37,8 @@
 		</div>
 		<div class="large-9 column end">
 			<?php foreach ($element->procedures as $procedure) {?>
-				<div><?php echo $procedure->procedure->term?></div>
-				<input type="hidden" name="<?php echo get_class($element)?>[procedure_id][]" value="<?php echo $procedure->proc_id?>" />
+				<div><?php echo $procedure->term?></div>
+				<input type="hidden" name="<?php echo CHtml::modelName($element)?>[procedures][]" value="<?php echo $procedure->id?>" />
 			<?php }?>
 		</div>
 	</div>

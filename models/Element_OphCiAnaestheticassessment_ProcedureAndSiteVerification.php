@@ -37,6 +37,8 @@
 
 class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	BaseEventTypeElement
 {
+	protected $auto_update_relations = true;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -75,7 +77,8 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'procedures' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Procedures_Procedure_Assignment', 'element_id'),
+			'procedures_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Procedures_Procedure_Assignment', 'element_id'),
+			'procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id', 'through' => 'procedures_assignment'),
 			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 		);
 	}
@@ -109,28 +112,6 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function updateProcedures($procedure_ids)
-	{
-		foreach ($procedure_ids as $procedure_id) {
-			if (!$assignment = OphCiAnaestheticassessment_Procedures_Procedure_Assignment::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
-				$assignment = new OphCiAnaestheticassessment_Procedures_Procedure_Assignment;
-				$assignment->element_id = $this->id;
-				$assignment->proc_id = $procedure_id;
-
-				if (!$assignment->save()) {
-					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
-				}
-			}
-		}
-
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id = :element_id');
-		$criteria->params[':element_id'] = $this->id;
-		$criteria->addNotInCondition('proc_id',$procedure_ids);
-
-		OphCiAnaestheticassessment_Procedures_Procedure_Assignment::model()->deleteAll($criteria);
 	}
 }
 ?>
