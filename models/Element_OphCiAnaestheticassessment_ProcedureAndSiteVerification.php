@@ -77,8 +77,8 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'procedures_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Procedures_Procedure_Assignment', 'element_id'),
 			'procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id', 'through' => 'procedures_assignment'),
+			'procedures_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Procedures_Procedure_Assignment', 'element_id'),
 			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 		);
 	}
