@@ -174,28 +174,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		));
 	}
 
-	public function updateTeeth($teeth_ids)
-	{
-		foreach ($teeth_ids as $teeth_id) {
-			if (!$assignment = OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->find('element_id=? and teeth_id=?',array($this->id,$teeth_id))) {
-				$assignment = new OphCiAnaestheticassessment_Examination_Teeth_Assignment;
-				$assignment->element_id = $this->id;
-				$assignment->teeth_id = $teeth_id;
-
-				if (!$assignment->save()) {
-					throw new Exception("Unable to save assignment: ".print_r($assignment->getErrors(),true));
-				}
-			}
-		}
-
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id = :element_id');
-		$criteria->params[':element_id'] = $this->id;
-		$criteria->addNotInCondition('teeth_id',$teeth_ids);
-
-		OphCiAnaestheticassessment_Examination_Teeth_Assignment::model()->deleteAll($criteria);
-	}
-
 	public function formatDecimal($field)
 	{
 		return preg_replace('/\.0*$/','',$this->$field);
