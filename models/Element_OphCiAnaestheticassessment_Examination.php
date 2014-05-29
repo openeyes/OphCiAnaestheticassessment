@@ -172,6 +172,15 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		));
 	}
 
+	public function beforeSave()
+	{
+		if (strlen($this->blood_glucose) == 0) {
+			$this->blood_glucose = null;
+		}
+
+		return parent::beforeSave();
+	}
+
 	public function updateTeeth($teeth_ids)
 	{
 		foreach ($teeth_ids as $teeth_id) {
