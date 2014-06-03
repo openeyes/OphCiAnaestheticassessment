@@ -279,7 +279,20 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			$patient = $this->event->episode->patient;
 
 			foreach ($this->medications as $medication) {
-				if (!Medication::model()->find('patient_id=? and drug_id=? and route_id=? and option_id=? and frequency_id=? and start_date=?',array($patient->id,$medication->drug_id,$medication->route_id,$medication->option_id,$medication->frequency_id,$medication->start_date))) {
+				$where = 'patient_id=? and drug_id=? and route_id=? and option_id';
+				$whereParams = array($patient->id,$medication->drug_id,$medication->route_id);
+
+				if ($medication->option_id) {
+					$where .= '=? and frequency_id=? and start_date=?';
+					$whereParams[] = $medication->option_id;
+				} else {
+					$where .= ' is null and frequency_id=? and start_date=?';
+				}
+
+				$whereParams[] = $medication->frequency_id;
+				$whereParams[] = $medication->start_date;
+
+				if (!Medication::model()->find($where,$whereParams)) {
 					$_medication = new Medication;
 					$_medication->patient_id = $patient->id;
 
