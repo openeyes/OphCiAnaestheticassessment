@@ -128,7 +128,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'bp_diastolic' => 'Blood pressure (diastolic)',
 			'temperature' => 'Temperature',
 			'respiratory_rate' => 'Respiratory rate',
-			'sao2' => 'SaO2',
+			'sao2' => 'SpO2',
 			'airway_class_id' => 'Airway class',
 			'blood_glucose' => 'Blood glucose',
 			'heart' => 'Heart',
