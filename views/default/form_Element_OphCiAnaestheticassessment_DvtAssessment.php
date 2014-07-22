@@ -44,6 +44,11 @@
 		</div>
 		<?php echo $form->multiSelectList($element, 'stocking_contraindications', 'stocking_contraindications', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Stocking_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to graduated compression stockings'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
 		<?php echo $form->multiSelectList($element, 'heparin_contraindications', 'heparin_contraindications', 'contraindication_id', CHtml::listData(OphCiAnaestheticassessment_DVT_Heparin_Contraindication::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Contraindications to low molecular weight heparin (LMWH)'),false,false,null,false,false,array('label' => 3,'field' => 5),false,true)?>
-		<?php echo $form->checkBox($element, 'prophylaxis_ordered', array('text-align' => 'right'), array('label' => 3, 'field' => 9))?>
+		<div class="field-row row">
+			<div class="large-3 column"><div class="data-label">Prophylaxis ordered:</div></div>
+			<div class="large-9 column">
+				<?php echo $form->checkBox($element, 'prophylaxis_ordered', array('nowrapper' => true))?>
+			</div>
+		</div>
 	</div>
 </div>
