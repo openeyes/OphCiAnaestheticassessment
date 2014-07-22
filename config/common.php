@@ -49,5 +49,6 @@ return array(
 			'Patient specific education' => '/OphCiAnaestheticassessment/admin/editPatientSpecificEducation',
 			'Diabetes instructions' => '/OphCiAnaestheticassessment/admin/editDiabetesInstructions',
 		),
+		'weight_required_before_age' => 18,
 	)
 );

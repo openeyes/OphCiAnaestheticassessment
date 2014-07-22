@@ -178,5 +178,18 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	{
 		return preg_replace('/\.0*$/','',$this->$field);
 	}
+
+	public function beforeValidate()
+	{
+		$patient = $this->event->episode->patient;
+
+		if ($patient->age < Yii::app()->params['weight_required_before_age']) {
+			if (!$this->weight_kg) {
+				$this->addError('weight_kg','Weight is required if the patient is less than '.Yii::app()->params['weight_required_before_age'].' years old.');
+			}
+		}
+
+		return parent::beforeValidate();
+	}
 }
 ?>
