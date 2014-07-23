@@ -10,6 +10,7 @@ class m140723_073640_field_changes extends OEMigration
 		$this->dropTable('ophcianassessment_patient_identifier');
 
 		$this->addColumn('et_ophcianassessment_patient','guardian_name','varchar(255) null');
+		$this->addColumn('et_ophcianassessment_patient_version','guardian_name','varchar(255) null');
 
 		$this->createTable('ophcianassessment_patient_guardian_relationship', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
@@ -52,6 +53,7 @@ class m140723_073640_field_changes extends OEMigration
 		$this->dropTable('ophcianassessment_patient_guardian_relationship');
 
 		$this->dropColumn('et_ophcianassessment_patient','guardian_name');
+		$this->dropColumn('et_ophcianassessment_patient_version','guardian_name');
 
 		$this->execute("CREATE TABLE `ophcianassessment_patient_identifier` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,

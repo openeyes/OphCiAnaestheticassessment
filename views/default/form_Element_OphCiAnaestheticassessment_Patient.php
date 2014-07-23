@@ -23,7 +23,7 @@
 	<?php if ($this->patient->isChild()) {?>
 		<?php echo $form->textField($element, 'guardian_name', array(), array(), array('label' => 3, 'field' => 4))?>
 		<?php echo $form->dropDownList($element, 'guardian_relationship_id', CHtml::listData(OphCiAnaestheticassessment_Patient_Guardian_Relationship::model()->findAll(array('order'=>'display_order asc')),'id','name'),array('empty'=>'- Please select -', 'class' => 'linked-fields', 'data-linked-fields' => 'guardian_relationship_other', 'data-linked-values' => 'Other'),false,array('label' => 3, 'field' => 4))?>
-		<?php echo $form->textField($element, 'guardian_relationship_other', array('hide' => !$element->guardian_relationship || $element->guardian_relationship != 'Other'), array(), array('label' => 3, 'field' => 4))?>
+		<?php echo $form->textField($element, 'guardian_relationship_other', array('hide' => !$element->guardian_relationship || $element->guardian_relationship->name != 'Other'), array(), array('label' => 3, 'field' => 4))?>
 	<?php }?>
 	<?php echo $form->textField($element, 'name', array('hide' => !$element->translator_present || $element->translator_present->name != 'Yes'), array(), array('label' => 3, 'field' => 4))?>
 </div>

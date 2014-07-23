@@ -32,7 +32,7 @@
 				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->name)?></div></div>
 			</div>
 		<?php }?>
-		<?php if ($patient->isChild()) {?>
+		<?php if ($element->event->episode->patient->isChild()) {?>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('guardian_name'))?></div></div>
 				<div class="large-9 column end"><div class="data-value"><?php echo $element->guardian_name?></div></div>
