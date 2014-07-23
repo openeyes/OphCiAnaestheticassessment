@@ -39,6 +39,7 @@
 
 class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 {
+	public $patient;
 	protected $auto_update_relations = true;
 
 	/**
@@ -64,7 +65,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 	public function rules()
 	{
 		return array(
-			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, identifiers', 'safe'),
+			array('event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, guardian_name, guardian_relationship_id, guardian_relationship_other', 'safe'),
 			array('id, event_id, patient_id_verified_with_two_identifiers, translator_present_id, name, ', 'safe', 'on' => 'search'),
 		);
 	}
@@ -80,8 +81,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'translator_present' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_TranslatorPresent', 'translator_present_id'),
-			'identifiers_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Patient_Identifier_Assignment', 'element_id'),
-			'identifiers' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Patient_Identifier', 'identifier_id', 'through' => 'identifiers_assignment'),
+			'guardian_relationship' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_Guardian_relationship', 'guardian_relationship_id'),
 		);
 	}
 
@@ -93,10 +93,12 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'patient_id_verified_with_two_identifiers' => 'Patient ID/wristband verified with two identifiers',
+			'patient_id_verified_with_two_identifiers' => 'Patient ID verified and ID band applied',
 			'translator_present_id' => 'Translator present',
 			'name' => 'Translator name',
-			'identifiers' => 'Two identifiers',
+			'guardian_name' => 'Parent/guardian name',
+			'guardian_relationship_id' => 'Relationship',
+			'guardian_relationship_other' => 'Other relationship',
 		);
 	}
 
@@ -127,9 +129,18 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 			}
 		}
 
-		if ($this->patient_id_verified_with_two_identifiers) {
-			if (count($this->identifiers) != 2) {
-				$this->addError('identifiers','Please select exactly 2 identifiers');
+		if ($this->event->episode->patient->isChild()) {
+			if (!$this->guardian_name) {
+				$this->addError('guardian_name',$this->getAttributeLabel('guardian_name').' cannot be blank.');
+			}
+			if (!$this->guardian_relationship_id) {
+				$this->addError('guardian_relationship_id',$this->getAttributeLabel('guardian_relationship_id').' cannot be blank.');
+			}
+
+			if ($this->guardian_relationship && $this->guardian_relationship == 'Other') {
+				if (!$this->guardian_relationship_other) {
+					$this->addError('guardian_relationship_other',$this->getAttributeLabel('guardian_relationship_other').' cannot be blank.');
+				}
 			}
 		}
 

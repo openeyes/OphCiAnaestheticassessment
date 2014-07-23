@@ -22,19 +22,6 @@
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('patient_id_verified_with_two_identifiers'))?></div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->patient_id_verified_with_two_identifiers ? 'Yes' : 'No'?></div></div>
 		</div>
-		<?php if ($element->patient_id_verified_with_two_identifiers) {?>
-			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('identifiers'))?>:</div></div>
-				<div class="large-9 column end"><div class="data-value"><?php if (!$element->identifiers) {?>
-								None
-							<?php } else {?>
-									<?php foreach ($element->identifiers as $item) {
-										echo $item->name?><br/>
-									<?php }?>
-							<?php }?>
-				</div></div>
-			</div>
-		<?php }?>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('translator_present_id'))?></div></div>
 			<div class="large-9 column end"><div class="data-value"><?php echo $element->translator_present ? $element->translator_present->name : 'None'?></div></div>
@@ -44,5 +31,21 @@
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('name'))?></div></div>
 				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->name)?></div></div>
 			</div>
+		<?php }?>
+		<?php if ($patient->isChild()) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('guardian_name'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo $element->guardian_name?></div></div>
+			</div>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('guardian_relationship_id'))?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo $element->guardian_relationship->name?></div></div>
+			</div>
+			<?php if ($element->guardian_relationship->name == 'Other') {?>
+				<div class="row data-row">
+					<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('guardian_relationship_other'))?></div></div>
+					<div class="large-9 column end"><div class="data-value"><?php echo $element->guardian_relationship_other?></div></div>
+				</div>
+			<?php }?>
 		<?php }?>
 	</div>

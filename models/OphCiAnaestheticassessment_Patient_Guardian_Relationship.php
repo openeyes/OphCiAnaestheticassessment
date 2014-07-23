@@ -17,7 +17,7 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_patient_identifier_assignment".
+ * This is the model class for table "ophcianassessment_patient_identifier".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_Patient_Identifier_Assignment extends BaseActiveRecordVersioned
+class OphCiAnaestheticassessment_Patient_Guardian_Relationship extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class OphCiAnaestheticassessment_Patient_Identifier_Assignment extends BaseActiv
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_patient_identifier_assignment';
+		return 'ophcianassessment_patient_guardian_relationship';
 	}
 
 	/**
@@ -57,8 +57,8 @@ class OphCiAnaestheticassessment_Patient_Identifier_Assignment extends BaseActiv
 	public function rules()
 	{
 		return array(
-			array('identifier_id', 'safe'),
-			array('identifier_id', 'required'),
+			array('name', 'safe'),
+			array('name', 'required'),
 			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
@@ -74,7 +74,6 @@ class OphCiAnaestheticassessment_Patient_Identifier_Assignment extends BaseActiv
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'identifier' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_Identifier', 'identifier_id'),
 		);
 	}
 
