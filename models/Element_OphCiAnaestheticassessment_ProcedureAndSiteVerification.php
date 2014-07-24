@@ -37,8 +37,6 @@
 
 class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	BaseEventTypeElement
 {
-	protected $auto_update_relations = true;
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -62,8 +60,8 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 	public function rules()
 	{
 		return array(
-			array('event_id, procedures, eye_id, ', 'safe'),
-			array('id, event_id, procedures, eye_id, ', 'safe', 'on' => 'search'),
+			array('event_id, procedures_verified', 'safe'),
+			array('id, event_id, procedures_verified', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -77,9 +75,6 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id', 'through' => 'procedures_assignment'),
-			'procedures_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Procedures_Procedure_Assignment', 'element_id'),
-			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 		);
 	}
 
@@ -91,8 +86,7 @@ class Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification  extends	B
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'procedure_id' => 'Procedures',
-			'eye_id' => 'Eye',
+			'procedures_verified' => 'Site and procedures verified',
 		);
 	}
 

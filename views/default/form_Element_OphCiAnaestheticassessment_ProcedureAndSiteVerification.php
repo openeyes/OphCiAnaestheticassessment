@@ -18,28 +18,34 @@
  */
 ?>
 <div class="element-fields">
-	<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id" class="row field-row">
+	<div class="row field-row">
 		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_eye_id">
-				<?php echo $element->getAttributeLabel('eye_id')?>:
-			</label>
+			<label></label>
 		</div>
-		<div class="large-3 column end">
-			<?php echo $element->eye->name?>
-			<input type="hidden" name="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification[eye_id]" value="<?php echo $element->eye_id?>" />
+		<div class="large-6 column end">
+			<table>
+				<thead>
+					<tr>
+						<th>Booking date</th>
+						<th>Eye</th>
+						<th>Procedure(s)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($this->getOpenBookings() as $booking) {?>
+						<tr>
+							<td><?php echo $booking->NHSDate('session_date')?></td>
+							<td><?php echo $booking->operation->eye->name?></td>
+							<td>
+								<?php foreach ($booking->operation->procedures as $procedure) {
+									echo $procedure->term."<br/>";
+								}?>
+							</td>
+						</tr>
+					<?php }?>
+				</tbody>
+			</table>
 		</div>
 	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_ProcedureAndSiteVerification_procedure_id">
-				<?php echo $element->getAttributeLabel('procedure_id')?>:
-			</label>
-		</div>
-		<div class="large-9 column end">
-			<?php foreach ($element->procedures as $procedure) {?>
-				<div><?php echo $procedure->term?></div>
-				<input type="hidden" name="<?php echo CHtml::modelName($element)?>[procedures][]" value="<?php echo $procedure->id?>" />
-			<?php }?>
-		</div>
-	</div>
+	<?php echo $form->radioBoolean($element,'procedures_verified',array(),array('label' => 3, 'field' => 4))?>
 </div>

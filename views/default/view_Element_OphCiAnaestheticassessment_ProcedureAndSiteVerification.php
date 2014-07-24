@@ -19,17 +19,11 @@
 ?>
 	<div class="element-data">
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('procedures_verified'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php foreach ($element->procedures as $procedure) {?>
-						<?php echo $procedure->term?><br/>
-					<?php }?>
+					<?php echo $element->procedures_verified ? 'Yes' : 'No'?>
 				</div>
 			</div>
-		</div>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('eye_id'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->eye->name)?></div></div>
 		</div>
 	</div>
