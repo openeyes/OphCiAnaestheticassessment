@@ -32,13 +32,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="no_investigations"<?php if (!empty($element->investigations)) {?> style="display: none"<?php }?>>
+					<tr class="no_investigations"<?php if (!empty($element->investigations_assignments)) {?> style="display: none"<?php }?>>
 						<td colspan="7">
 							No investigations have been entered for this patient.
 						</td>
 					</tr>
-					<?php if (!empty($element->investigations)) {?>
-						<?php foreach ($element->investigations as $i => $investigation) {
+					<?php if (!empty($element->investigations_assignments)) {?>
+						<?php foreach ($element->investigations_assignments as $i => $investigation) {
 							echo $this->renderPartial('_investigation_row',array('investigation'=>$investigation,'i'=>$i,'edit'=>true));
 						}?>
 					<?php }?>

@@ -21,7 +21,7 @@
 		<div class="row field-row">
 			<div class="large-3 column"><label>Investigations:</label></div>
 			<div class="large-9 column end">
-				<?php if (empty($element->investigations)) {?>
+				<?php if (empty($element->investigations_assignments)) {?>
 					<div class="data-value">
 						No investigations have been entered for this patient.
 					</div>
@@ -36,17 +36,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php if (empty($element->investigations)) {?>
-								<tr class="no_investigations">
-									<td colspan="7">
-										No investigations have been entered for this patient.
-									</td>
-								</tr>
-							<?php }else{?>
-								<?php foreach ($element->investigations as $i => $investigation) {
-									echo $this->renderPartial('_investigation_row',array('investigation'=>$investigation,'i'=>$i,'edit'=>false));
-								}?>
-							<?php }?>
+							<?php foreach ($element->investigations_assignments as $i => $investigation) {
+								echo $this->renderPartial('_investigation_row',array('investigation'=>$investigation,'i'=>$i,'edit'=>false));
+							}?>
 						</tbody>
 					</table>
 				<?php }?>
