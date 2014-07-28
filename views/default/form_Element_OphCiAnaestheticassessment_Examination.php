@@ -135,7 +135,19 @@
 		</div>
 	</div>
 	<?php echo $form->dropDownList($element, 'airway_class_id', CHtml::listData(OphCiAnaestheticassessment_Examination_AirwayClass::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'),false,array('label' => 3, 'field' => 4))?>
-	<?php echo $form->textField($element, 'blood_glucose', array(), array(), array('label' => 3, 'field' => 1))?>
+	<div id="div_Element_OphNuPreoperative_BaselineObservations_blood_glucose" class="row field-row">
+		<div class="large-3 column">
+			<label for="Element_OphNuPreoperative_BaselineObservations_blood_glucose">
+				<?php echo $element->getAttributeLabel('blood_glucose')?>:
+			</label>
+		</div>
+		<div class="large-1 column">
+			<?php echo $form->textField($element, 'blood_glucose', $element->blood_glucose_na ? array('nowrapper' => true,'disabled' => 'disabled') : array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
+		</div>
+		<div class="large-2 column end">
+			<?php echo $form->checkBox($element, 'blood_glucose_na', array('nowrapper' => true))?>
+		</div>
+	</div>
 	<?php echo $form->textField($element, 'heart', array(), array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'lungs', array(), array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'abdomen', array(), array(), array('label' => 3, 'field' => 4))?>

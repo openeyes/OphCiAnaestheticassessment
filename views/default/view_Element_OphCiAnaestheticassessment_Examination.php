@@ -124,7 +124,7 @@
 		</div>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('blood_glucose'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->blood_glucose ? $element->blood_glucose : 'Not entered')?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->blood_glucose_na ? 'N/A' : ($element->blood_glucose ? $element->blood_glucose : 'Not entered'))?></div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart'))?></div></div>

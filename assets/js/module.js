@@ -136,6 +136,15 @@ $(document).ready(function() {
 	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
 		update_bmi();
 	});
+
+	$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose_na').click(function() {
+		if ($(this).is(':checked')) {
+			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').attr('disabled','disabled');
+			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').val('');
+		} else {
+			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').removeAttr('disabled');
+		}
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
