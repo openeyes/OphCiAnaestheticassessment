@@ -33,8 +33,44 @@
 	))?>
 	<?php echo $form->checkBox($element, 'allergies_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array('class' => 'linked-fields', 'data-linked-fields' => 'surgery,surgery_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
-	<?php echo $form->multiSelectList($element, 'surgery', 'surgery', 'item_id', CHtml::listData(OphCiAnaestheticassessment_Medical_History_Surgery::model()->findAll(array('order' => 'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Previous surgery', 'class' => 'linked-fields', 'data-linked-fields' => 'surgery_other', 'data-linked-values' => 'Other (please specify)'),!$element->previous_surgical_procedures,false,null,false,false,array('label' => 3, 'field' => 4))?>
-	<?php echo $form->textField($element, 'surgery_other', array('hide' => !$element->hasMultiSelectValue('surgery','Other (please specify)')),array(), array('label' => 3, 'field' => 4))?>
+
+	<?php $form->widget('application.widgets.Records', array(
+		'form' => $form,
+		'element' => $element,
+		'model' => new OphCiAnaestheticassessment_Medical_History_Surgery_Assignment,
+		'field' => 'surgery_assignments',
+		'validate_method' => '/OphCiAnaestheticassessment/default/validateSurgery',
+		'row_view' => 'protected/modules/OphCiAnaestheticassessment/views/default/_surgery_row.php',
+		'columns' => array(
+			array(
+				'width' => 9,
+				'fields' => array(
+					array(
+						'field' => 'item_id',
+						'type' => 'dropdown',
+						'options' => CHtml::listData(OphCiAnaestheticassessment_Medical_History_Surgery::model()->findAll(array('order'=>'display_order asc')),'id','name'),
+						'empty' => '- Select -',
+					),
+					array(
+						'field' => 'year',
+						'type' => 'dropdown',
+						'options' => array_combine(range(date('Y'),date('Y')-150),range(date('Y'),date('Y')-150)),
+						'empty' => '- Unknown -',
+					),
+					array(
+						'field' => 'comments',
+						'type' => 'textarea',
+					),
+				),
+			),
+		),
+		'no_items_text' => 'No previous surgeries have been recorded.',
+		'add_button_text' => 'Add surgery',
+		'use_last_button_text' => false,
+		'include_timestamp' => false,
+		'headings' => array('Procedure','Year','Comments'),
+		'hidden' => !$element->previous_surgical_procedures,
+	))?>
 	<?php echo $form->textArea($element, 'surgery_comments', array(), !$element->previous_surgical_procedures, array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->radioBoolean($element, 'patient_anesthesia', array('class' => 'linked-fields', 'data-linked-fields' => 'patient_anesthesia_items', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->multiSelectList($element, 'patient_anesthesia_items', 'patient_anesthesia_items', 'item_id', CHtml::listData(OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia::model()->findAll(array('order' => 'display_order asc')),'id','name'), array(), array('empty' => '- Please select -','label' => 'Patient anesthesia reaction','class' => 'linked-fields', 'data-linked-fields' => 'patientan_other', 'data-linked-values' => 'Other (please specify)'),!$element->patient_anesthesia,false,null,false,false,array('label' => 3, 'field' => 4))?>

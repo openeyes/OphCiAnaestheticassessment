@@ -8,6 +8,7 @@ class DefaultController extends BaseEventTypeController
 		'routeOptions' => self::ACTION_TYPE_FORM,
 		'addInvestigation' => self::ACTION_TYPE_FORM,
 		'riskProphylaxis' => self::ACTION_TYPE_FORM,
+		'validateSurgery' => self::ACTION_TYPE_FORM,
 	);
 
 	public function accessRules()
@@ -93,6 +94,21 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->allergies = $allergies;
+
+		$surgery_assignments = array();
+
+		if (!empty($data['OphCiAnaestheticassessment_Medical_History_Surgery_Assignment']['item_id'])) {
+			foreach ($data['OphCiAnaestheticassessment_Medical_History_Surgery_Assignment']['item_id'] as $i => $item_id) {
+				$item = new OphCiAnaestheticassessment_Medical_History_Surgery_Assignment;
+				$item->item_id = $item_id;
+				$item->year = $data['OphCiAnaestheticassessment_Medical_History_Surgery_Assignment']['year'][$i];
+				$item->comments = $data['OphCiAnaestheticassessment_Medical_History_Surgery_Assignment']['comments'][$i];
+
+				$surgery_assignments[] = $item;
+			}
+		}
+
+		$element->surgery_assignments = $surgery_assignments;
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
@@ -104,6 +120,28 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		$element->updateAllergies(empty($data['allergies_allergies']) ? array() : $data['allergies_allergies']);
+
+		$ids = array();
+
+		foreach ($element->surgery_assignments as $item) {
+			$item->element_id = $element->id;
+
+			if (!$item->save()) {
+				throw new Exception("Unable to save medical history surgery item: ".print_r($item->errors,true));
+			}
+			
+			$ids[] = $item->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id = :eid');
+		$criteria->params[':eid'] = $element->id;
+
+		if (!empty($ids)) {
+			$criteria->addNotInCondition('id',$ids);
+		}
+
+		OphCiAnaestheticassessment_Medical_History_Surgery_Assignment::model()->deleteAll($criteria);
 	}
 
 	public function actionAddInvestigation()
@@ -163,5 +201,25 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		throw new Exception("OphTrOperationbooking API not available");
+	}
+
+	public function actionValidateSurgery()
+	{
+		$surgery = new OphCiAnaestheticassessment_Medical_History_Surgery_Assignment;
+		$surgery->attributes = $_POST;
+
+		$surgery->validate();
+
+		$errors = array();
+
+		foreach ($surgery->errors as $field => $error) {
+			$errors[$field] = $error[0];
+		}
+
+		if (empty($errors)) {
+			$errors['row'] = $this->renderPartial('_surgery_row',array('item' => $surgery, 'i' => $_POST['i'], 'edit' => true),true);
+		}
+
+		echo json_encode($errors);
 	}
 }

@@ -80,7 +80,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, surgery', 'safe'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking', 'safe'),
 			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
 			array('previous_surgical_procedures,patient_anesthesia,family_anesthesia,pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use', 'required'),
 		);
@@ -133,7 +133,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'pulmonary_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Pulmonary_Assignment', 'element_id'),
 			'smoking' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking', 'item_id', 'through' => 'smoking_assignments'),
 			'smoking_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking_Assignment', 'element_id'),
-			'surgery' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Surgery', 'item_id', 'through' => 'surgery_assignments'),
 			'surgery_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Surgery_Assignment', 'element_id'),
 		);
 	}
@@ -187,7 +186,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'psych_comments' => 'Psychiatric comments',
 			'preg_test' => 'Pregnancy test',
 			'recent_cough' => 'Details',
-			'surgery_other' => 'Other previous surgery',
 			'surgery_comments' => 'Previous surgery comments',
 			'patientan_other' => 'Other reaction',
 			'familyan_other' => 'Other reaction',
@@ -220,7 +218,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'psychiatric_items' => 'Psychiatric history',
 			'pulmonary' => 'Pulmonary history',
 			'smoking' => 'Type',
-			'surgery' => 'Previous surgery',
 			'dentals' => 'Removable dental work',
 		);
 	}
@@ -407,7 +404,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 
 		foreach (array(
 				'previous_surgical_procedures' => array(
-					'surgery' => 'surgery_other',
+					'surgery_assignments' => 'surgery_other',
 					'surgery_comments',
 				),
 				'patient_anesthesia' => array(

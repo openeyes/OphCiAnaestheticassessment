@@ -57,7 +57,7 @@ class OphCiAnaestheticassessment_Medical_History_Surgery_Assignment extends Base
 	public function rules()
 	{
 		return array(
-			array('item_id', 'safe'),
+			array('item_id, comments, year', 'safe'),
 			array('item_id', 'required'),
 			array('id, name', 'safe', 'on' => 'search'),
 		);
@@ -85,7 +85,7 @@ class OphCiAnaestheticassessment_Medical_History_Surgery_Assignment extends Base
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'item_id' => 'Procedure',
 		);
 	}
 
@@ -108,6 +108,10 @@ class OphCiAnaestheticassessment_Medical_History_Surgery_Assignment extends Base
 	public function getName()
 	{
 		return $this->item->name;
+	}
+
+	public function getAttributeSuffix()
+	{
 	}
 }
 ?>

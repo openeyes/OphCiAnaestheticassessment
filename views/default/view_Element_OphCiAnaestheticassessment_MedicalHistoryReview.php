@@ -37,7 +37,29 @@
 			'no_allergies_field' => 'patient_has_no_allergies',
 			'edit' => false,
 		))?>
-		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'previous_surgical_procedures', 'relations' => array('surgery'), 'other_field' => 'surgery_other', 'text_fields' => array('surgery_comments')))?>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('previous_surgical_procedures'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo $element->previous_surgical_procedures ? 'Yes' : 'No'?></div></div>
+		</div>
+		<?php if ($element->previous_surgical_procedures) {?>
+			<?php $this->widget('application.widgets.Records', array(
+				'element' => $element,
+				'model' => new OphCiAnaestheticassessment_Medical_History_Surgery_Assignment,
+				'field' => 'surgery_assignments',
+				'validate_method' => '/OphCiAnaestheticassessment/default/validateSurgery',
+				'row_view' => 'protected/modules/OphCiAnaestheticassessment/views/default/_surgery_row.php',
+				'no_items_text' => 'No previous surgeries have been recorded.',
+				'include_timestamp' => false,
+				'headings' => array('Procedure','Year','Comments'),
+				'edit' => false,
+			))?>
+			<?php if ($element->surgery_comments) {?>
+				<div class="row data-row">
+					<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('surgery_comments'))?>:</div></div>
+					<div class="large-9 column end"><div class="data-value"><?php echo str_replace("\n",'<br/>',CHtml::encode($element->surgery_comments))?></div></div>
+				</div>
+			<?php }?>
+		<?php }?>
 		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'patient_anesthesia', 'relations' => array('patient_anesthesia_items'), 'other_field' => 'patientan_other'))?>
 		<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'family_anesthesia', 'relations' => array('family_anesthesia_items'), 'other_field' => 'familyan_other'))?>
 		<div class="row data-row">
