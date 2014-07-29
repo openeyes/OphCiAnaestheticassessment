@@ -32,17 +32,27 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($this->getOpenBookings() as $booking) {?>
+					<?php 
+					$bookings = $this->getOpenBookings();
+					if (empty($bookings)) {?>
 						<tr>
-							<td><?php echo $booking->NHSDate('session_date')?></td>
-							<td><?php echo $booking->operation->eye->name?></td>
-							<td>
-								<?php foreach ($booking->operation->procedures as $procedure) {
-									echo $procedure->term."<br/>";
-								}?>
+							<td colspan="3">
+								There are no scheduled bookings for this patient.
 							</td>
 						</tr>
-					<?php }?>
+					<?php }else{
+						foreach ($bookings as $booking) {?>
+							<tr>
+								<td><?php echo $booking->NHSDate('session_date')?></td>
+								<td><?php echo $booking->operation->eye->name?></td>
+								<td>
+									<?php foreach ($booking->operation->procedures as $procedure) {
+										echo $procedure->term."<br/>";
+									}?>
+								</td>
+							</tr>
+						<?php }
+					}?>
 				</tbody>
 			</table>
 		</div>
