@@ -105,5 +105,5 @@
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'dental', 'dont_show_boolean_field' => true, 'relations' => array('prosthetics'), 'other_field' => 'prosthetic_other'))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'tobacco_use', 'text_fields' => array('smoke_amount','smoke_duration','smoke_quit_date')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'alcohol_use', 'text_fields' => array('alcohol_type','alcohol_amount','alcohol_quit_date')))?>
-	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'recreational_drug_use', 'text_fields' => array('drug_name','drug_amount','drug_quit_date')))?>
+	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'recreational_drug_use', 'text_fields' => array('drug_name','drug_quit_date')))?>
 </div>

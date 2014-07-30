@@ -152,6 +152,5 @@
 	<?php echo $form->textField($element, 'alcohol_quit_date', array('hide' => !$element->alcohol_use),array(),array('label' => 3, 'field' => 4))?>
 	<?php echo $form->radioBoolean($element, 'recreational_drug_use', array('class' => 'linked-fields', 'data-linked-fields' => 'drug_name,drug_amount,drug_quit_date', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'drug_name', array('hide' => !$element->recreational_drug_use),array(),array('label' => 3, 'field' => 4))?>
-	<?php echo $form->textField($element, 'drug_amount', array('hide' => !$element->recreational_drug_use),array(),array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'drug_quit_date', array('hide' => !$element->recreational_drug_use),array(),array('label' => 3, 'field' => 4))?>
 </div>
