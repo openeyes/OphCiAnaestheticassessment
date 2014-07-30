@@ -145,6 +145,13 @@ $(document).ready(function() {
 			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').removeAttr('disabled');
 		}
 	});
+
+	$(this).on('click', '#Element_OphCiAnaestheticassessment_MedicalHistoryReview_healthy_patient' , function(e) {
+		e.preventDefault();
+		$('.Element_OphCiAnaestheticassessment_MedicalHistoryReview input[type=radio]').each(function(){
+			if($(this).val() == 0){$(this).attr('checked', true);$(this).click()}
+		});
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }

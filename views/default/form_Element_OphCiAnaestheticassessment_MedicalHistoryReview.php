@@ -32,6 +32,15 @@
 		'no_allergies_field' => 'patient_has_no_allergies',
 	))?>
 	<?php echo $form->checkBox($element, 'allergies_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
+	<div class="row field-row">
+		<div class="large-3 column"><label></label></div>
+		<div class="large-9 column end">
+			<button id="Element_OphCiAnaestheticassessment_MedicalHistoryReview_healthy_patient" class="secondary small">
+				Healthy Patient
+			</button>
+		</div>
+	</div>
+
 	<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array('class' => 'linked-fields', 'data-linked-fields' => 'surgery,surgery_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 
 	<?php $form->widget('application.widgets.Records', array(
