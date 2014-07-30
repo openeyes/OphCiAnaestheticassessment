@@ -53,6 +53,16 @@
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('pain'))?>:</td>
 			<td><span class="big"><?php echo $element->pain ? 'Yes' : 'No'?></span></td>
 		</tr>
+		<?php if ($element->pain){?>
+			<tr>
+				<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('pain_location_id'))?>:</td>
+				<td><span class="big"><?php echo CHtml::encode($element->pain_location->name)?></span></td>
+			</tr>
+			<tr>
+				<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('pain_type_id'))?>:</td>
+				<td><span class="big"><?php echo CHtml::encode($element->pain_type->name)?></span></td>
+			</tr>
+		<?php }?>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('cardiovascular'))?>:</td>
 			<td><span class="big"><?php echo $element->cardiovascular ? 'Yes' : 'No'?></span></td>

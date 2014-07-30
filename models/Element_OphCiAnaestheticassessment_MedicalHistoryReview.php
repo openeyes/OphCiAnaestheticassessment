@@ -45,6 +45,9 @@
  * @property integer $recreational_drug_use
  * @property integer $patient_anesthesia_comments
  * @property integer $family_anesthesia_comments
+ * @property integer $pain_location_id
+ * @property integer $pain_type_id
+ *
  *
  * The followings are the available model relations:
  *
@@ -82,8 +85,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, patient_anesthesia_comments, family_anesthesia_comments', 'safe'),
-			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_anesthesia_comments, family_anesthesia_comments', 'safe', 'on' => 'search'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, patient_anesthesia_comments, family_anesthesia_comments, pain_location_id, pain_type_id', 'safe'),
+			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_anesthesia_comments, family_anesthesia_comments, pain_location_id, pain_type_id', 'safe', 'on' => 'search'),
 			array('previous_surgical_procedures,patient_anesthesia,family_anesthesia,pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use', 'required'),
 		);
 	}
@@ -136,6 +139,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'smoking' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking', 'item_id', 'through' => 'smoking_assignments'),
 			'smoking_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Smoking_Assignment', 'element_id'),
 			'surgery_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Surgery_Assignment', 'element_id'),
+			'pain_location' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Medical_History_Pain_Location', 'pain_location_id'),
+			'pain_type' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Medical_History_Pain_Type', 'pain_type_id'),
 		);
 	}
 
@@ -223,6 +228,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'pulmonary' => 'Pulmonary history',
 			'smoking' => 'Type',
 			'dentals' => 'Removable dental work',
+			'pain_location_id' => 'Location of pain',
+			'pain_type_id' => 'Type of pain'
 		);
 	}
 
@@ -258,6 +265,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 		$criteria->compare('recreational_drug_use', $this->recreational_drug_use);
 		$criteria->compare('patient_anesthesia_comments', $this->patient_anesthesia_comments);
 		$criteria->compare('family_anesthesia_comments', $this->family_anesthesia_comments);
+		$criteria->compare('pain_location_id', $this->pain_location_id);
+		$criteria->compare('pain_type_id', $this->pain_type_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
@@ -519,6 +528,10 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 				'drug_name',
 				'drug_amount',
 				'drug_quit_date',
+			),
+			'pain' => array(
+				'pain_location_id',
+				'pain_type_id'
 			)) as $boolean => $fields) {
 
 			if ($this->$boolean) {

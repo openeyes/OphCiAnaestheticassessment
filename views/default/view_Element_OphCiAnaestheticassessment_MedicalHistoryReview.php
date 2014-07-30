@@ -79,6 +79,17 @@
 		<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pain'))?>:</div></div>
 		<div class="large-9 column end"><div class="data-value"><?php echo $element->pain ? 'Yes' : 'No'?></div></div>
 	</div>
+	<?php if ($element->pain){?>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pain_location_id'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->pain_location->name)?></div></div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pain_type_id'))?>:</div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->pain_type->name)?></div></div>
+		</div>
+	<?php }?>
+
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'cardiovascular', 'relations' => array('cardio'), 'other_field' => 'cardio_other', 'text_fields' => array('cardio_comments')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'respiratory', 'relations' => array('pulmonary'), 'other_field' => 'pulmonary_other', 'text_fields' => array('pulmonary_comments')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'gastro_intestinal', 'relations' => array('gi'), 'other_field' => 'gi_other', 'text_fields' => array('gi_comments')))?>
