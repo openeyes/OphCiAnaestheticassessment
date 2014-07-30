@@ -209,7 +209,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'alcohol_quit_date' => 'Quit date',
 			'drug_name' => 'Substance name',
 			'drug_amount' => 'Amount used',
-			'drug_quit_date' => 'Quit date',
+			'drug_quit_date' => 'Most recent use',
 			'cardio' => 'Cardio history',
 			'diabetes_monitor' => 'Monitored with',
 			'diabetes_treatment' => 'Treated with',
