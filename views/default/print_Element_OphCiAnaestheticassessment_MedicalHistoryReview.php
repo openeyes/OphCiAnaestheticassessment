@@ -26,10 +26,6 @@
 			<td><span class="big"><?php echo $element->medication_verified ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('allergies_verified'))?></td>
-			<td><span class="big"><?php echo $element->allergies_verified ? 'Yes' : 'No'?></span></td>
-		</tr>
-		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('previous_surgical_procedures'))?>:</td>
 			<td><span class="big"><?php echo $element->previous_surgical_procedures ? 'Yes' : 'No'?></span></td>
 		</tr>

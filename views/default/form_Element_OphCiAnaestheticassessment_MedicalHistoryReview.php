@@ -31,7 +31,6 @@
 		'input_name' => 'allergies',
 		'no_allergies_field' => 'patient_has_no_allergies',
 	))?>
-	<?php echo $form->checkBox($element, 'allergies_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
 	<div class="row field-row">
 		<div class="large-3 column"><label></label></div>
 		<div class="large-9 column end">
