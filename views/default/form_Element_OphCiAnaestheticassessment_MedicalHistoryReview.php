@@ -72,19 +72,14 @@
 		'hidden' => !$element->previous_surgical_procedures,
 	))?>
 	<?php echo $form->textArea($element, 'surgery_comments', array(), !$element->previous_surgical_procedures, array(), array('label' => 3, 'field' => 4))?>
-
 	<?php echo $form->radioBoolean($element, 'patient_anesthesia', array('class' => 'linked-fields', 'data-linked-fields' => 'patient_anesthesia_items,patient_anesthesia_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->multiSelectList($element, 'patient_anesthesia_items', 'patient_anesthesia_items', 'item_id', CHtml::listData(OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia::model()->findAll(array('order' => 'display_order asc')),'id','name'), array(), array('empty' => '- Please select -','label' => 'Patient anesthesia reaction','class' => 'linked-fields', 'data-linked-fields' => 'patientan_other', 'data-linked-values' => 'Other (please specify)'),!$element->patient_anesthesia,false,null,false,false,array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'patientan_other', array('hide' => !$element->hasMultiSelectValue('patient_anesthesia_items','Other (please specify)')),array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textArea($element, 'patient_anesthesia_comments', array(), !$element->patient_anesthesia, array(), array('label' => 3, 'field' => 4))?>
-
-
 	<?php echo $form->radioBoolean($element, 'family_anesthesia', array('class' => 'linked-fields', 'data-linked-fields' => 'family_anesthesia_items,family_anesthesia_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->multiSelectList($element, 'family_anesthesia_items', 'family_anesthesia_items', 'item_id', CHtml::listData(OphCiAnaestheticassessment_Medical_History_Family_Anesthesia::model()->findAll(array('order' => 'display_order asc')),'id','name'), array(), array('empty' => '- Please select -','label' => 'Family anesthesia reaction','class' => 'linked-fields', 'data-linked-fields' => 'familyan_other', 'data-linked-values' => 'Other (please specify)'),!$element->family_anesthesia,false,null,false,false,array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textField($element, 'familyan_other', array('hide' => !$element->hasMultiSelectValue('family_anesthesia_items','Other (please specify)')),array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->textArea($element, 'family_anesthesia_comments', array(), !$element->family_anesthesia, array(), array('label' => 3, 'field' => 4))?>
-
-
 	<?php echo $form->radioBoolean($element, 'pain', array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->radioBoolean($element, 'cardiovascular', array('class' => 'linked-fields', 'data-linked-fields' => 'cardio,cardio_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->multiSelectList($element, 'cardio', 'cardio', 'item_id', CHtml::listData(OphCiAnaestheticassessment_Medical_History_Cardio::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Cardio history','class' => 'linked-fields', 'data-linked-fields' => 'cardio_other', 'data-linked-values' => 'Other (please specify)'),!$element->cardiovascular,false,null,false,false,array('label' => 3, 'field' => 4))?>
