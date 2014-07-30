@@ -17,44 +17,44 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-		<?php
-		if (!@$other_text) {
-			$other_text = 'Other (please specify)';
-		}?>
-		<?php if (!@$dont_show_boolean_field) {?>
+<?php
+if (!@$other_text) {
+	$other_text = 'Other (please specify)';
+}?>
+<?php if (!@$dont_show_boolean_field) {?>
+	<div class="row data-row">
+		<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($boolean_field))?>:</div></div>
+		<div class="large-9 column end"><div class="data-value"><?php echo $element->$boolean_field ? 'Yes' : 'No'?></div></div>
+	</div>
+<?php }?>
+<?php if ($element->$boolean_field) {?>
+	<?php if (!empty($relations)) {
+		foreach ($relations as $relation) {?>
 			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($boolean_field))?>:</div></div>
-				<div class="large-9 column end"><div class="data-value"><?php echo $element->$boolean_field ? 'Yes' : 'No'?></div></div>
-			</div>
-		<?php }?>
-		<?php if ($element->$boolean_field) {?>
-			<?php if (!empty($relations)) {
-				foreach ($relations as $relation) {?>
-					<div class="row data-row">
-						<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($relation))?>:</div></div>
-						<div class="large-9 column end"><div class="data-value"><?php if (!$element->$relation) {?>
-										None
-									<?php } else {?>
-											<?php foreach ($element->$relation as $item) {
-												echo $item->name?><br/>
-											<?php }?>
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($relation))?>:</div></div>
+				<div class="large-9 column end"><div class="data-value"><?php if (!$element->$relation) {?>
+								None
+							<?php } else {?>
+									<?php foreach ($element->$relation as $item) {
+										echo $item->name?><br/>
 									<?php }?>
-						</div></div>
-					</div>
-					<?php if (@$other_field && $element->hasMultiSelectValue($relation,$other_text)) {?>
-						<div class="row data-row">
-							<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($other_field))?>:</div></div>
-							<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->$other_field)?></div></div>
-						</div>
-					<?php }?>
-				<?php }
-			}
-			if (!empty($text_fields)) {
-				foreach ($text_fields as $text_field) {?>
-					<div class="row data-row">
-						<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($text_field))?>:</div></div>
-						<div class="large-9 column end"><div class="data-value"><?php echo str_replace("\n",'<br/>',CHtml::encode($element->$text_field))?></div></div>
-					</div>
-				<?php }
-			}
-		}?>
+							<?php }?>
+				</div></div>
+			</div>
+			<?php if (@$other_field && $element->hasMultiSelectValue($relation,$other_text)) {?>
+				<div class="row data-row">
+					<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($other_field))?>:</div></div>
+					<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->$other_field)?></div></div>
+				</div>
+			<?php }?>
+		<?php }
+	}
+	if (!empty($text_fields)) {
+		foreach ($text_fields as $text_field) {?>
+			<div class="row data-row">
+				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel($text_field))?>:</div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo $element->textWithLineBreaks($text_field)?></div></div>
+			</div>
+		<?php }
+	}
+}?>

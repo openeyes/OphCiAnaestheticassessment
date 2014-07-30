@@ -38,8 +38,16 @@
 			<td><span class="big"><?php echo $element->patient_anesthesia ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('patient_anesthesia_comments'))?>:</td>
+			<td><span class="big"><?php echo $element->textWithLineBreaks('patient_anesthesia_comments')?></span></td>
+		</tr>
+		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('family_anesthesia'))?>:</td>
 			<td><span class="big"><?php echo $element->family_anesthesia ? 'Yes' : 'No'?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('family_anesthesia_comments'))?>:</td>
+			<td><span class="big"><?php echo $element->textWithLineBreaks('family_anesthesia_comments')?></span></td>
 		</tr>
 		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('pain'))?>:</td>

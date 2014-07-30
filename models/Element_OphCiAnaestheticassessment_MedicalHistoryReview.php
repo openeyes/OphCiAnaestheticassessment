@@ -43,6 +43,8 @@
  * @property integer $tobacco_use
  * @property integer $alcohol_use
  * @property integer $recreational_drug_use
+ * @property integer $patient_anesthesia_comments
+ * @property integer $family_anesthesia_comments
  *
  * The followings are the available model relations:
  *
@@ -80,8 +82,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking', 'safe'),
-			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, ', 'safe', 'on' => 'search'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_average_glucose, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_amount, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, patient_anesthesia_comments, family_anesthesia_comments', 'safe'),
+			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_anesthesia_comments, family_anesthesia_comments', 'safe', 'on' => 'search'),
 			array('previous_surgical_procedures,patient_anesthesia,family_anesthesia,pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use', 'required'),
 		);
 	}
@@ -149,6 +151,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'previous_surgical_procedures' => 'Previous surgical procedures',
 			'patient_anesthesia' => 'Previous patient anesthesia problems',
 			'family_anesthesia' => 'Previous family anesthesia	problems',
+			'patient_anesthesia_comments' => 'Patient anesthesia comments',
+			'family_anesthesia_comments' => 'Family anesthesia comments',
 			'pain' => 'Pain',
 			'cardiovascular' => 'Cardiovascular',
 			'respiratory' => 'Respiratory',
@@ -187,8 +191,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'preg_test' => 'Pregnancy test',
 			'recent_cough' => 'Details',
 			'surgery_comments' => 'Previous surgery comments',
-			'patientan_other' => 'Other reaction',
-			'familyan_other' => 'Other reaction',
+			'patientan_other' => 'Patient anesthesia other reaction',
+			'familyan_other' => 'Family anesthesia other reaction',
 			'cardev_other' => 'Other cardiac device',
 			'cardev_comments' => 'Cardiac device comments',
 			'noncardiac_implants' => 'Non-cardiac implants',
@@ -252,6 +256,8 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 		$criteria->compare('tobacco_use', $this->tobacco_use);
 		$criteria->compare('alcohol_use', $this->alcohol_use);
 		$criteria->compare('recreational_drug_use', $this->recreational_drug_use);
+		$criteria->compare('patient_anesthesia_comments', $this->patient_anesthesia_comments);
+		$criteria->compare('family_anesthesia_comments', $this->family_anesthesia_comments);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
@@ -479,10 +485,12 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 							$data_entered = true;
 						}
 
-						foreach ($this->$key as $item) {
-							if (preg_match('/\(please specify\)/',$item->name)) {
-								if (!$this->$value) {
-									$this->addError($value,$this->getAttributeLabel($value).' cannot be blank.');
+						if (is_array($this->$key)) {
+							foreach ($this->$key as $item) {
+								if (preg_match('/\(please specify\)/',$item->name)) {
+									if (!$this->$value) {
+										$this->addError($value,$this->getAttributeLabel($value).' cannot be blank.');
+									}
 								}
 							}
 						}
