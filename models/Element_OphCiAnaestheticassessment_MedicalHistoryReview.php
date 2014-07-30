@@ -170,7 +170,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'psychiatric' => 'Psychiatric',
 			'pregnancy_status' => 'Pregnancy status',
 			'exposure' => 'Recent fever cough illness or exposure',
-			'dental' => 'Implants / prosthetics / removable dental work',
+			'dental' => 'Implants and prosthetics',
 			'tobacco_use' => 'Tobacco use',
 			'alcohol_use' => 'Alcohol use',
 			'recreational_drug_use' => 'Recreational drug use',
