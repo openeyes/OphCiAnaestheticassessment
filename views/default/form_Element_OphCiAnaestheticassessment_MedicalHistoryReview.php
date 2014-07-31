@@ -31,10 +31,10 @@
 		'input_name' => 'allergies',
 		'no_allergies_field' => 'patient_has_no_allergies',
 	))?>
-	<div class="row field-row">
+	<div class="row field-row healthyPatientDiv">
 		<div class="large-3 column"><label></label></div>
 		<div class="large-9 column end">
-			<button id="Element_OphCiAnaestheticassessment_MedicalHistoryReview_healthy_patient" class="secondary small">
+			<button id="Element_OphCiAnaestheticassessment_MedicalHistoryReview_healthy_patient" class="primary small">
 				Healthy Patient
 			</button>
 		</div>
