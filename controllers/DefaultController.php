@@ -207,6 +207,7 @@ class DefaultController extends BaseEventTypeController
 	{
 		$surgery = new OphCiAnaestheticassessment_Medical_History_Surgery_Assignment;
 		$surgery->attributes = $_POST;
+		$surgery->patient_id = @$_POST['patient_id'];
 
 		$surgery->validate();
 

@@ -34,6 +34,8 @@
 
 class OphCiAnaestheticassessment_Medical_History_Surgery_Assignment extends BaseActiveRecordVersioned
 {
+	public $patient_id;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -112,6 +114,23 @@ class OphCiAnaestheticassessment_Medical_History_Surgery_Assignment extends Base
 
 	public function getAttributeSuffix()
 	{
+	}
+
+	public function afterValidate()
+	{
+		if ($this->patient_id && ($patient = Patient::model()->findByPk($this->patient_id))) {
+			if ($patient->dob) {
+				$yob = date('Y',strtotime($patient->dob));
+			} else {
+				$yob = $patient->yob;
+			}
+
+			if ($this->year < $yob) {
+				$this->addError('year',$this->getAttributeLabel('year')." cannot be before the patients year of birth");
+			}
+		}
+
+		return parent::afterValidate();
 	}
 }
 ?>
