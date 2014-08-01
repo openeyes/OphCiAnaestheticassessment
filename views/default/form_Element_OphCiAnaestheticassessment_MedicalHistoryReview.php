@@ -40,7 +40,7 @@
 		</div>
 	</div>
 
-	<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array('class' => 'linked-fields', 'data-linked-fields' => 'surgery,surgery_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->radioBoolean($element, 'previous_surgical_procedures', array('class' => 'linked-fields', 'data-linked-fields' => 'surgery_assignments,surgery_comments', 'data-linked-values' => 'Yes'), array('label' => 3, 'field' => 4))?>
 
 	<?php $form->widget('application.widgets.Records', array(
 		'form' => $form,
