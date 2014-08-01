@@ -81,7 +81,7 @@ class Element_OphCiAnaestheticassessment_Patient	extends  BaseEventTypeElement
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'translator_present' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_TranslatorPresent', 'translator_present_id'),
-			'guardian_relationship' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_Guardian_relationship', 'guardian_relationship_id'),
+			'guardian_relationship' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Patient_Guardian_Relationship', 'guardian_relationship_id'),
 		);
 	}
 
