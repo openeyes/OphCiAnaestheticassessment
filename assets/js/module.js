@@ -115,7 +115,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('select[id="Element_OphCiAnaestheticassessment_DvtAssessment[risk_factors]"]').bind('MultiSelectChanged',function(e) {
+	$('#risk_factors').bind('MultiSelectChanged',function(e) {
 		update_risk_prophylaxis();
 	});
 
