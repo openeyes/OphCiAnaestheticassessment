@@ -39,9 +39,9 @@
 			</div>
 			<div class="row data-row">
 				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('guardian_relationship_id'))?></div></div>
-				<div class="large-9 column end"><div class="data-value"><?php echo $element->guardian_relationship->name?></div></div>
+				<div class="large-9 column end"><div class="data-value"><?php echo isset($element->guardian_relationship->name)? $element->guardian_relationship->name : 'Not specified'?></div></div>
 			</div>
-			<?php if ($element->guardian_relationship->name == 'Other') {?>
+			<?php if (isset($element->guardian_relationship->name) && $element->guardian_relationship->name == 'Other') {?>
 				<div class="row data-row">
 					<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('guardian_relationship_other'))?></div></div>
 					<div class="large-9 column end"><div class="data-value"><?php echo $element->guardian_relationship_other?></div></div>
