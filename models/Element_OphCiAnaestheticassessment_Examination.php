@@ -59,6 +59,12 @@
 class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeElement
 {
 	protected $auto_update_relations = true;
+	protected $auto_update_measurements = true;
+	public $weight_lb;
+	public $height_ft;
+	public $height_in;
+	public $blood_pressure_m_systolic;
+	public $blood_pressure_m_diastolic;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -83,8 +89,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public function rules()
 	{
 		return array(
-			array('event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen, teeths, blood_glucose_na', 'safe'),
-			array('id, event_id, weight_lb, weight_kg, weight_calculation_id, height_ft, height_in, height_cm, height_calculation_id, bmi, bp_systolic, bp_diastolic, heart_rate_pulse, temperature, respiratory_rate, sao2, airway_class_id, blood_glucose, heart, lungs, abdomen', 'safe', 'on' => 'search'),
+			array('event_id, weight_lb, weight_m, weight_calculation_id, height_ft, height_in, height_m, height_calculation_id, bmi_m, blood_pressure_m_systolic, blood_pressure_m_diastolic, pulse_m, temperature_m, rr_m, sao2_m, airway_class_m, blood_glucose_m, heart, lungs, abdomen, teeths, blood_glucose_na', 'safe'),
 		);
 	}
 
@@ -100,9 +105,18 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'weight_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_WeightCalculation', 'weight_calculation_id'),
 			'height_calculation' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_HeightCalculation', 'height_calculation_id'),
-			'airway_class' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_Examination_AirwayClass', 'airway_class_id'),
 			'teeths' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Examination_Teeth', 'teeth_id', 'through' => 'teeths_assignment'),
 			'teeths_assignment' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Examination_Teeth_Assignment', 'element_id'),
+			'weight_m' => array(self::BELONGS_TO, 'MeasurementWeight', 'weight_m_id'),
+			'height_m' => array(self::BELONGS_TO, 'MeasurementHeight', 'height_m_id'),
+			'bmi_m' => array(self::BELONGS_TO, 'MeasurementBMI', 'bmi_m_id'),
+			'blood_pressure_m' => array(self::BELONGS_TO, 'MeasurementBloodPressure', 'blood_pressure_m_id'),
+			'pulse_m' => array(self::BELONGS_TO, 'MeasurementPulse', 'pulse_m_id'),
+			'temperature_m' => array(self::BELONGS_TO, 'MeasurementTemperature', 'temperature_m_id'),
+			'rr_m' => array(self::BELONGS_TO, 'MeasurementRespiratoryRate', 'rr_m_id'),
+			'sao2_m' => array(self::BELONGS_TO, 'MeasurementSPO2', 'spo2_m_id'),
+			'airway_class_m' => array(self::BELONGS_TO, 'MeasurementAirwayClass', 'airway_class_m_id'),
+			'blood_glucose_m' => array(self::BELONGS_TO, 'MeasurementGlucoseLevel', 'blood_glucose_m_id'),
 		);
 	}
 
@@ -115,22 +129,21 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'id' => 'ID',
 			'event_id' => 'Event',
 			'weight_lb' => 'Weight (lbs)',
-			'weight_kg' => 'Weight (kg)',
+			'weight_m' => 'Weight (kg)',
 			'weight_calculation_id' => 'Weight calculation',
 			'height_ft' => 'Height (ft)',
 			'height_in' => 'Height (in)',
-			'height_cm' => 'Height (cm)',
+			'height_m' => 'Height (cm)',
 			'height_calculation_id' => 'Height calculation',
-			'bmi' => 'BMI',
-			'bp_systolic' => 'Blood pressure', 
-			'heart_rate_pulse' => 'Heart rate / pulse',
-			'bp_systolic' => 'Blood pressure (systolic)',
-			'bp_diastolic' => 'Blood pressure (diastolic)',
-			'temperature' => 'Temperature',
-			'respiratory_rate' => 'Respiratory rate',
-			'sao2' => 'SpO2',
-			'airway_class_id' => 'Airway class',
-			'blood_glucose' => 'Blood glucose',
+			'bmi_m' => 'BMI',
+			'pulse_m' => 'Heart rate / pulse',
+			'blood_pressure_m_systolic' => 'Blood pressure (systolic)',
+			'blood_pressure_m_diastolic' => 'Blood pressure (diastolic)',
+			'temperature_m' => 'Temperature',
+			'rr_m' => 'Respiratory rate',
+			'sao2_m' => 'SaO2',
+			'airway_class_m' => 'Airway class',
+			'blood_glucose_m' => 'Blood glucose',
 			'heart' => 'Heart',
 			'lungs' => 'Lungs',
 			'abdomen' => 'Abdomen',
@@ -175,9 +188,35 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		));
 	}
 
-	public function formatDecimal($field)
+	public function afterFind()
 	{
-		return preg_replace('/\.0*$/','',$this->$field);
+		if ($this->weight_m) {
+			$this->weight_lb = number_format($this->weight_m->toLb(),1);
+		}
+
+		if ($this->height_m) {
+			$ft_in = $this->height_m->toFtIn();
+			$this->height_ft = $ft_in['ft'];
+			$this->height_in = $ft_in['in'];
+		}
+
+		if ($this->blood_pressure_m) {
+			$bp = $this->blood_pressure_m->value;
+			$this->blood_pressure_m_systolic = $bp['bp_systolic'];
+			$this->blood_pressure_m_diastolic = $bp['bp_diastolic'];
+		}
+	}
+
+	public function beforeSave()
+	{
+		if ($this->blood_pressure_m_systolic && $this->blood_pressure_m_diastolic) {
+			$this->blood_pressure_m = array(
+				'bp_systolic' => $this->blood_pressure_m_systolic,
+				'bp_diastolic' => $this->blood_pressure_m_diastolic,
+			);
+		}
+
+		return parent::beforeSave();
 	}
 
 	public function beforeValidate()
@@ -185,8 +224,8 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		$patient = $this->event->episode->patient;
 
 		if ($patient->age < Yii::app()->params['weight_required_before_age']) {
-			if (!$this->weight_kg) {
-				$this->addError('weight_kg','Weight is required if the patient is less than '.Yii::app()->params['weight_required_before_age'].' years old.');
+			if (!$this->weight_m) {
+				$this->addError('weight_m','Weight is required if the patient is less than '.Yii::app()->params['weight_required_before_age'].' years old.');
 			}
 		}
 

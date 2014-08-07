@@ -39,8 +39,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
-		if ($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val() != '') {
+	$('#Element_OphCiAnaestheticassessment_Examination_height_m').change(function() {
+		if ($('#Element_OphCiAnaestheticassessment_Examination_height_m').val() != '') {
 			var ft = Math.floor($(this).val() * 0.032808399);
 			var inch = Math.round(($(this).val() - (ft / 0.032808399)) * 0.393700787);
 
@@ -51,13 +51,13 @@ $(document).ready(function() {
 
 	$('#Element_OphCiAnaestheticassessment_Examination_height_ft').change(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() != '') {
-			$('#Element_OphCiAnaestheticassessment_Examination_height_cm').val(Math.round(($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() * 30.48) + ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() * 2.54)));
+			$('#Element_OphCiAnaestheticassessment_Examination_height_m').val(Math.round(($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() * 30.48) + ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() * 2.54)));
 		}
 	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_height_in').change(function() {
 		if ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() != '') {
-			$('#Element_OphCiAnaestheticassessment_Examination_height_cm').val(Math.round(($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() * 30.48) + ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() * 2.54)));
+			$('#Element_OphCiAnaestheticassessment_Examination_height_m').val(Math.round(($('#Element_OphCiAnaestheticassessment_Examination_height_ft').val() * 30.48) + ($('#Element_OphCiAnaestheticassessment_Examination_height_in').val() * 2.54)));
 		}
 	});
 
@@ -119,21 +119,21 @@ $(document).ready(function() {
 		update_risk_prophylaxis();
 	});
 
-	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
+	$('#Element_OphCiAnaestheticassessment_Examination_weight_m').change(function() {
 		$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').val(parseFloat($(this).val() * 2.20462).toFixed(1));
 		update_bmi();
 	});
 
 	$('#Element_OphCiAnaestheticassessment_Examination_weight_lb').change(function() {
-		$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val(parseFloat($(this).val() / 2.20462).toFixed(1));
+		$('#Element_OphCiAnaestheticassessment_Examination_weight_m').val(parseFloat($(this).val() / 2.20462).toFixed(1));
 		update_bmi();
 	});
 
-	$('#Element_OphCiAnaestheticassessment_Examination_weight_kg').change(function() {
+	$('#Element_OphCiAnaestheticassessment_Examination_weight_m').change(function() {
 		update_bmi();
 	});
 
-	$('#Element_OphCiAnaestheticassessment_Examination_height_cm').change(function() {
+	$('#Element_OphCiAnaestheticassessment_Examination_height_m').change(function() {
 		update_bmi();
 	});
 
@@ -158,8 +158,8 @@ function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f
 
 function update_bmi()
 {
-	var bmi = ((parseFloat($('#Element_OphCiAnaestheticassessment_Examination_weight_kg').val()) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_cm').val()) / 100)));
-	if(!isNaN(bmi)) $('#Element_OphCiAnaestheticassessment_Examination_bmi').val(bmi.toFixed(2).replace(/\.0$/,''));
+	var bmi = ((parseFloat($('#Element_OphCiAnaestheticassessment_Examination_weight_m').val()) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_m').val()) / 100) / (parseFloat($('#Element_OphCiAnaestheticassessment_Examination_height_m').val()) / 100)));
+	if(!isNaN(bmi)) $('#Element_OphCiAnaestheticassessment_Examination_bmi_m').val(bmi.toFixed(2).replace(/\.0$/,''));
 }
 
 function eDparameterListener(_drawing) {

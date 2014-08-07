@@ -25,12 +25,10 @@
 			</label>
 		</div>
 		<div class="large-2 column">
-			<?php echo $form->textField($element, 'weight_kg', array('class' => 'smallInput', 'nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">kg</span>
+			<?php echo $form->weightMeasurement($element, array('class' => 'smallInput', 'nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
 		</div>
 		<div class="large-2 column">
-			<?php echo $form->textField($element, 'weight_lb', array('class' => 'smallInput', 'nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">lbs</span>
+			<?php echo $form->textField($element, 'weight_lb', array('class' => 'smallInput', 'nowrapper' => true, 'append-text' => 'lbs'), array(), array('label' => 3, 'field' => 4))?>
 		</div>
 		<div class="large-2 column">
 			<label for="Element_OphCiAnaestheticassessment_Examination_weight_calculation_id">
@@ -48,14 +46,11 @@
 			</label>
 		</div>
 		<div class="large-2 column">
-			<?php echo $form->textField($element, 'height_cm', array('class' => 'smallInput', 'nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">cm</span>
+			<?php echo $form->heightMeasurement($element, array('class' => 'smallInput', 'nowrapper' => true), array('label' => 3, 'field' => 4))?>
 		</div>
 		<div class="large-2 column">
-			<?php echo $form->textField($element, 'height_ft', array('nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">ft</span>
-			<?php echo $form->textField($element, 'height_in', array('nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">in</span>
+			<?php echo $form->textField($element, 'height_ft', array('nowrapper' => true, 'append-text' => 'ft'), array(), array('label' => 3, 'field' => 4))?>
+			<?php echo $form->textField($element, 'height_in', array('nowrapper' => true, 'append-text' => 'in'), array(), array('label' => 3, 'field' => 4))?>
 		</div>
 		<div class="large-2 column">
 			<label for="Element_OphCiAnaestheticassessment_Examination_height_calculation_id">
@@ -66,83 +61,21 @@
 			<?php echo $form->dropDownList($element, 'height_calculation_id', CHtml::listData(OphCiAnaestheticassessment_Examination_WeightCalculation::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -','nowrapper' => true),false,array('label' => 3, 'field' => 4))?>
 		</div>
 	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_Examination_bmi" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_Examination_bmi">
-				<?php echo $element->getAttributeLabel('bmi')?>:
-			</label>
-		</div>
-		<div class="large-2 column end">
-			<?php echo $form->textField($element, 'bmi', array('class' => 'smallInput', 'nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
-			<span class="metric">kg/m^2</span>
-		</div>
-	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_Examination_bp_systolic" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_Examination_bp_systolic">
-				Blood pressure:
-			</label>
-		</div>
-		<div class="large-4 column end">
-			<?php echo $form->textField($element, 'bp_systolic', array('nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">/</span>
-			<?php echo $form->textField($element, 'bp_diastolic', array('nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
-			<span class="metric">mmHg</span>
-		</div>
-	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_Examination_heart_rate_pulse" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_Examination_heart_rate_pulse">
-				<?php echo $element->getAttributeLabel('heart_rate_pulse')?>:
-			</label>
-		</div>
-		<div class="large-2 column end">
-			<?php echo $form->textField($element, 'heart_rate_pulse', array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
-			<span class="metric">bpm</span>
-		</div>
-	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_Examination_temperature" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_Examination_temperature">
-				<?php echo $element->getAttributeLabel('temperature')?>:
-			</label>
-		</div>
-		<div class="large-2 column end">
-			<?php echo $form->textField($element, 'temperature', array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
-			<span class="metric">C</span>
-		</div>
-	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_Examination_respiratory_rate" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_Examination_respiratory_rate">
-				<?php echo $element->getAttributeLabel('respiratory_rate')?>:
-			</label>
-		</div>
-		<div class="large-2 column end">
-			<?php echo $form->textField($element, 'respiratory_rate', array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
-			<span class="metric">insp/min</span>
-		</div>
-	</div>
-	<div id="div_Element_OphCiAnaestheticassessment_Examination_sao2" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_Examination_sao2">
-				<?php echo $element->getAttributeLabel('sao2')?>:
-			</label>
-		</div>
-		<div class="large-2 column end">
-			<?php echo $form->textField($element, 'sao2', array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
-			<span class="metric">%</span>
-		</div>
-	</div>
-	<?php echo $form->dropDownList($element, 'airway_class_id', CHtml::listData(OphCiAnaestheticassessment_Examination_AirwayClass::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array('empty'=>'- Please select -'),false,array('label' => 3, 'field' => 4))?>
+	<?php echo $form->bmiMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
+	<?php echo $form->bloodPressureMeasurement($element, array('label' => 'Blood pressure'), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->pulseMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
+	<?php echo $form->temperatureMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
+	<?php echo $form->respiratoryRateMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
+	<?php echo $form->sao2Measurement($element, array(), array('label' => 3, 'field' => 2))?>
+	<?php echo $form->airwayClassMeasurement($element, array('empty' => '- Please select -'), array('label' => 3, 'field' => 2))?>
 	<div id="div_Element_OphNuPreoperative_BaselineObservations_blood_glucose" class="row field-row">
 		<div class="large-3 column">
 			<label for="Element_OphNuPreoperative_BaselineObservations_blood_glucose">
-				<?php echo $element->getAttributeLabel('blood_glucose')?>:
+				<?php echo $element->getAttributeLabel('blood_glucose_m')?>:
 			</label>
 		</div>
 		<div class="large-1 column">
-			<?php echo $form->textField($element, 'blood_glucose', $element->blood_glucose_na ? array('nowrapper' => true,'disabled' => 'disabled') : array('nowrapper' => true), array(), array('label' => 3, 'field' => 1))?>
+			<?php echo $form->bloodGlucoseMeasurement($element, array('nowrapper' => true,'disabled' => $element->blood_glucose_na ? 'disabled' : ''), array('label' => 3, 'field' => 1))?>
 		</div>
 		<div class="large-2 column end">
 			<?php echo $form->checkBox($element, 'blood_glucose_na', array('nowrapper' => true))?>

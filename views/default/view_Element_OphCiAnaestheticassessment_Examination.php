@@ -22,8 +22,8 @@
 			<div class="large-3 column"><div class="data-label">Weight</div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->weight_kg !== 0) {?>
-						<?php echo CHtml::encode($element->formatDecimal('weight_kg'))?> kg (<?php echo CHtml::encode($element->formatDecimal('weight_lb'))?> lb<?php if ($element->weight_calculation) {?>, <?php echo strtolower($element->weight_calculation->name)?><?php }?>)
+					<?php if ($element->weight_m) {?>
+						<?php echo CHtml::encode($element->weight_m->valueText)?> (<?php echo CHtml::encode($element->weight_m->lbText)?><?php if ($element->weight_calculation) {?>, <?php echo strtolower($element->weight_calculation->name)?><?php }?>)
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -34,8 +34,8 @@
 			<div class="large-3 column"><div class="data-label">Height</div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->height_cm !== 0) {?>
-						<?php echo CHtml::encode($element->formatDecimal('height_cm'))?> cm (<?php echo $element->height_ft?>'<?php echo $element->height_in?>''<?php if ($element->height_calculation) {?>, <?php echo strtolower($element->height_calculation->name)?><?php }?>)
+					<?php if ($element->height_m) {?>
+						<?php echo CHtml::encode($element->height_m->valueText)?> (<?php echo $element->height_m->ftInText?><?php if ($element->height_calculation) {?>, <?php echo strtolower($element->height_calculation->name)?><?php }?>)
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -43,11 +43,11 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('bmi'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('bmi_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->bmi !== 0) {?>
-						<?php echo CHtml::encode($element->formatDecimal('bmi'))?> kg/m^2
+					<?php if ($element->bmi_m) {?>
+						<?php echo CHtml::encode($element->bmi_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -58,8 +58,8 @@
 			<div class="large-3 column"><div class="data-label">Blood pressure</div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->bp_systolic !== 0) {?>
-						<?php echo CHtml::encode($element->bp_systolic)?>/<?php echo CHtml::encode($element->bp_diastolic)?> mmHg
+					<?php if ($element->blood_pressure_m) {?>
+						<?php echo CHtml::encode($element->blood_pressure_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -67,11 +67,11 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart_rate_pulse'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('pulse_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->heart_rate_pulse !== 0) {?>
-						<?php echo CHtml::encode($element->heart_rate_pulse)?> bpm
+					<?php if ($element->pulse_m) {?>
+						<?php echo CHtml::encode($element->pulse_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -79,11 +79,11 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('temperature'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('temperature_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->temperature !== 0) {?>
-						<?php echo CHtml::encode($element->temperature)?> C
+					<?php if ($element->temperature_m) {?>
+						<?php echo CHtml::encode($element->temperature_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -91,11 +91,11 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('respiratory_rate'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('rr_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->respiratory_rate !== 0) {?>
-						<?php echo CHtml::encode($element->respiratory_rate)?> insp/min
+					<?php if ($element->rr_m) {?>
+						<?php echo CHtml::encode($element->rr_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -103,11 +103,11 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('sao2'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('sao2_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ((integer)$element->sao2 !== 0) {?>
-						<?php echo CHtml::encode($element->sao2)?> %
+					<?php if ($element->sao2_m) {?>
+						<?php echo CHtml::encode($element->sao2_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>
@@ -115,16 +115,20 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('airway_class_id'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('airway_class_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php echo $element->airway_class ? $element->airway_class->name : 'None'?>
+					<?php if ($element->airway_class_m) {?>
+						<?php echo $element->airway_class_m->valueText?>
+					<?php }else{?>
+						Not entered
+					<?php }?>
 				</div>
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('blood_glucose'))?></div></div>
-			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->blood_glucose_na ? 'N/A' : ($element->blood_glucose ? $element->blood_glucose : 'Not entered'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('blood_glucose_m'))?></div></div>
+			<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->blood_glucose_na ? 'N/A' : ($element->blood_glucose_m ? $element->blood_glucose_m->valueText : 'Not entered'))?></div></div>
 		</div>
 		<div class="row data-row">
 			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('heart'))?></div></div>
