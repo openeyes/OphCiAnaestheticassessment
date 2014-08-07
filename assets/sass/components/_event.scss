@@ -15,7 +15,7 @@
 // * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
 
 .event {
-	border-color: #aaaaaa;
+	border-color: #fdcc56;
 	.event-content {
 		background-image: image-url("watermark.png");
 	}
@@ -41,13 +41,13 @@
 	.metric {
 		display: inline;
 		font-size: 0.8125em;
-	} 
+	}
 	input {
 		display: inline;
 	}
-	.smallInput { 
+	.smallInput {
 		width: 5em;
-	} 
+	}
 }
 
 #Element_OphCiAnaestheticassessment_Examination_height_ft {
@@ -137,9 +137,11 @@
 .riskLevel.green {
 	color: #090;
 }
+
 .riskLevel.red {
 	color: #f00;
 }
+
 .riskLevel.blue {
 	color: #00f;
 }
