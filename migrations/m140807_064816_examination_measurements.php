@@ -45,7 +45,7 @@ class m140807_064816_examination_measurements extends OEMigration
 					'respiratory_rate' => array('MeasurementRespiratoryRate','measurement_respiratory_rate','rr','rr_m_id'),
 					'sao2' => array('MeasurementSAO2','measurement_sao2','sao2','sao2_m_id'),
 					'airway_class' => array('MeasurementAirwayClass','measurement_airway_class','airway_class','airway_class_m_id'),
-					'blood_glucose' => array('MeasurementGlucoseLevel','measurement_glucose_level','glucose_level','blood_glucose_m_id'),
+					'blood_glucose' => array('MeasurementBloodGlucose','measurement_blood_glucose','blood_glucose','blood_glucose_m_id'),
 				) as $element_field => $params) {
 				if ($element_field == 'airway_class') {
 					$element[$element_field] = $this->dbConnection->createCommand()->select("id")->from("ophcianassessment_examination_airway_class")->where("id = :id",array(":id" => $element['airway_class_id']))->queryScalar();
@@ -96,7 +96,7 @@ class m140807_064816_examination_measurements extends OEMigration
 		$this->addForeignKey('et_ophcianassessment_examination_tmi_fk','et_ophcianassessment_examination','temperature_m_id','measurement_temperature','id');
 		$this->addForeignKey('et_ophcianassessment_examination_rrmi_fk','et_ophcianassessment_examination','rr_m_id','measurement_respiratory_rate','id');
 		$this->addForeignKey('et_ophcianassessment_examination_sao2_fk','et_ophcianassessment_examination','sao2_m_id','measurement_sao2','id');
-		$this->addForeignKey('et_ophcianassessment_examination_bgmi_fk','et_ophcianassessment_examination','blood_glucose_m_id','measurement_glucose_level','id');
+		$this->addForeignKey('et_ophcianassessment_examination_bgmi_fk','et_ophcianassessment_examination','blood_glucose_m_id','measurement_blood_glucose','id');
 		$this->addForeignKey('et_ophcianassessment_examination_acmi_fk','et_ophcianassessment_examination','airway_class_m_id','measurement_airway_class','id');
 
 		foreach (array('weight_lb','weight_kg','height_ft','height_cm','bmi','bp_systolic','heart_rate_pulse','temperature','respiratory_rate','sao2','blood_glucose','height_in','bp_diastolic') as $field) {
@@ -201,7 +201,7 @@ class m140807_064816_examination_measurements extends OEMigration
 					'respiratory_rate' => array('MeasurementRespiratoryRate','measurement_respiratory_rate','rr','rr_m_id'),
 					'sao2' => array('MeasurementSAO2','measurement_sao2','sao2','sao2_m_id'),
 					'airway_class' => array('MeasurementAirwayClass','measurement_airway_class','airway_class','airway_class_m_id'),
-					'blood_glucose' => array('MeasurementGlucoseLevel','measurement_glucose_level','glucose_level','blood_glucose_m_id'),
+					'blood_glucose' => array('MeasurementBloodGlucose','measurement_blood_glucose','blood_glucose','blood_glucose_m_id'),
 				) as $element_field => $params) {
 				
 				if ($element[$params[3]]) {
