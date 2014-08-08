@@ -11,7 +11,7 @@ class m140807_064816_examination_measurements extends OEMigration
 		$this->addColumn('et_ophcianassessment_examination','pulse_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination','temperature_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination','rr_m_id','int(10) unsigned null');
-		$this->addColumn('et_ophcianassessment_examination','spo2_m_id','int(10) unsigned null');
+		$this->addColumn('et_ophcianassessment_examination','sao2_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination','blood_glucose_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination','airway_class_m_id','int(10) unsigned null');
 
@@ -22,7 +22,7 @@ class m140807_064816_examination_measurements extends OEMigration
 		$this->addColumn('et_ophcianassessment_examination_version','pulse_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination_version','temperature_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination_version','rr_m_id','int(10) unsigned null');
-		$this->addColumn('et_ophcianassessment_examination_version','spo2_m_id','int(10) unsigned null');
+		$this->addColumn('et_ophcianassessment_examination_version','sao2_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination_version','blood_glucose_m_id','int(10) unsigned null');
 		$this->addColumn('et_ophcianassessment_examination_version','airway_class_m_id','int(10) unsigned null');
 
@@ -43,7 +43,7 @@ class m140807_064816_examination_measurements extends OEMigration
 					'heart_rate_pulse' => array('MeasurementPulse','measurement_pulse','pulse','pulse_m_id'),
 					'temperature' => array('MeasurementTemperature','measurement_temperature','temperature','temperature_m_id'),
 					'respiratory_rate' => array('MeasurementRespiratoryRate','measurement_respiratory_rate','rr','rr_m_id'),
-					'sao2' => array('MeasurementSPO2','measurement_spo2','spo2','spo2_m_id'),
+					'sao2' => array('MeasurementSPO2','measurement_sao2','sao2','sao2_m_id'),
 					'airway_class' => array('MeasurementAirwayClass','measurement_airway_class','airway_class','airway_class_m_id'),
 					'blood_glucose' => array('MeasurementGlucoseLevel','measurement_glucose_level','glucose_level','blood_glucose_m_id'),
 				) as $element_field => $params) {
@@ -95,7 +95,7 @@ class m140807_064816_examination_measurements extends OEMigration
 		$this->addForeignKey('et_ophcianassessment_examination_pmi_fk','et_ophcianassessment_examination','pulse_m_id','measurement_pulse','id');
 		$this->addForeignKey('et_ophcianassessment_examination_tmi_fk','et_ophcianassessment_examination','temperature_m_id','measurement_temperature','id');
 		$this->addForeignKey('et_ophcianassessment_examination_rrmi_fk','et_ophcianassessment_examination','rr_m_id','measurement_respiratory_rate','id');
-		$this->addForeignKey('et_ophcianassessment_examination_spo2_fk','et_ophcianassessment_examination','spo2_m_id','measurement_spo2','id');
+		$this->addForeignKey('et_ophcianassessment_examination_sao2_fk','et_ophcianassessment_examination','sao2_m_id','measurement_sao2','id');
 		$this->addForeignKey('et_ophcianassessment_examination_bgmi_fk','et_ophcianassessment_examination','blood_glucose_m_id','measurement_glucose_level','id');
 		$this->addForeignKey('et_ophcianassessment_examination_acmi_fk','et_ophcianassessment_examination','airway_class_m_id','measurement_airway_class','id');
 
@@ -178,7 +178,7 @@ class m140807_064816_examination_measurements extends OEMigration
 		$this->dropForeignKey('et_ophcianassessment_examination_pmi_fk','et_ophcianassessment_examination');
 		$this->dropForeignKey('et_ophcianassessment_examination_tmi_fk','et_ophcianassessment_examination');
 		$this->dropForeignKey('et_ophcianassessment_examination_rrmi_fk','et_ophcianassessment_examination');
-		$this->dropForeignKey('et_ophcianassessment_examination_spo2_fk','et_ophcianassessment_examination');
+		$this->dropForeignKey('et_ophcianassessment_examination_sao2_fk','et_ophcianassessment_examination');
 		$this->dropForeignKey('et_ophcianassessment_examination_bgmi_fk','et_ophcianassessment_examination');
 		$this->dropForeignKey('et_ophcianassessment_examination_acmi_fk','et_ophcianassessment_examination');
 
@@ -199,7 +199,7 @@ class m140807_064816_examination_measurements extends OEMigration
 					'heart_rate_pulse' => array('MeasurementPulse','measurement_pulse','pulse','pulse_m_id'),
 					'temperature' => array('MeasurementTemperature','measurement_temperature','temperature','temperature_m_id'),
 					'respiratory_rate' => array('MeasurementRespiratoryRate','measurement_respiratory_rate','rr','rr_m_id'),
-					'sao2' => array('MeasurementSPO2','measurement_spo2','spo2','spo2_m_id'),
+					'sao2' => array('MeasurementSPO2','measurement_sao2','sao2','sao2_m_id'),
 					'airway_class' => array('MeasurementAirwayClass','measurement_airway_class','airway_class','airway_class_m_id'),
 					'blood_glucose' => array('MeasurementGlucoseLevel','measurement_glucose_level','glucose_level','blood_glucose_m_id'),
 				) as $element_field => $params) {
@@ -227,7 +227,7 @@ class m140807_064816_examination_measurements extends OEMigration
 
 		$this->addForeignKey('ophcianassessment_examination_airway_class_fk','et_ophcianassessment_examination','airway_class_id','ophcianassessment_examination_airway_class','id');
 
-		foreach (array('weight_m_id','height_m_id','bmi_m_id','blood_pressure_m_id','pulse_m_id','temperature_m_id','rr_m_id','spo2_m_id','blood_glucose_m_id','airway_class_m_id') as $field) {
+		foreach (array('weight_m_id','height_m_id','bmi_m_id','blood_pressure_m_id','pulse_m_id','temperature_m_id','rr_m_id','sao2_m_id','blood_glucose_m_id','airway_class_m_id') as $field) {
 			$this->dropColumn('et_ophcianassessment_examination',$field);
 			$this->dropColumn('et_ophcianassessment_examination_version',$field);
 		}
