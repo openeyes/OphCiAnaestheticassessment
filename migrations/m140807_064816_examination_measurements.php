@@ -43,7 +43,7 @@ class m140807_064816_examination_measurements extends OEMigration
 					'heart_rate_pulse' => array('MeasurementPulse','measurement_pulse','pulse','pulse_m_id'),
 					'temperature' => array('MeasurementTemperature','measurement_temperature','temperature','temperature_m_id'),
 					'respiratory_rate' => array('MeasurementRespiratoryRate','measurement_respiratory_rate','rr','rr_m_id'),
-					'sao2' => array('MeasurementSPO2','measurement_sao2','sao2','sao2_m_id'),
+					'sao2' => array('MeasurementSAO2','measurement_sao2','sao2','sao2_m_id'),
 					'airway_class' => array('MeasurementAirwayClass','measurement_airway_class','airway_class','airway_class_m_id'),
 					'blood_glucose' => array('MeasurementGlucoseLevel','measurement_glucose_level','glucose_level','blood_glucose_m_id'),
 				) as $element_field => $params) {
@@ -199,7 +199,7 @@ class m140807_064816_examination_measurements extends OEMigration
 					'heart_rate_pulse' => array('MeasurementPulse','measurement_pulse','pulse','pulse_m_id'),
 					'temperature' => array('MeasurementTemperature','measurement_temperature','temperature','temperature_m_id'),
 					'respiratory_rate' => array('MeasurementRespiratoryRate','measurement_respiratory_rate','rr','rr_m_id'),
-					'sao2' => array('MeasurementSPO2','measurement_sao2','sao2','sao2_m_id'),
+					'sao2' => array('MeasurementSAO2','measurement_sao2','sao2','sao2_m_id'),
 					'airway_class' => array('MeasurementAirwayClass','measurement_airway_class','airway_class','airway_class_m_id'),
 					'blood_glucose' => array('MeasurementGlucoseLevel','measurement_glucose_level','glucose_level','blood_glucose_m_id'),
 				) as $element_field => $params) {
