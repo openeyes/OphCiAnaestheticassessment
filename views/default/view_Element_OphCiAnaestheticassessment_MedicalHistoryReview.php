@@ -98,7 +98,6 @@
 		'element' => $element,
 		'boolean_field' => 'diabetes',
 		'relations' => array('diabetes_treatment','diabetes_monitor'),
-		'other_field' => 'gi_other',
 		'text_fields' => array('diabetes_comments')
 	))?>
 
