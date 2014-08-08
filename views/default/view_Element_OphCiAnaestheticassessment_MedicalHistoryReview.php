@@ -93,6 +93,15 @@
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'cardiovascular', 'relations' => array('cardio'), 'other_field' => 'cardio_other', 'text_fields' => array('cardio_comments')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'respiratory', 'relations' => array('pulmonary'), 'other_field' => 'pulmonary_other', 'text_fields' => array('pulmonary_comments')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'gastro_intestinal', 'relations' => array('gi'), 'other_field' => 'gi_other', 'text_fields' => array('gi_comments')))?>
+
+	<?php echo $this->renderPartial('_MedicalHistoryField',array(
+		'element' => $element,
+		'boolean_field' => 'diabetes',
+		'relations' => array('diabetes_treatment','diabetes_monitor'),
+		'other_field' => 'gi_other',
+		'text_fields' => array('diabetes_comments')
+	))?>
+
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'genitourinary_renal_endocrine', 'relations' => array('gre'), 'other_field' => 'gre_other', 'text_fields' => array('gre_comments')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'neuro_musculoskeletal', 'relations' => array('neuro'), 'other_field' => 'neuro_other', 'text_fields' => array('neuro_comments')))?>
 	<?php echo $this->renderPartial('_MedicalHistoryField',array('element' => $element, 'boolean_field' => 'falls_mobility_risk', 'relations' => array('falls'), 'text_fields' => array('falls_comments')))?>
