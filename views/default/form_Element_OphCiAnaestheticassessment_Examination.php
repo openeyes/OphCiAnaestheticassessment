@@ -25,7 +25,7 @@
 			</label>
 		</div>
 		<div class="large-2 column">
-			<?php echo $form->weightMeasurement($element, array('class' => 'smallInput', 'nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
+			<?php echo $form->weightMeasurement($element, array('nowrapper' => true), array(), array('label' => 3, 'field' => 4))?>
 		</div>
 		<div class="large-2 column">
 			<?php echo $form->textField($element, 'weight_lb', array('class' => 'smallInput', 'nowrapper' => true, 'append-text' => 'lbs'), array(), array('label' => 3, 'field' => 4))?>
@@ -46,7 +46,7 @@
 			</label>
 		</div>
 		<div class="large-2 column">
-			<?php echo $form->heightMeasurement($element, array('class' => 'smallInput', 'nowrapper' => true), array('label' => 3, 'field' => 4))?>
+			<?php echo $form->heightMeasurement($element, array('nowrapper' => true), array('label' => 3, 'field' => 4))?>
 		</div>
 		<div class="large-2 column">
 			<?php echo $form->textField($element, 'height_ft', array('nowrapper' => true, 'append-text' => 'ft'), array(), array('label' => 3, 'field' => 4))?>
@@ -62,19 +62,20 @@
 		</div>
 	</div>
 	<?php echo $form->bmiMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
-	<?php echo $form->bloodPressureMeasurement($element, array('label' => 'Blood pressure'), array('label' => 3, 'field' => 4))?>
+	<?php echo $form->bloodPressureMeasurement($element, array(), array('label' => 3, 'field' => 4))?>
 	<?php echo $form->pulseMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->temperatureMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->respiratoryRateMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->sao2Measurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->airwayClassMeasurement($element, array('empty' => '- Please select -'), array('label' => 3, 'field' => 2))?>
-	<div id="div_Element_OphNuPreoperative_BaselineObservations_blood_glucose" class="row field-row">
+	<div id="div_Element_OphNuPreoperative_BaselineObservations_blood_glucose_m" class="row field-row">
 		<div class="large-3 column">
-			<label for="Element_OphNuPreoperative_BaselineObservations_blood_glucose">
+			<label for="Element_OphNuPreoperative_BaselineObservations_blood_glucose_m">
 				<?php echo $element->getAttributeLabel('blood_glucose_m')?>:
 			</label>
 		</div>
 		<div class="large-1 column">
+			<input type="hidden" name="<?php echo CHtml::modelName($element)?>[blood_glucose_m]" value="" />
 			<?php echo $form->bloodGlucoseMeasurement($element, array('nowrapper' => true,'disabled' => $element->blood_glucose_na ? 'disabled' : ''), array('label' => 3, 'field' => 1))?>
 		</div>
 		<div class="large-2 column end">

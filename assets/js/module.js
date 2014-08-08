@@ -139,10 +139,10 @@ $(document).ready(function() {
 
 	$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose_na').click(function() {
 		if ($(this).is(':checked')) {
-			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').attr('disabled','disabled');
-			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').val('');
+			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose_m').attr('disabled','disabled');
+			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose_m').val('');
 		} else {
-			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose').removeAttr('disabled');
+			$('#Element_OphCiAnaestheticassessment_Examination_blood_glucose_m').removeAttr('disabled');
 		}
 	});
 

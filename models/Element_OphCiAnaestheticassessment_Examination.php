@@ -114,7 +114,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'rr_m' => array(self::BELONGS_TO, 'MeasurementRespiratoryRate', 'rr_m_id'),
 			'sao2_m' => array(self::BELONGS_TO, 'MeasurementSAO2', 'sao2_m_id'),
 			'airway_class_m' => array(self::BELONGS_TO, 'MeasurementAirwayClass', 'airway_class_m_id'),
-			'blood_glucose_m' => array(self::BELONGS_TO, 'MeasurementGlucoseLevel', 'blood_glucose_m_id'),
+			'blood_glucose_m' => array(self::BELONGS_TO, 'MeasurementBloodGlucose', 'blood_glucose_m_id'),
 		);
 	}
 
@@ -135,6 +135,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'height_calculation_id' => 'Height calculation',
 			'bmi_m' => 'BMI',
 			'pulse_m' => 'Heart rate / pulse',
+			'blood_pressure_m' => 'Blood pressure',
 			'blood_pressure_m_systolic' => 'Blood pressure (systolic)',
 			'blood_pressure_m_diastolic' => 'Blood pressure (diastolic)',
 			'temperature_m' => 'Temperature',
