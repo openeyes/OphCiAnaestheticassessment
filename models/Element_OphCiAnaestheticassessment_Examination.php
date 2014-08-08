@@ -63,8 +63,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public $weight_lb;
 	public $height_ft;
 	public $height_in;
-	public $blood_pressure_m_systolic;
-	public $blood_pressure_m_diastolic;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -89,7 +87,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public function rules()
 	{
 		return array(
-			array('event_id, weight_lb, weight_m, weight_calculation_id, height_ft, height_in, height_m, height_calculation_id, bmi_m, blood_pressure_m_systolic, blood_pressure_m_diastolic, pulse_m, temperature_m, rr_m, sao2_m, airway_class_m, blood_glucose_m, heart, lungs, abdomen, teeths, blood_glucose_na', 'safe'),
+			array('event_id, weight_lb, weight_m, weight_calculation_id, height_ft, height_in, height_m, height_calculation_id, bmi_m, pulse_m, temperature_m, rr_m, sao2_m, airway_class_m, blood_glucose_m, heart, lungs, abdomen, teeths, blood_glucose_na, blood_pressure_m', 'safe'),
 		);
 	}
 
@@ -199,24 +197,6 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			$this->height_ft = $ft_in['ft'];
 			$this->height_in = $ft_in['in'];
 		}
-
-		if ($this->blood_pressure_m) {
-			$bp = $this->blood_pressure_m->value;
-			$this->blood_pressure_m_systolic = $bp['bp_systolic'];
-			$this->blood_pressure_m_diastolic = $bp['bp_diastolic'];
-		}
-	}
-
-	public function beforeSave()
-	{
-		if ($this->blood_pressure_m_systolic && $this->blood_pressure_m_diastolic) {
-			$this->blood_pressure_m = array(
-				'bp_systolic' => $this->blood_pressure_m_systolic,
-				'bp_diastolic' => $this->blood_pressure_m_diastolic,
-			);
-		}
-
-		return parent::beforeSave();
 	}
 
 	public function beforeValidate()
