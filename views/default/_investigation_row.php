@@ -22,7 +22,7 @@
 		<?php if ($edit) {?>
 			<input type="hidden" name="investigation_row_ids[]" value="<?php echo $investigation->id?>" />
 			<?php echo CHtml::dropDownList('investigation_ids[]',$investigation->investigation_id,$investigation->investigations,array('empty' => '- Select -','class' => 'investigationType','style' => $investigation->investigation_text ? 'display: none' : ''))?>
-			<?php echo CHtml::textField('investigation_text[]',$investigation->investigation_text,array('style' => $investigation->investigation_text ? '' : 'display: none'))?>
+			<?php echo CHtml::textField('investigation_text[]',$investigation->investigation_text,array('autocomplete' => Yii::app()->params['html_autocomplete'], 'style' => $investigation->investigation_text ? '' : 'display: none'))?>
 		<?php }else{?>
 			<?php echo $investigation->investigation->name?>
 		<?php }?>
@@ -45,7 +45,7 @@
 	</td>
 	<td>
 		<?php if ($edit) {?>
-			<?php echo CHtml::textField('result[]',$investigation->result)?>
+			<?php echo CHtml::textField('result[]',$investigation->result,array('autocomplete' => Yii::app()->params['html_autocomplete']))?>
 		<?php }else{?>
 			<?php echo $investigation->result ? $investigation->result : '-'?>
 		<?php }?>
