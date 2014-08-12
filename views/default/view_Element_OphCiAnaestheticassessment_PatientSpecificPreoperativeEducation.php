@@ -17,39 +17,37 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-	<div class="element-data">
+<div class="element-data">
+	<?php if (!$element->instructions){?>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php if (!$element->instructions) {?>
-							None
-						<?php } else {?>
-								<?php foreach ($element->instructions as $item) {
-									echo $item->name?><br/>
-								<?php }?>
-						<?php }?>
-			</div></div>
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div>
+			</div>
+			<div class="large-9 column end">
+				<div class="data-value">None</div>
+			</div>
 		</div>
-		<?php if ($element->hasMultiSelectValue('instructions','Medications')) {?>
-			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('medications'))?></div></div>
-				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->medications)?></div></div>
+	<?php } else {
+		$categories = array();
+		foreach($element->instructions as $instruction) {
+			if (!isset($categories[$instruction->category->name])) {
+				$categories[$instruction->category->name] = array();
+			}
+			$categories[$instruction->category->name][] = $instruction;
+		}
+		foreach($categories as $name => $instructions) {?>
+			<div class="row data-row instruction-category-row">
+				<div class="large-3 column">
+					<div class="data-label"><?php echo $name?>:</div>
+				</div>
+				<div class="large-9 column end">
+					<ul>
+						<?php foreach($instructions as $instruction) {?>
+							<li class="data-value"><?php echo $instruction->name;?></li>
+						<?php }?>
+					</ul>
+				</div>
 			</div>
 		<?php }?>
-		<?php if ($element->hasMultiSelectValue('instructions','Other (please specify)')) {?>
-			<div class="row data-row">
-				<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('other'))?></div></div>
-				<div class="large-9 column end"><div class="data-value"><?php echo CHtml::encode($element->other)?></div></div>
-			</div>
-		<?php }?>
-		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('diabetes_items'))?>:</div></div>
-			<div class="large-9 column end"><div class="data-value"><?php if (!$element->diabetes_items) {?>
-							None
-						<?php } else {?>
-								<?php foreach ($element->diabetes_items as $item) {
-									echo $item->name?><br/>
-								<?php }?>
-						<?php }?>
-			</div></div>
-		</div>
-	</div>
+	<?php }?>
+</div>

@@ -68,7 +68,7 @@
 		<tfoot class="pagination-container">
 			<tr>
 				<td colspan="4">
-					<?php echo EventAction::button('Add category', 'admin-add', null, array('class' => 'generic-admin-add small secondary'))->toHtml()?>&nbsp;
+					<?php echo EventAction::button('Add instruction', 'admin-add', null, array('class' => 'generic-admin-add small secondary'))->toHtml()?>&nbsp;
 					<?php echo EventAction::button('Save', 'admin-save', null, array('class' => 'generic-admin-save small primary'))->toHtml()?>&nbsp;
 					<?php echo $this->renderPartial('//admin/_pagination',array(
 						'pagination' => $pagination,

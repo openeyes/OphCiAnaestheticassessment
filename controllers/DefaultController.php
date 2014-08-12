@@ -129,7 +129,7 @@ class DefaultController extends BaseEventTypeController
 			if (!$item->save()) {
 				throw new Exception("Unable to save medical history surgery item: ".print_r($item->errors,true));
 			}
-			
+
 			$ids[] = $item->id;
 		}
 
@@ -196,7 +196,7 @@ class DefaultController extends BaseEventTypeController
 
 	public function getOpenBookings()
 	{
-		if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) { 
+		if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
 			return $api->getOpenBookingsForPatient($this->episode->patient_id);
 		}
 

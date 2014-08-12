@@ -45,8 +45,17 @@ class m140808_115546_patient_education_instructions extends OEMigration
 		$this->dropTable('ophcianassessment_speced_diabetes');
 		$this->dropTable('ophcianassessment_speced_diabetes_version');
 
+		$this->dropColumn('et_ophcianassessment_specificeducation', 'medications');
+		$this->dropColumn('et_ophcianassessment_specificeducation_version', 'medications');
+
+		$this->dropColumn('et_ophcianassessment_specificeducation', 'other');
+		$this->dropColumn('et_ophcianassessment_specificeducation_version', 'other');
+
 		$this->refreshTableSchema('ophcianassessment_speced_instructions');
 		$this->refreshTableSchema('ophcianassessment_speced_instructions_version');
+
+		$this->refreshTableSchema('et_ophcianassessment_specificeducation');
+		$this->refreshTableSchema('et_ophcianassessment_specificeducation_version');
 
 		// Add in categories and instructions
 		$this->initialiseData(dirname(__FILE__));
@@ -125,6 +134,15 @@ class m140808_115546_patient_education_instructions extends OEMigration
 			'CONSTRAINT `ophcianassessment_speced_diabetes_assignment_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianassessment_specificeducation` (`id`)',
 			'CONSTRAINT `ophcianassessment_speced_diabetes_assignment_idi_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianassessment_speced_diabetes` (`id`)',
 		), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+
+		$this->addColumn('et_ophcianassessment_specificeducation','medications','varchar(255) COLLATE utf8_bin DEFAULT \'\'');
+		$this->addColumn('et_ophcianassessment_specificeducation_version','medications','varchar(255) COLLATE utf8_bin DEFAULT \'\'');
+
+		$this->addColumn('et_ophcianassessment_specificeducation','other','varchar(255) COLLATE utf8_bin DEFAULT \'\'');
+		$this->addColumn('et_ophcianassessment_specificeducation_version','other','varchar(255) COLLATE utf8_bin DEFAULT \'\'');
+
+		$this->versionExistingTable('et_ophcianassessment_specificeducation');
+		$this->versionExistingTable('et_ophcianassessment_specificeducation_version');
 
 		$this->versionExistingTable('ophcianassessment_speced_diabetes_assignment');
 	}
