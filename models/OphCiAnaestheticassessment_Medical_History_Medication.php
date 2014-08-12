@@ -119,8 +119,12 @@ class OphCiAnaestheticassessment_Medical_History_Medication extends BaseActiveRe
 
 	public function afterValidate()
 	{
-		if ($this->start_date && !preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',$this->start_date)) {
+		if ($this->start_date && !preg_match('/^[0-9]{4}(-[0-9]{2}-[0-9]{2})?$/',$this->start_date)) {
 			$this->addError('start_date','Start date has incorrect format');
+		}
+
+		if(preg_match('/^[0-9]{4}$/',$this->start_date)){
+			$this->start_date = $this->start_date . '-00-00';
 		}
 
 		if ($this->end_date && !preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',$this->end_date)) {
