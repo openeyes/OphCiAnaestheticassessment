@@ -21,6 +21,7 @@ class AdminController extends ModuleAdminController
 {
 	public $data = array();
 	public $pagination = null;
+	public $form_errors = array();
 
 	public function actionEditTeeth()
 	{
