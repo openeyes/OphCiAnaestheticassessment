@@ -30,12 +30,10 @@
 	</div>
 	<?php $this->widget('application.widgets.AllergySelection', array(
 		'form' => $form,
-		'element' => $element,
+		'patient' => $this->patient,
 		'label' => 'Allergies',
-		'relation' => 'allergies',
-		'input_name' => 'allergies',
-		'no_allergies_field' => 'patient_has_no_allergies',
 		'edit' => false,
+		'allow_collapse' => false,
 	))?>
 	<div class="row data-row">
 		<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('previous_surgical_procedures'))?>:</div></div>

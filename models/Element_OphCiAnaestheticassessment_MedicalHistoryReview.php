@@ -85,7 +85,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 	public function rules()
 	{
 		return array(
-			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_has_no_allergies, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, patient_anesthesia_comments, family_anesthesia_comments, pain_location_id, pain_type_id', 'safe'),
+			array('event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, teeth_other, cardio_other, cardio_comments, pulmonary_other, pulmonary_comments, gi_other, gi_comments, diabetes_comments, gre_other, gre_comments, neuro_other, neuro_comments, misc_other, misc_comments, falls_comments, psych_other, psych_comments, preg_test, recent_cough, surgery_other, surgery_comments, patientan_other, familyan_other, cardev_other, cardev_comments, noncardiac_implants, prosthetic_other, smoke_amount, smoke_duration, smoke_quit_date, alcohol_type, alcohol_amount, alcohol_quit_date, drug_name, drug_quit_date, dentals, cardio, diabetes_monitor, diabetes_treatment, falls, family_anesthesia_items, gi, gre, cardiac_devices, prosthetics, misc, neuro, patient_anesthesia_items, pregnancy, psychiatric_items, pulmonary, smoking, patient_anesthesia_comments, family_anesthesia_comments, pain_location_id, pain_type_id', 'safe'),
 			array('id, event_id, medication_verified, previous_surgical_procedures, patient_anesthesia, family_anesthesia, pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use, patient_anesthesia_comments, family_anesthesia_comments, pain_location_id, pain_type_id', 'safe', 'on' => 'search'),
 			array('previous_surgical_procedures,patient_anesthesia,family_anesthesia,pain, cardiovascular, respiratory, gastro_intestinal, diabetes, genitourinary_renal_endocrine, neuro_musculoskeletal, falls_mobility_risk, miscellaneous, psychiatric, pregnancy_status, exposure, dental, tobacco_use, alcohol_use, recreational_drug_use', 'required'),
 		);
@@ -103,7 +103,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'medications' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Medication', 'element_id'),
-			'allergies' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Allergy', 'element_id'),
 			'dentals' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Dental', 'dental_id', 'through' => 'dentals_assignments'),
 			'dentals_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Dental_Assignment', 'element_id'),
 			'cardio' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_Medical_History_Cardio', 'item_id', 'through' => 'cardio_assignments'),
@@ -174,7 +173,6 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 			'tobacco_use' => 'Tobacco use',
 			'alcohol_use' => 'Alcohol use',
 			'recreational_drug_use' => 'Recreational drug use',
-			'patient_has_no_allergies' => 'Patient has no known allergies',
 			'teeth_other' => 'Other removable dental work',
 			'cardio_other' => 'Other cardiovascular history',
 			'cardio_comments' => 'Cardiovascular comments',
@@ -322,89 +320,9 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 					}
 				}
 			}
-
-			$ids = array();
-
-			foreach ($this->allergies as $allergy) {
-				if (!$paa = PatientAllergyAssignment::model()->find('patient_id=? and allergy_id=?',array($patient->id,$allergy->allergy_id))) {
-					$paa = new PatientAllergyAssignment;
-					$paa->patient_id = $patient->id;
-					$paa->allergy_id = $allergy->allergy_id;
-
-					if (!$paa->save()) {
-						throw new Exception("Unable to save allergy assignment: ".print_r($paa->getErrors(),true));
-					}
-				}
-
-				$ids[] = $paa->id;
-			}
-
-			$criteria = new CDbCriteria;
-			$criteria->addCondition('patient_id = :patient_id');
-			$criteria->params[':patient_id'] = $patient->id;
-			!empty($ids) && $criteria->addNotInCondition('id',$ids);
-
-			PatientAllergyAssignment::model()->deleteAll($criteria);
-
-			if (empty($this->allergies) && $this->patient_has_no_allergies) {
-				if (!$patient->no_allergies_date) {
-					$patient->no_allergies_date = date('Y-m-d H:i:s');
-
-					if (!$patient->save()) {
-						throw new Exception("Unable to save patient: ".print_r($patient->getErrors(),true));
-					}
-				}
-			} else if (!empty($this->allergies) && $patient->no_allergies_date) {
-				$patient->no_allergies_date = null;
-
-				if (!$patient->save()) {
-					throw new Exception("Unable to save patient: ".print_r($patient->getErrors(),true));
-				}
-			}
 		}
 
 		return parent::afterSave();
-	}
-
-	public function getAvailableAllergyList()
-	{
-		$allergy_ids = array();
-
-		foreach ($this->allergies as $allergy) {
-			$allergy_ids[] = $allergy->allergy_id;
-		}
-
-		$criteria = new CDbCriteria;
-		!empty($allergy_ids) && $criteria->addNotInCondition('id',$allergy_ids);
-		$criteria->order = 'name asc';
-
-		return CHtml::listData(Allergy::model()->findAll($criteria),'id','name');
-	}
-
-	public function updateAllergies($allergy_ids)
-	{
-		$ids = array();
-
-		foreach ($allergy_ids as $allergy_id) {
-			if (!$allergy = OphCiAnaestheticassessment_Medical_History_Allergy::model()->find('element_id=? and allergy_id=?',array($this->id,$allergy_id))) {
-				$allergy = new OphCiAnaestheticassessment_Medical_History_Allergy;
-				$allergy->element_id = $this->id;
-				$allergy->allergy_id = $allergy_id;
-
-				if (!$allergy->save()) {
-					throw new Exception("Unable to save allergy: ".print_r($allergy->getErrors(),true));
-				}
-			}
-
-			$ids[] = $allergy->id;
-		}
-
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id = :element_id');
-		$criteria->params[':element_id'] = $this->id;
-		!empty($ids) && $criteria->addNotInCondition('id',$ids);
-
-		OphCiAnaestheticassessment_Medical_History_Allergy::model()->deleteAll($criteria);
 	}
 
 	protected function beforeValidate()

@@ -26,10 +26,9 @@
 	<?php echo $form->checkBox($element, 'medication_verified', array('text-align' => 'right'), array('label' => 3, 'field' => 4))?>
 	<?php $form->widget('application.widgets.AllergySelection', array(
 		'form' => $form,
-		'element' => $element,
-		'relation' => 'allergies',
-		'input_name' => 'allergies',
-		'no_allergies_field' => 'patient_has_no_allergies',
+		'patient' => $this->patient,
+		'allow_collapse' => false,
+		'button_align' => 'left',
 	))?>
 	<div class="row field-row healthyPatientDiv">
 		<div class="large-3 column"><label></label></div>
