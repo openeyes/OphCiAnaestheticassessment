@@ -124,7 +124,7 @@ class AdminController extends ModuleAdminController
 				array(
 					'field' => 'section_id',
 					'type' => 'lookup',
-					'OphCiAnaestheticassessment_DVT_Risk_Factor_Section',
+					'model' => 'OphCiAnaestheticassessment_DVT_Risk_Factor_Section',
 				),
 			)));
 	}
