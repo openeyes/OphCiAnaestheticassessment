@@ -1,4 +1,3 @@
-<?php
 /**
  * OpenEyes
  *
@@ -16,38 +15,30 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
-?>
-<div class="element-data">
-	<?php if (!$element->instructions){?>
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div>
-			</div>
-			<div class="large-9 column end">
-				<div class="data-value">None</div>
-			</div>
-		</div>
-	<?php } else {
-		$categories = array();
-		foreach($element->instructions as $instruction) {
-			if (!isset($categories[$instruction->category->name])) {
-				$categories[$instruction->category->name] = array();
-			}
-			$categories[$instruction->category->name][] = $instruction;
-		}
-		foreach($categories as $name => $instructions) {?>
-			<div class="row data-row instruction-category-row">
-				<div class="large-3 column">
-					<div class="data-label"><?php echo $name?>:</div>
-				</div>
-				<div class="large-9 column end">
-					<ul>
-						<?php foreach($instructions as $instruction) {?>
-							<li class="data-value"><?php echo $instruction->name;?></li>
-						<?php }?>
-					</ul>
-				</div>
-			</div>
-		<?php }?>
-	<?php }?>
-</div>
+
+$(document).ready(function() {
+
+	$(this).on('click', '.editRow', function(e) {
+		e.preventDefault();
+
+		$(this).closest('tr').children('td:first').children('span').hide();
+		$(this).closest('tr').children('td:first').children('input').show();
+	});
+
+	$(this).on('click', '.deleteRow', function(e) {
+		e.preventDefault();
+		$(this).closest('tr').remove();
+	});
+
+	var tbody = $('.generic-admin tbody');
+
+	tbody.sortable({helper: 'clone'});
+
+	$(this).on('click', '.generic-admin-add', function(e) {
+		e.preventDefault();
+
+		tbody.append('<tr class="addedRow">' + $('.generic-admin .newRow').html().replace(/ disabled="disabled"/g,'') + '</tr>');
+		tbody.children('tr:last').children('td:nth-child(2)').children('input').focus();
+		tbody.children('tr:last').find('[type=checkbox]').attr('disabled', 'disabled');
+	});
+});

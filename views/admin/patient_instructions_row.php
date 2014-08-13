@@ -17,37 +17,34 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<div class="element-data">
-	<?php if (!$element->instructions){?>
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div>
-			</div>
-			<div class="large-9 column end">
-				<div class="data-value">None</div>
-			</div>
-		</div>
-	<?php } else {
-		$categories = array();
-		foreach($element->instructions as $instruction) {
-			if (!isset($categories[$instruction->category->name])) {
-				$categories[$instruction->category->name] = array();
-			}
-			$categories[$instruction->category->name][] = $instruction;
+
+<tr>
+	<td class="reorder">
+		<span>&uarr;&darr;</span>
+	</td>
+	<td>
+		<?php echo CHtml::hiddenField('id[]',$row->id)?>
+		<?php
+		$htmlOptions = array();
+		if (!$row->active) {
+			$htmlOptions['disabled'] = 'disabled';
+			echo CHtml::hiddenField('name[]',$row->name);
 		}
-		foreach($categories as $name => $instructions) {?>
-			<div class="row data-row instruction-category-row">
-				<div class="large-3 column">
-					<div class="data-label"><?php echo $name?>:</div>
-				</div>
-				<div class="large-9 column end">
-					<ul>
-						<?php foreach($instructions as $instruction) {?>
-							<li class="data-value"><?php echo $instruction->name;?></li>
-						<?php }?>
-					</ul>
-				</div>
-			</div>
+		echo CHtml::textField('name[]',$row->name,$htmlOptions);
+		if (isset($errors[$i])) {?>
+			<span class="error">
+				<?php echo $errors[$i]?>
+			</span>
 		<?php }?>
+	</td>
+	<?php foreach ($extra_fields as $field) {?>
+		<td>
+			<?php $this->renderPartial('application.widgets.views._generic_admin_'.$field['type'],array('row' => $row, 'params' => $field))?>
+		</td>
 	<?php }?>
-</div>
+	<td>
+		<?php echo CHtml::checkBox('active[' . $row->id . ']',$row->active);?>
+	</td>
+	<td class="hidden">
+	</td>
+</tr>

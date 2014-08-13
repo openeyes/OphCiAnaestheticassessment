@@ -63,8 +63,8 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	public function rules()
 	{
 		return array(
-			array('event_id, medications, other, instructions, diabetes_items', 'safe'),
-			array('id, event_id, medications, other, ', 'safe', 'on' => 'search'),
+			array('event_id, instructions', 'safe'),
+			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -81,8 +81,6 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'instructions' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id', 'through' => 'instructions_assignments'),
 			'instructions_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment', 'element_id'),
-			'diabetes_items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes', 'item_id', 'through' => 'diabetes_items_assignments'),
-			'diabetes_items_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes_Assignment', 'element_id'),
 		);
 	}
 
@@ -95,8 +93,6 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'id' => 'ID',
 			'event_id' => 'Event',
 			'instructions' => 'Patient specific education',
-			'medications' => 'Medications',
-			'other' => 'Other education',
 		);
 	}
 
@@ -110,29 +106,10 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('medications', $this->medications);
-		$criteria->compare('other', $this->other);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	protected function beforeValidate()
-	{
-		if ($this->hasMultiSelectValue('instructions','Other (please specify)')) {
-			if (!$this->other) {
-				$this->addError('other',$this->getAttributeLabel('other').' cannot be blank.');
-			}
-		}
-
-		if ($this->hasMultiSelectValue('instructions','Medications')) {
-			if (!$this->medications) {
-				$this->addError('medications',$this->getAttributeLabel('medications').' cannot be blank.');
-			}
-		}
-
-		return parent::beforeValidate();
 	}
 }
 ?>

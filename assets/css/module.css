@@ -22,11 +22,11 @@
 }
 /* line 19, ../sass/components/_event.scss */
 .event .event-content {
-  background-image: url('../img/watermark.png?1407424279');
+  background-image: url('../img/watermark.png?1407424399');
 }
 /* line 22, ../sass/components/_event.scss */
 .event .event-title {
-  background-image: url('../img/medium.png?1407424205');
+  background-image: url('../img/medium.png?1407424399');
 }
 
 /* line 28, ../sass/components/_event.scss */
@@ -181,4 +181,9 @@
 /* line 170, ../sass/components/_event.scss */
 .healthyPatientDiv {
   margin-top: 2em !important;
+}
+
+/* line 176, ../sass/components/_event.scss */
+.Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation .instruction-category-row ul {
+  margin-bottom: 0;
 }

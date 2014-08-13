@@ -18,8 +18,88 @@
  */
 ?>
 <div class="element-fields">
-	<?php echo $form->multiSelectList($element, 'instructions', 'instructions', 'instruction_id', CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Patient specific education','class' => 'linked-fields','data-linked-fields'=>'medications,other','data-linked-values'=>'Medications,Other (please specify)'),false,false,null,false,false,array('label'=>3,'field'=>4))?>
-	<?php echo $form->textField($element, 'medications', array('hide' => !$element->hasMultiSelectValue('instructions','Medications')), array(), array('label' => 3, 'field' => 4))?>
-	<?php echo $form->textField($element, 'other', array('hide' => !$element->hasMultiSelectValue('instructions','Other (please specify)')), array(), array('label' => 3, 'field' => 4))?>
-	<?php echo $form->multiSelectList($element, 'diabetes_items', 'diabetes_items', 'item_id', CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes::model()->findAll(array('order'=>'display_order asc')),'id','name'), array(), array('empty' => '- Please select -', 'label' => 'Diabetes instructions'),false,false,null,false,false,array('label'=>3,'field'=>4))?>
+
+	<?php
+
+	if ($element->id && empty($_POST)) {
+
+		// As we don't have direct any element >> category relations, we need to
+		// infer the relations by associated instructions.
+
+		$criteria = new CDbCriteria;
+		$criteria->select = 'DISTINCT t.*';
+		$criteria->join = 'JOIN ophcianassessment_speced_instructions b ON b.category_id = t.id JOIN ophcianassessment_speced_instructions_assignment as c on c.instruction_id = b.id';
+	  $criteria->condition='c.element_id='.$element->id;
+		$criteria->order = 't.display_order asc';
+
+		$selected_categories = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()
+			->findAll($criteria);
+	} else {
+		$selected_categories = array();
+	}
+
+	$selected_category_ids = array_map(function($category) {
+		return $category->id;
+	}, $selected_categories);
+
+	$categories = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()
+		->findAll(array('order'=>'display_order asc'));
+
+	$linked_fields = array();
+	$linked_values = array();
+
+	foreach($categories as $i => $category) {
+		$linked_fields[] = 'instructions_'.$i;
+		$linked_values[] = $category->name;
+	}
+
+	$categoriesWidget = $this->widget('application.widgets.MultiSelectList', array(
+		'element' => $element,
+		'field' => 'categories',
+		'relation' => null,
+		'relation_id_field' => null,
+		'options' => CHtml::listData($categories, 'id','name'),
+		'default_options' => array(),
+		'htmlOptions' => array(
+			'empty' => '- Please select -',
+			'label' => 'Instruction category',
+			'class' => 'linked-fields',
+			'data-linked-fields'=>implode(',',$linked_fields),
+			'data-linked-values'=>implode(',',$linked_values)
+		),
+		'hidden' => false,
+		'inline' => false,
+		'noSelectionsMessage' => null,
+		'showRemoveAllLink' => false,
+		'sorted' => false,
+		'layoutColumns' => array('label'=>3,'field'=>4),
+		'selected_ids' => $selected_category_ids
+	));
+
+	// POST data is merged within the widget, thus we need to merge this data.
+	$selected_category_ids = array_merge($selected_category_ids, $categoriesWidget->selected_ids);
+
+	// Now we can output instructions grouped by category.
+	foreach($categories as $i => $category){
+		$this->widget('application.widgets.MultiSelectList', array(
+			'element' => $element,
+			'field' => 'instructions',
+			'relation' => 'instructions',
+			'relation_id_field' => 'instruction_id',
+			'options' => CHtml::listData($category->instructions, 'id','name'),
+			'default_options' => array(),
+			'htmlOptions' => array(
+				'div_id' => 'div_'.CHtml::modelName($element).'_instructions_'.$i,
+				'field_id' => 'instructions_'.$i,
+				'empty' => '- Please select -',
+				'label' => $category->name,
+			),
+			'hidden' => !in_array($category->id, $selected_category_ids),
+			'inline' => false,
+			'noSelectionsMessage' => null,
+			'showRemoveAllLink' => false,
+			'sorted' => false,
+			'layoutColumns' => array('label'=>3,'field'=>4),
+		));
+	}?>
 </div>

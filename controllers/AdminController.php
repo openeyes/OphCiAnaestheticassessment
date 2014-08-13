@@ -19,6 +19,9 @@
 
 class AdminController extends ModuleAdminController
 {
+	public $data = array();
+	public $pagination = null;
+
 	public function actionEditTeeth()
 	{
 		$this->genericAdmin('Teeth admin','OphCiAnaestheticassessment_Examination_Teeth');
@@ -151,13 +154,173 @@ class AdminController extends ModuleAdminController
 		$this->genericAdmin('Anesthesia plan','OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan');
 	}
 
-	public function actionEditPatientSpecificEducation()
+	public function actionEditPatientInstructionCategories()
 	{
-		$this->genericAdmin('Patient specific education','OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions');
+		$model = 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category';
+		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+		$this->pageTitle = Yii::app()->name . ' - Patient instruction categories admin';
+		$this->items_per_page = 5;
+		$this->initAdminAction($model);
+
+		$this->render('patient_instruction_categories',array(
+			'data' => $this->data,
+			'title' => 'Patient instruction categories',
+			'model' => $model,
+			'errors' => $this->form_errors,
+			'pagination' => $this->pagination,
+			'page' => $page
+		));
 	}
 
-	public function actionEditDiabetesInstructions()
+	public function actionEditPatientInstructions($id=0)
 	{
-		$this->genericAdmin('Diabetes instructions','OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes');
+		$instructionsModel = 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions';
+		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+		$this->pageTitle = Yii::app()->name . ' - Patient instructions admin';
+		$this->items_per_page = 5;
+
+		$categoryModel = 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category';
+		if (!$category = $categoryModel::model()->findByPk($id)) {
+			throw new Exception("Instruction category not found: {$id}");
+		}
+		$categories = $categoryModel::model()->findAll(array(
+			'order' => 'display_order asc'
+		));
+
+		$criteria=new CDbCriteria;
+		$criteria->compare('category_id',$category->id);
+
+		$this->initAdminAction($instructionsModel, $criteria);
+
+		$this->render('patient_instructions',array(
+			'title' => 'Patient instructions for category: '.$category->name,
+			'categoryModel' => $categoryModel,
+			'instructionsModel' => $instructionsModel,
+			'instructions' => $this->data,
+			'category' => $category,
+			'categories' => $categories,
+			'errors' => $this->form_errors,
+			'pagination' => $this->pagination,
+			'page' => $page,
+			'extra_fields' => array(
+				array(
+					'field' => 'category_id',
+					'type' => 'lookup',
+					'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category',
+				),
+			)
+		));
+	}
+
+	private function initAdminAction($model='', $criteria=null)
+	{
+		$isPostAction = isset($_POST['id']) && !empty($_POST['id']);
+		$viewAll = @$_REQUEST['viewall'];
+
+		// Update items (if POST action)
+		if ($isPostAction) {
+			$this->update($model);
+		}
+		// View all items
+		if ($viewAll) {
+			$this->items_per_page = PHP_INT_MAX;
+		}
+
+		if ($criteria === null) {
+			$criteria = new CDbCriteria;
+		}
+		$criteria->order = 'display_order asc';
+
+		$pagination = $this->initPagination($model::model(), $criteria);
+		$data = $model::model()->findAll($criteria);
+
+		// If it's a POST action but there are validation errors, then merge
+		// POST data with data retrieved from DB.
+		if ($isPostAction && !empty($this->form_errors)) {
+			foreach ($_POST['id'] as $i => $id) {
+				$item = $data[$i];
+				$item->name = $_POST['name'][$i];
+				$attributes = $item->getAttributes();
+				if (array_key_exists('active',$attributes)) {
+					$item->active = (int) ($id && isset($_POST['active'][$id]) || intval($id) === 0);
+				}
+			}
+		}
+
+		$this->data = $data;
+		$this->pagination = $pagination;
+	}
+
+	private function update($model='')
+	{
+		$page = (int) $_POST['page'];
+		if (!$page) {
+			$page = 1;
+		}
+
+		$display_order = 1;
+		$display_order_position = ($this->items_per_page * ($page-1));
+		$updated_items = array();
+
+		$criteria = new CDbCriteria;
+		$criteria->order = 'display_order asc';
+
+		// Get existing items, filter out items that exist in POST.
+		$unchanged_items = array_filter($model::model()->findAll($criteria), function($item) {
+			return !in_array($item->id, $_POST['id']);
+		});
+
+		foreach ($_POST['id'] as $i => $id) {
+
+			// Create new record or update existing record.
+			$item = $id ? $model::model()->findByPk($id) : new $model;
+			$updated_items[] = $item;
+
+			$item->name = $_POST['name'][$i];
+
+			// Handle models with active flag.
+			$attributes = $item->getAttributes();
+			if (array_key_exists('active',$attributes)) {
+				$item->active = (int) ($id && isset($_POST['active'][$id]) || $item->isNewRecord);
+			}
+
+			// Handle extra fields.
+			if (!empty($_POST['_extra_fields'])) {
+				foreach ($_POST['_extra_fields'] as $field) {
+					$item->$field = $_POST[$field][$i];
+				}
+			}
+
+			// We're validating before trying to save because we don't want to save
+			// *any* records if any of the validation fails.
+			if (!$item->validate()) {
+				$errors = $item->getErrors();
+				$this->form_errors[$i] = reset($errors[key($errors)]);
+			}
+		}
+
+		if (empty($this->form_errors)) {
+
+			// Here we build a new array with items in the correct order.
+			$first = array_slice($unchanged_items, 0, $display_order_position, true);
+			$last = array_slice($unchanged_items, $display_order_position, count($unchanged_items)-$display_order_position, true);
+			$ordered_items = array_merge($first, $updated_items, $last);
+
+			foreach($ordered_items as $i => $item) {
+				$item->display_order = $i;
+				if (!$item->save()) {
+					throw new Exception('Unable to save admin list item: '.print_r($item->getErrors(),true));
+				}
+			}
+
+			Yii::app()->user->setFlash('success', 'List updated.');
+
+			$this->redirect(
+				$this->createUrl('/'.$this->route,$_GET)
+			);
+		}
 	}
 }
+

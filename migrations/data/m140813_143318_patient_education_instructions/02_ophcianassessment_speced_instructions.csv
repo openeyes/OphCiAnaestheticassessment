@@ -1,0 +1,14 @@
+id,category_id,name,display_order
+1,1,"Do not eat or drink after midnight on the day of surgery",1
+2,1,"Eat a light breakfast before surgery?",2
+3,1,"You may take sips of water (only) until 6am",3
+4,1,"Take your usual morning medications on day of surgery with a sip of water",4
+5,1,"Take your diabetic medications as normal on the day of surgery",5
+6,2,"Do not let your child eat or drink after midnight on the day of surgery",1
+7,2,"Your child can take sips of water (only) until after 6AM the day of surgery",2
+8,2,"If breastfed, your child can have breast milk until 4AM on the day of surgery",3
+9,2,"If your child is on any medications please give them as normal with a sip of water",4
+10,2,"Your child should take his or her diabetic medications as normal on the day of surgery",5
+11,3,"Eat and drink normally",1
+12,3,"Fast as adult",2
+13,3,"Take normal medications",3

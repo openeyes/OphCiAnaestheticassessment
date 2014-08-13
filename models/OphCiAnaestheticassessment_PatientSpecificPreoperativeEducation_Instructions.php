@@ -30,6 +30,7 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
+ * @property Category $category
  */
 
 class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions extends BaseActiveRecordVersioned
@@ -57,8 +58,8 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 	public function rules()
 	{
 		return array(
-			array('name', 'safe'),
-			array('name', 'required'),
+			array('name, category_id', 'safe'),
+			array('name, category_id', 'required'),
 			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
@@ -74,6 +75,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'category' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category', 'category_id'),
 		);
 	}
 
@@ -85,6 +87,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'category_id' => 'Category'
 		);
 	}
 
