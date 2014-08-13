@@ -17,37 +17,20 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<div class="element-data">
-	<?php if (!$element->instructions){?>
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div>
-			</div>
-			<div class="large-9 column end">
-				<div class="data-value">None</div>
-			</div>
-		</div>
-	<?php } else {
-		$categories = array();
-		foreach($element->instructions as $instruction) {
-			if (!isset($categories[$instruction->category->name])) {
-				$categories[$instruction->category->name] = array();
-			}
-			$categories[$instruction->category->name][] = $instruction;
-		}
-		foreach($categories as $name => $instructions) {?>
-			<div class="row data-row instruction-category-row">
-				<div class="large-3 column">
-					<div class="data-label"><?php echo $name?>:</div>
-				</div>
-				<div class="large-9 column end">
-					<ul>
-						<?php foreach($instructions as $instruction) {?>
-							<li class="data-value"><?php echo $instruction->name;?></li>
-						<?php }?>
-					</ul>
-				</div>
-			</div>
-		<?php }?>
-	<?php }?>
-</div>
+
+<tr class="newRow" style="display: none">
+	<td>
+		<span>&uarr;&darr;</span>
+	</td>
+	<td>
+		<?php echo CHtml::hiddenField('id[]','',array('disabled' => 'disabled'))?>
+		<?php echo CHtml::textField('name[]','',array('disabled' => 'disabled'))?>
+	</td>
+	<td>
+		<?php echo CHtml::hiddenField('active[]',true)?>
+		<?php echo CHtml::checkBox('active[]',true,array('disabled'=>'disabled'));?>
+	</td>
+	<td>
+		<a href="#" class="deleteRow">delete</a>
+	</td>
+</tr>

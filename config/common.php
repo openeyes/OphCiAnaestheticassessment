@@ -47,7 +47,7 @@ return array(
 			'ASA level' => '/OphCiAnaestheticassessment/admin/editASALevel',
 			'Anesthesia plan' => '/OphCiAnaestheticassessment/admin/editAnesthesiaPlan',
 			'Patient specific education' => '/OphCiAnaestheticassessment/admin/editPatientSpecificEducation',
-			'Diabetes instructions' => '/OphCiAnaestheticassessment/admin/editDiabetesInstructions',
+			'Patient instructions' => '/OphCiAnaestheticassessment/admin/editPatientInstructionCategories'
 		),
 		'weight_required_before_age' => 18,
 	)
