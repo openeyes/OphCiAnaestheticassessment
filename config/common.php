@@ -46,7 +46,6 @@ return array(
 			'Anesthesia patient approval for surgery' => '/OphCiAnaestheticassessment/admin/editApprovalForSurgery',
 			'ASA level' => '/OphCiAnaestheticassessment/admin/editASALevel',
 			'Anesthesia plan' => '/OphCiAnaestheticassessment/admin/editAnesthesiaPlan',
-			'Patient specific education' => '/OphCiAnaestheticassessment/admin/editPatientSpecificEducation',
 			'Patient instructions' => '/OphCiAnaestheticassessment/admin/editPatientInstructionCategories'
 		),
 		'weight_required_before_age' => 18,

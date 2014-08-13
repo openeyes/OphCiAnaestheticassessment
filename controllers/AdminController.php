@@ -237,22 +237,6 @@ class AdminController extends ModuleAdminController
 		));
 	}
 
-	public function actionEditPatientSpecificEducation()
-	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Patient specific education',
-			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions',
-		));
-	}
-
-	public function actionEditDiabetesInstructions()
-	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Diabetes instructions',
-			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes',
-		));
-	}
-
 	public function actionEditPatientInstructionCategories()
 	{
 		$model = 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category';

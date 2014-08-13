@@ -1,6 +1,6 @@
 <?php
 
-class m140808_115546_patient_education_instructions extends OEMigration
+class m140813_143318_patient_education_instructions extends OEMigration
 {
 	public function up()
 	{
@@ -40,7 +40,9 @@ class m140808_115546_patient_education_instructions extends OEMigration
 
 		// Remove diabetes instructions tables
 		$this->dropTable('ophcianassessment_speced_diabetes_assignment');
-		$this->dropTable('ophcianassessment_speced_diabetes_assignment_version');
+
+		//Version table does not exist!
+		//$this->dropTable('ophcianassessment_speced_diabetes_assignment_version');
 
 		$this->dropTable('ophcianassessment_speced_diabetes');
 		$this->dropTable('ophcianassessment_speced_diabetes_version');
@@ -80,6 +82,7 @@ class m140808_115546_patient_education_instructions extends OEMigration
 		$this->dropTable('ophcianassessment_speced_instruc_cat');
 		$this->dropTable('ophcianassessment_speced_instruc_cat_version');
 
+		$this->delete('ophcianassessment_speced_instructions_assignment');
 		$this->delete('ophcianassessment_speced_instructions');
 
 		// Restore instructions
@@ -141,9 +144,7 @@ class m140808_115546_patient_education_instructions extends OEMigration
 		$this->addColumn('et_ophcianassessment_specificeducation','other','varchar(255) COLLATE utf8_bin DEFAULT \'\'');
 		$this->addColumn('et_ophcianassessment_specificeducation_version','other','varchar(255) COLLATE utf8_bin DEFAULT \'\'');
 
-		$this->versionExistingTable('et_ophcianassessment_specificeducation');
-		$this->versionExistingTable('et_ophcianassessment_specificeducation_version');
-
-		$this->versionExistingTable('ophcianassessment_speced_diabetes_assignment');
+		$this->refreshTableSchema('et_ophcianassessment_specificeducation');
+		$this->refreshTableSchema('et_ophcianassessment_specificeducation_version');
 	}
 }
