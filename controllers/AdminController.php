@@ -19,234 +19,145 @@
 
 class AdminController extends ModuleAdminController
 {
-	public function actionEditPatientIdentifiers()
-	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Patient identifiers',
-			'model' => 'OphCiAnaestheticassessment_Patient_Identifier',
-		));
-	}
-
 	public function actionEditTeeth()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Teeth admin',
-			'model' => 'OphCiAnaestheticassessment_Examination_Teeth',
-		));
+		$this->genericAdmin('Teeth admin','OphCiAnaestheticassessment_Examination_Teeth');
 	}
 
 	public function actionEditPreviousSurgery()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Previous surgeries',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Surgery',
-		));
+		$this->genericAdmin('Previous surgeries','OphCiAnaestheticassessment_Medical_History_Surgery');
 	}
 
 	public function actionEditPatientAnesthesiaReaction()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Patient anesthesia reactions',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia',
-		));
+		$this->genericAdmin('Patient anesthesia reactions','OphCiAnaestheticassessment_Medical_History_Patient_Anesthesia');
 	}
 
 	public function actionEditFamilyAnesthesiaReaction()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Family anesthesia reactions',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Family_Anesthesia',
-		));
+		$this->genericAdmin('Family anesthesia reactions','OphCiAnaestheticassessment_Medical_History_Family_Anesthesia');
 	}
 
 	public function actionEditCardiovascular()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Cardiovascular',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Cardio',
-		));
+		$this->genericAdmin('Cardiovascular','OphCiAnaestheticassessment_Medical_History_Cardio');
 	}
 
 	public function actionEditRespiratory()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Respiratory',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Pulmonary',
-		));
+		$this->genericAdmin('Respiratory','OphCiAnaestheticassessment_Medical_History_Pulmonary');
 	}
 
 	public function actionEditGastroIntestinal()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Gastro intestinal',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_GI',
-		));
+		$this->genericAdmin('Gastro intestinal','OphCiAnaestheticassessment_Medical_History_GI');
 	}
 
 	public function actionEditDiabetesTreatedWith()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Diabetes treated with',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Diabetes_Treatment',
-		));
+		$this->genericAdmin('Diabetes treated with','OphCiAnaestheticassessment_Medical_History_Diabetes_Treatment');
 	}
 
 	public function actionEditDiabetesMonitoredWith()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Diabetes monitored with',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Diabetes_Monitor',
-		));
+		$this->genericAdmin('Diabetes monitored with','OphCiAnaestheticassessment_Medical_History_Diabetes_Monitor');
 	}
 
 	public function actionEditGRE()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Genitourinary / renal / endocrine',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_GRE',
-		));
+		$this->genericAdmin('Genitourinary / renal / endocrine','OphCiAnaestheticassessment_Medical_History_GRE');
 	}
 
 	public function actionEditNeuroMusculoskeletal()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Neuro / musculoskeletal',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Neuro',
-		));
+		$this->genericAdmin('Neuro / musculoskeletal','OphCiAnaestheticassessment_Medical_History_Neuro');
 	}
 
 	public function actionEditFallsMobility()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Falls / mobility risk',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Falls',
-		));
+		$this->genericAdmin('Falls / mobility risk','OphCiAnaestheticassessment_Medical_History_Falls');
 	}
 
 	public function actionEditMiscellaneous()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Miscellaneous',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Misc',
-		));
+		$this->genericAdmin('Miscellaneous','OphCiAnaestheticassessment_Medical_History_Misc');
 	}
 
 	public function actionEditPsychiatric()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Psychiatric',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Psychiatric',
-		));
+		$this->genericAdmin('Psychiatric','OphCiAnaestheticassessment_Medical_History_Psychiatric');
 	}
 
 	public function actionEditPregnancy()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Pregnancy',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Pregnancy',
-		));
+		$this->genericAdmin('Pregnancy','OphCiAnaestheticassessment_Medical_History_Pregnancy');
 	}
 
 	public function actionEditImplantedCardiacDevice()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Implanted cardiac devices',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Implant_Cardiac_Device',
-		));
+		$this->genericAdmin('Implanted cardiac devices','OphCiAnaestheticassessment_Medical_History_Implant_Cardiac_Device');
 	}
 
 	public function actionEditRemovableDentalWork()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Removable dental work',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Dental',
-		));
+		$this->genericAdmin('Removable dental work','OphCiAnaestheticassessment_Medical_History_Dental');
 	}
 
 	public function actionEditProsthetics()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Prosthetics',
-			'model' => 'OphCiAnaestheticassessment_Medical_History_Implant_Prosthetic',
-		));
+		$this->genericAdmin('Prosthetics','OphCiAnaestheticassessment_Medical_History_Implant_Prosthetic');
 	}
 
 	public function actionEditExclusionFactors()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Exclusion factors',
-			'model' => 'OphCiAnaestheticassessment_DVT_Exclusion_Factor',
-		));
+		$this->genericAdmin('Exclusion factors','OphCiAnaestheticassessment_DVT_Exclusion_Factor');
 	}
 
 	public function actionEditRiskFactors()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Risk factors',
-			'model' => 'OphCiAnaestheticassessment_DVT_Risk_Factor',
+		$this->genericAdmin('Risk factors','OphCiAnaestheticassessment_DVT_Risk_Factor',array(
 			'extra_fields' => array(
 				array(
 					'field' => 'section_id',
 					'type' => 'lookup',
-					'model' => 'OphCiAnaestheticassessment_DVT_Risk_Factor_Section',
+					'OphCiAnaestheticassessment_DVT_Risk_Factor_Section',
 				),
-			),
-		));
+			)));
 	}
 
 	public function actionEditStockingContraindications()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Contraindications',
-			'model' => 'OphCiAnaestheticassessment_DVT_Stocking_Contraindication',
-		));
+		$this->genericAdmin('Contraindications','OphCiAnaestheticassessment_DVT_Stocking_Contraindication');
 	}
 
 	public function actionEditHeparinContraindications()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Contraindications',
-			'model' => 'OphCiAnaestheticassessment_DVT_Heparin_Contraindication',
-		));
+		$this->genericAdmin('Contraindications','OphCiAnaestheticassessment_DVT_Heparin_Contraindication');
 	}
 
 	public function actionEditApprovalForSurgery()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Anesthesia patient approval for surgery',
-			'model' => 'OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval',
-		));
+		$this->genericAdmin('Anesthesia patient approval for surgery','OphCiAnaestheticassessment_AnesthesiaPlan_SurgeryApproval');
 	}
 
 	public function actionEditASALevel()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'ASA level',
-			'model' => 'OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel',
-		));
+		$this->genericAdmin('ASA level','OphCiAnaestheticassessment_AnesthesiaPlan_AsaLevel');
 	}
 
 	public function actionEditAnesthesiaPlan()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Anesthesia plan',
-			'model' => 'OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan',
-		));
+		$this->genericAdmin('Anesthesia plan','OphCiAnaestheticassessment_AnesthesiaPlan_AnesthesiaPlan');
 	}
 
 	public function actionEditPatientSpecificEducation()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Patient specific education',
-			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions',
-		));
+		$this->genericAdmin('Patient specific education','OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions');
 	}
 
 	public function actionEditDiabetesInstructions()
 	{
-		$this->render('//admin/generic_admin',array(
-			'title' => 'Diabetes instructions',
-			'model' => 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes',
-		));
+		$this->genericAdmin('Diabetes instructions','OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Diabetes');
 	}
 }
