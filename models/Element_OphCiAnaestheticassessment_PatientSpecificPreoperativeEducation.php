@@ -94,6 +94,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'id' => 'ID',
 			'event_id' => 'Event',
 			'instruction_category_id' => 'Instructions list',
+			'instructions' => 'Patient instructions',
 		);
 	}
 
