@@ -27,27 +27,18 @@
 				<div class="data-value">None</div>
 			</div>
 		</div>
-	<?php } else {
-		$categories = array();
-		foreach($element->instructions as $instruction) {
-			if (!isset($categories[$instruction->category->name])) {
-				$categories[$instruction->category->name] = array();
-			}
-			$categories[$instruction->category->name][] = $instruction;
-		}
-		foreach($categories as $name => $instructions) {?>
-			<div class="row data-row instruction-category-row">
-				<div class="large-3 column">
-					<div class="data-label"><?php echo $name?>:</div>
-				</div>
-				<div class="large-9 column end">
-					<ul>
-						<?php foreach($instructions as $instruction) {?>
-							<li class="data-value"><?php echo $instruction->name;?></li>
-						<?php }?>
-					</ul>
+	<?php } else {?>
+		<div class="row data-row instruction-category-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo $element->instruction_category->name?>:</div>
+			</div>
+			<div class="large-9 column end">
+				<div class="data-value">
+					<?php foreach ($element->instructions as $instruction) {?>
+						<?php echo $instruction->name?><br/>
+					<?php }?>
 				</div>
 			</div>
-		<?php }?>
+		</div>
 	<?php }?>
 </div>

@@ -9,6 +9,7 @@ class DefaultController extends BaseEventTypeController
 		'addInvestigation' => self::ACTION_TYPE_FORM,
 		'riskProphylaxis' => self::ACTION_TYPE_FORM,
 		'validateSurgery' => self::ACTION_TYPE_FORM,
+		'instructionList' => self::ACTION_TYPE_FORM,
 	);
 
 	public function accessRules()
@@ -196,5 +197,29 @@ class DefaultController extends BaseEventTypeController
 		}
 
 		echo json_encode($errors);
+	}
+
+	public function actionInstructionList()
+	{
+		if (!$category = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->findByPk(@$_GET['category_id'])) {
+			throw new Exception("Category not found: ".@$_GET['category_id']);
+		}
+
+		$element = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation;
+		$element->instruction_category_id = $category->id;
+
+		$form = new BaseEventTypeCActiveForm;
+		$form->multiSelectList($element,'instructions','instructions','instruction_id',CHtml::listData($element->instructionsForCategory,'id','name'),array(),array('empty' => '- Please select -','label' => $element->instruction_category ? $element->instruction_category->name : ''),!$element->instruction_category,false,null,false,false,array('label'=>3,'field'=>6));
+	}
+
+	protected function setElementDefaultOptions_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $action)
+	{
+		if ($action == 'create') {
+			if ($this->patient->isChild()) {
+				$element->instruction_category_id = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Peds General Anesthesia'))->id;
+			} else {
+				$element->instruction_category_id = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Adult General Anesthesia'))->id;
+			}
+		}
 	}
 }

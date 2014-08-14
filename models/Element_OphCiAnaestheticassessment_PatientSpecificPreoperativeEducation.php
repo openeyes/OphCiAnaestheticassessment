@@ -63,7 +63,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	public function rules()
 	{
 		return array(
-			array('event_id, instructions', 'safe'),
+			array('event_id, instructions, instruction_category_id', 'safe'),
 			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}
@@ -81,6 +81,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'instructions' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id', 'through' => 'instructions_assignments'),
 			'instructions_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment', 'element_id'),
+			'instruction_category' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category', 'instruction_category_id'),
 		);
 	}
 
@@ -92,7 +93,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'instructions' => 'Patient specific education',
+			'instruction_category_id' => 'Instructions list',
 		);
 	}
 
@@ -110,6 +111,15 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
+	}
+
+	public function getInstructionsForCategory()
+	{
+		if ($this->instruction_category) {
+			return OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array('order' => 'display_order asc', 'condition' => 'category_id = :cid', 'params' => array(':cid' => $this->instruction_category->id)));
+		}
+
+		return array();
 	}
 }
 ?>

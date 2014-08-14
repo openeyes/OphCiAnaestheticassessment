@@ -152,6 +152,10 @@ $(document).ready(function() {
 			if($(this).val() == 0){$(this).attr('checked', true);$(this).click()}
 		});
 	});
+
+	$('#Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_instruction_category_id').change(function(e) {
+		update_instructions_list($(this).val());
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
@@ -206,4 +210,19 @@ function update_risk_prophylaxis()
 			$('#div_Element_OphCiAnaestheticassessment_DvtAssessment_Prophylaxis_required .prophylaxisRequired').html(data['prophylaxisRequired'].replace(/\n/g,'<br/>'));
 		}
 	});
+}
+
+function update_instructions_list(category_id)
+{
+	if (category_id == '') {
+		$('#div_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_instructions').hide();
+	} else {
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl + '/OphCiAnaestheticassessment/default/instructionList?category_id=' + category_id,
+			'success': function(html) {
+				$('#div_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_instructions').replaceWith(html);
+			}
+		});
+	}
 }
