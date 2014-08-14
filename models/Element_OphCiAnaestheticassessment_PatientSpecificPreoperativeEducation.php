@@ -92,7 +92,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'instructions' => 'Patient specific education',
+			'instructions' => 'Patient instructions',
 		);
 	}
 
