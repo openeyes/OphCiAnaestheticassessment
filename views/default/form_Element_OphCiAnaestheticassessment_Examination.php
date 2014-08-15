@@ -66,7 +66,7 @@
 	<?php echo $form->pulseMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->temperatureMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->respiratoryRateMeasurement($element, array(), array('label' => 3, 'field' => 2))?>
-	<?php echo $form->sao2Measurement($element, array(), array('label' => 3, 'field' => 2))?>
+	<?php echo $form->spo2Measurement($element, array(), array('label' => 3, 'field' => 2))?>
 	<?php echo $form->airwayClassMeasurement($element, array('empty' => '- Please select -'), array('label' => 3, 'field' => 2))?>
 	<div id="div_Element_OphNuPreoperative_BaselineObservations_blood_glucose_m" class="row field-row">
 		<div class="large-3 column">

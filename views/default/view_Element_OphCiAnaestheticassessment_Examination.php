@@ -103,11 +103,11 @@
 			</div>
 		</div>
 		<div class="row data-row">
-			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('sao2_m'))?></div></div>
+			<div class="large-3 column"><div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('spo2_m'))?></div></div>
 			<div class="large-9 column end">
 				<div class="data-value">
-					<?php if ($element->sao2_m) {?>
-						<?php echo CHtml::encode($element->sao2_m->valueText)?>
+					<?php if ($element->spo2_m) {?>
+						<?php echo CHtml::encode($element->spo2_m->valueText)?>
 					<?php }else{?>
 						Not entered
 					<?php }?>

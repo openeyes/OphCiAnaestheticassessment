@@ -34,7 +34,7 @@
  * @property string $heart_rate_pulse
  * @property string $temperature
  * @property string $respiratory_rate
- * @property string $sao2
+ * @property string $spo2
  * @property integer $airway_class_id
  * @property string $blood_glucose
  * @property string $heart
@@ -87,7 +87,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 	public function rules()
 	{
 		return array(
-			array('event_id, weight_lb, weight_m, weight_calculation_id, height_ft, height_in, height_m, height_calculation_id, bmi_m, pulse_m, temperature_m, rr_m, sao2_m, airway_class_m, blood_glucose_m, heart, lungs, abdomen, teeths, blood_glucose_na, blood_pressure_m', 'safe'),
+			array('event_id, weight_lb, weight_m, weight_calculation_id, height_ft, height_in, height_m, height_calculation_id, bmi_m, pulse_m, temperature_m, rr_m, spo2_m, airway_class_m, blood_glucose_m, heart, lungs, abdomen, teeths, blood_glucose_na, blood_pressure_m', 'safe'),
 		);
 	}
 
@@ -112,7 +112,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'pulse_m' => array(self::BELONGS_TO, 'MeasurementPulse', 'pulse_m_id'),
 			'temperature_m' => array(self::BELONGS_TO, 'MeasurementTemperature', 'temperature_m_id'),
 			'rr_m' => array(self::BELONGS_TO, 'MeasurementRespiratoryRate', 'rr_m_id'),
-			'sao2_m' => array(self::BELONGS_TO, 'MeasurementSAO2', 'sao2_m_id'),
+			'spo2_m' => array(self::BELONGS_TO, 'MeasurementSPO2', 'spo2_m_id'),
 			'airway_class_m' => array(self::BELONGS_TO, 'MeasurementAirwayClass', 'airway_class_m_id'),
 			'blood_glucose_m' => array(self::BELONGS_TO, 'MeasurementBloodGlucose', 'blood_glucose_m_id'),
 		);
@@ -140,7 +140,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 			'blood_pressure_m_diastolic' => 'Blood pressure (diastolic)',
 			'temperature_m' => 'Temperature',
 			'rr_m' => 'Respiratory rate',
-			'sao2_m' => 'SaO2',
+			'spo2_m' => 'SpO2',
 			'airway_class_m' => 'Airway class',
 			'blood_glucose_m' => 'Blood glucose',
 			'heart' => 'Heart',
@@ -172,7 +172,7 @@ class Element_OphCiAnaestheticassessment_Examination	extends  BaseEventTypeEleme
 		$criteria->compare('heart_rate_pulse', $this->heart_rate_pulse);
 		$criteria->compare('temperature', $this->temperature);
 		$criteria->compare('respiratory_rate', $this->respiratory_rate);
-		$criteria->compare('sao2', $this->sao2);
+		$criteria->compare('spo2', $this->spo2);
 		$criteria->compare('airway_class_id', $this->airway_class_id);
 		$criteria->compare('blood_glucose', $this->blood_glucose);
 		$criteria->compare('heart', $this->heart);

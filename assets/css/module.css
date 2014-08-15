@@ -126,12 +126,12 @@
 }
 
 /* line 119, ../sass/components/_event.scss */
-#div_Element_OphCiAnaestheticassessment_Examination_sao2 input {
+#div_Element_OphCiAnaestheticassessment_Examination_spo2 input {
   display: inline;
   width: 5em;
 }
 /* line 123, ../sass/components/_event.scss */
-#div_Element_OphCiAnaestheticassessment_Examination_sao2 .metric {
+#div_Element_OphCiAnaestheticassessment_Examination_spo2 .metric {
   display: inline;
   font-size: 0.8125em;
 }
