@@ -82,6 +82,8 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'instructions' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id', 'through' => 'instructions_assignments'),
 			'instructions_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment', 'element_id'),
 			'instruction_category' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category', 'instruction_category_id'),
+			'procedure_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure', 'element_id'),
+			'procedures' => array(self::HAS_MANY, 'Procedure', 'procedure_id', 'through' => 'procedure_assignments'),
 		);
 	}
 
@@ -121,6 +123,51 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		}
 
 		return array();
+	}
+
+	public function getSelectedProcedureIDs()
+	{
+		$ids = array();
+
+		foreach ($this->procedures as $procedure) {
+			$ids[] = $procedure->id;
+		}
+
+		return $ids;
+	}
+
+	public function getProcedureList($bookings)
+	{
+		$procedures = array();
+		$hash = array();
+
+		foreach ($this->procedure_assignments as $assignment) {
+			$hash[$assignment->procedure_id][$assignment->eye_id] = 1;
+
+			$procedures[] = array(
+				'assignment_id' => $assignment->id,
+				'id' => $assignment->procedure_id,
+				'term' => $assignment->procedure->term,
+				'eye' => $assignment->eye->name,
+				'eye_id' => $assignment->eye_id,
+			);
+		}
+
+		foreach ($bookings as $booking) {
+			foreach ($booking->operation->procedures as $procedure) {
+				if (!isset($hash[$procedure->id][$booking->operation->eye_id])) {
+					$procedures[] = array(
+						'assignment_id' => '',
+						'id' => $procedure->id,
+						'term' => $procedure->term,
+						'eye' => $booking->operation->eye->name,
+						'eye_id' => $booking->operation->eye_id,
+					);
+				}
+			}
+		}
+
+		return $procedures;
 	}
 }
 ?>

@@ -41,4 +41,16 @@
 			</div>
 		</div>
 	<?php }?>
+	<div class="row data-row">
+		<div class="large-3 column">
+			<div class="data-label"><?php echo $element->getAttributeLabel('procedures')?>:</div>
+		</div>
+		<div class="large-9 column end">
+			<div class="data-value">
+				<?php foreach ($element->procedure_assignments as $assignment) {?>
+					<?php echo $assignment->eye->name?> <?php echo $assignment->procedure->term?><br/>
+				<?php }?>
+			</div>
+		</div>
+	</div>
 </div>

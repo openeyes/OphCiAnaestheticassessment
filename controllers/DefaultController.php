@@ -222,4 +222,55 @@ class DefaultController extends BaseEventTypeController
 			}
 		}
 	}
+	
+	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
+	{
+		$procedure_assignments = array();
+		$procedures = array();
+
+		if (!empty($data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['procedures'])) {
+			foreach ($data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['procedures'] as $i => $procedure_id) {
+				if (!$procedure = Procedure::model()->findByPk($procedure_id)) {
+					throw new Exception("Procedure not found: $procedure_id");
+				}
+
+				if (!@$data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['assignments'][$i] ||
+					!($assignment = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure::model()->findByPk($data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['assignments'][$i]))) {
+					$assignment = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure;
+				}
+				$assignment->procedure_id = $procedure_id;
+				$assignment->eye_id = @$data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['eyes'][$i];
+				$procedure_assignments[] = $assignment;
+				$procedures[] = $procedure;
+			}
+		}
+
+		$element->procedure_assignments = $procedure_assignments;
+		$element->procedures = $procedures;
+	}
+
+	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
+	{
+		$ids = array();
+
+		foreach ($element->procedure_assignments as $assignment) {
+			$assignment->element_id = $element->id;
+
+			if (!$assignment->save()) {
+				throw new Exception("Unable to save procedure assignment: ".print_r($assignment->errors,true));
+			}
+
+			$ids[] = $assignment->id;
+		}
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('element_id=:eid');
+		$criteria->params[':eid'] = $element->id;
+
+		if (!empty($ids)) {
+			$criteria->addNotInCondition('id',$ids);
+		}
+
+		OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure::model()->deleteAll($criteria);
+	}
 }
