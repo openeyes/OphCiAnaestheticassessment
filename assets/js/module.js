@@ -156,6 +156,14 @@ $(document).ready(function() {
 	$('#Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_instruction_category_id').change(function(e) {
 		update_instructions_list($(this).val());
 	});
+
+	$('input[name="Element_OphCiAnaestheticassessment_DvtAssessment[exclusion_criteria_met]"]').click(function(e) {
+		if ($(this).val() == '1') {
+			$('.exclusionFields').hide();
+		} else {
+			$('.exclusionFields').show();
+		}
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
