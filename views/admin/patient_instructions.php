@@ -18,6 +18,12 @@
  */
 ?>
 
+<?php
+$new_rows = array_filter($instructions, function($instruction) {
+	return !$instruction->id;
+});
+?>
+
 <div class="box admin">
 	<h2><?php echo $title?></h2>
 	<?php $this->renderPartial('//base/_messages')?>
@@ -44,25 +50,22 @@
 					</th>
 				<?php }?>
 				<th width="50">Active</th>
-				<th class="actions hidden">Actions</th>
+				<th class="actions <?php echo empty($new_rows) ? 'hidden' : '';?>">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
 				foreach ($instructions as $i => $row) {
-					$this->renderPartial('patient_instructions_row', array(
+					$view = $row->id ? 'patient_instructions_row' : 'patient_instructions_row_add';
+					$this->renderPartial($view, array(
 						'i' => $i,
 						'row' => $row,
 						'errors' => $errors,
+						'category' => $category,
 						'categories' => $categories,
 						'extra_fields' => $extra_fields
 					));
 				}
-				$this->renderPartial('patient_instructions_row_add', array(
-					'class' => 'newRow hidden',
-					'category' => $category,
-					'extra_fields' => $extra_fields
-				));
 			?>
 		</tbody>
 		<tfoot class="pagination-container">
@@ -84,6 +87,16 @@
 	<?php $this->endWidget()?>
 </div>
 
+<script id="template-new-row" type="text/html">
+<?php
+	$this->renderPartial('patient_instructions_row_add', array(
+		'class' => 'newRow hidden',
+		'category' => $category,
+		'extra_fields' => $extra_fields
+	));
+?>
+</script>
+
 <script>
 $(function() {
 
@@ -102,8 +115,6 @@ $(function() {
 	$(this).on('click', '.deleteRow', function() {
 		if (table.find('.addedRow').length) return;
 		table
-		.find('tr td:last-child').addClass('hidden')
-		.end()
 		.find('th.actions')
 		.addClass('hidden');
 	});

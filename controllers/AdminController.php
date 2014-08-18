@@ -161,7 +161,6 @@ class AdminController extends ModuleAdminController
 		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
 		$this->pageTitle = Yii::app()->name . ' - Patient instruction categories admin';
-		$this->items_per_page = 5;
 		$this->initAdminAction($model);
 
 		$this->render('patient_instruction_categories',array(
@@ -180,7 +179,6 @@ class AdminController extends ModuleAdminController
 		$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
 		$this->pageTitle = Yii::app()->name . ' - Patient instructions admin';
-		$this->items_per_page = 5;
 
 		$categoryModel = 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category';
 		if (!$category = $categoryModel::model()->findByPk($id)) {
@@ -235,19 +233,22 @@ class AdminController extends ModuleAdminController
 		$criteria->order = 'display_order asc';
 
 		$pagination = $this->initPagination($model::model(), $criteria);
-		$data = $model::model()->findAll($criteria);
 
-		// If it's a POST action but there are validation errors, then merge
-		// POST data with data retrieved from DB.
-		if ($isPostAction && !empty($this->form_errors)) {
-			foreach ($_POST['id'] as $i => $id) {
-				$item = $data[$i];
+		if (!$isPostAction) {
+			$data = $model::model()->findAll($criteria);
+		} else {
+			$data = array_map(function($id, $i) {
+				$item = new StdClass;
+				$item->id = $id;
 				$item->name = $_POST['name'][$i];
-				$attributes = $item->getAttributes();
-				if (array_key_exists('active',$attributes)) {
-					$item->active = (int) ($id && isset($_POST['active'][$id]) || intval($id) === 0);
+				$item->active = (int) ($id && isset($_POST['active'][$id]) || intval($id) === 0);
+				if (!empty($_POST['_extra_fields'])) {
+					foreach ($_POST['_extra_fields'] as $field) {
+						$item->$field = $_POST[$field][$i];
+					}
 				}
-			}
+				return $item;
+			}, $_POST['id'], array_keys($_POST['id']));
 		}
 
 		$this->data = $data;
@@ -263,7 +264,7 @@ class AdminController extends ModuleAdminController
 
 		$display_order = 1;
 		$display_order_position = ($this->items_per_page * ($page-1));
-		$updated_items = array();
+		$items = array();
 
 		$criteria = new CDbCriteria;
 		$criteria->order = 'display_order asc';
@@ -277,15 +278,8 @@ class AdminController extends ModuleAdminController
 
 			// Create new record or update existing record.
 			$item = $id ? $model::model()->findByPk($id) : new $model;
-			$updated_items[] = $item;
-
 			$item->name = $_POST['name'][$i];
-
-			// Handle models with active flag.
-			$attributes = $item->getAttributes();
-			if (array_key_exists('active',$attributes)) {
-				$item->active = (int) ($id && isset($_POST['active'][$id]) || $item->isNewRecord);
-			}
+			$item->active = (int) ($id && isset($_POST['active'][$id]) || $item->isNewRecord);
 
 			// Handle extra fields.
 			if (!empty($_POST['_extra_fields'])) {
@@ -293,6 +287,8 @@ class AdminController extends ModuleAdminController
 					$item->$field = $_POST[$field][$i];
 				}
 			}
+
+			$items[] = $item;
 
 			// We're validating before trying to save because we don't want to save
 			// *any* records if any of the validation fails.
@@ -307,7 +303,7 @@ class AdminController extends ModuleAdminController
 			// Here we build a new array with items in the correct order.
 			$first = array_slice($unchanged_items, 0, $display_order_position, true);
 			$last = array_slice($unchanged_items, $display_order_position, count($unchanged_items)-$display_order_position, true);
-			$ordered_items = array_merge($first, $updated_items, $last);
+			$ordered_items = array_merge($first, $items, $last);
 
 			foreach($ordered_items as $i => $item) {
 				$item->display_order = $i;
@@ -321,6 +317,8 @@ class AdminController extends ModuleAdminController
 			$this->redirect(
 				$this->createUrl('/'.$this->route,$_GET)
 			);
+		} else {
+			Yii::app()->user->setFlash('alert.error', 'There were errors submitting the form. Please review the errors below.');
 		}
 	}
 }

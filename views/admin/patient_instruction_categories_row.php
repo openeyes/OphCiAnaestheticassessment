@@ -38,7 +38,8 @@
 		<?php }?>
 	</td>
 	<td>
-		<?php echo CHtml::checkBox('active[' . $row->id . ']',$row->active);?>
+		<?php
+		echo CHtml::checkBox('active[' . $row->id . ']',$row->active);?>
 	</td>
 	<td>
 		<a href="/OphCiAnaestheticassessment/admin/editPatientInstructions?id=<?php echo $row->id;?>">manage instructions</a>

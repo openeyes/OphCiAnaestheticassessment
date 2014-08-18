@@ -44,15 +44,13 @@
 		<tbody>
 			<?php
 				foreach ($data as $i => $row) {
-					$this->renderPartial('patient_instruction_categories_row', array(
+					$view = $row->id ? 'patient_instruction_categories_row' : 'patient_instruction_categories_row_add';
+					$this->renderPartial($view, array(
 						'i' => $i,
 						'row' => $row,
 						'errors' => $errors
 					));
 				}
-				$this->renderPartial('patient_instruction_categories_row_add', array(
-					'class' => 'newRow hidden'
-				));
 			?>
 		</tbody>
 		<tfoot class="pagination-container">
@@ -73,3 +71,11 @@
 	</table>
 	<?php $this->endWidget()?>
 </div>
+
+<script id="template-new-row" type="text/html">
+<?php
+	$this->renderPartial('patient_instruction_categories_row_add', array(
+		'class' => 'newRow hidden'
+	));
+?>
+</script>
