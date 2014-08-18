@@ -18,24 +18,48 @@
  */
 ?>
 <div class="element-fields">
-	<div id="div_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_procedures" class="row field-row">
-		<div class="large-3 column">
-			<label for="Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_procedures">
-				<?php echo $element->getAttributeLabel('procedures')?>:
-			</label>
-		</div>
-		<div class="large-9 column end">
-			<?php foreach ($element->getProcedureList($this->openBookings) as $i => $procedure) {?>
-				<input type="hidden" name="<?php echo CHtml::modelName($element)?>[eyes][<?php echo $i?>]" value="<?php echo $procedure['eye_id']?>" />
-				<input type="hidden" name="<?php echo CHtml::modelName($element)?>[assignments][<?php echo $i?>]" value="<?php echo $procedure['assignment_id']?>" />
-				<input type="checkbox" name="<?php echo CHtml::modelName($element)?>[procedures][<?php echo $i?>]" id="<?php echo CHtml::modelName($element)?>_procedures_<?php echo $i?>" value="<?php echo $procedure['id']?>"<?php if (in_array($procedure['id'],$element->selectedProcedureIDs)){?> checked="checked"<?php }?> />
-				<label for="<?php echo CHtml::modelName($element)?>_procedures_<?php echo $i?>">
-					<?php echo $procedure['eye']?> <?php echo $procedure['term']?>
-				</label>
-				<br/>
-			<?php }?>
-		</div>
-	</div>
-	<?php echo $form->dropDownList($element,'instruction_category_id',CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->findAll(array('order'=>'display_order asc')),'id','name'),array('empty' => '- Please select -'),false,array('label' => 3, 'field' => 4))?>
-	<?php echo $form->multiSelectList($element,'instructions','instructions','instruction_id',CHtml::listData($element->instructionsForCategory,'id','name'),array(),array('empty' => '- Please select -','label' => $element->instruction_category ? $element->instruction_category->name : ''),!$element->instruction_category,false,null,false,false,array('label'=>3,'field'=>6))?>
+	<?php $form->widget('application.widgets.Records', array(
+		'form' => $form,
+		'element' => $element,
+		'model' => new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item,
+		'field' => 'items',
+		'validate_method' => '/OphCiAnaestheticassessment/default/validateInstructionItem',
+		'row_view' => 'protected/modules/OphCiAnaestheticassessment/views/default/_instruction_row.php',
+		'columns' => array(
+			array(
+				'width' => 12,
+				'field_width' => 6,
+				'fields' => array(
+					array(
+						'type' => 'custom',
+						'html' => $this->renderPartial('_booking_selection',null,true),
+					),
+					array(
+						'field' => 'category_id',
+						'type' => 'dropdown',
+						'default' => ($category_id = $this->patient->isChild()
+							? OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Peds General Anesthesia'))->id
+							: OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Adult General Anaesthesia'))->id
+						),
+						'options' => CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->findAll(array('order'=>'display_order asc')),'id','name'),
+						'label_width' => 2,
+						'width' => 4,
+					),
+					array(
+						'field' => 'instructions',
+						'type' => 'multiselect',
+						'options' => CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array('condition' => 'category_id=?','params'=>array($category_id),'order'=>'display_order asc')),'id','name'),
+						'label_width' => 2,
+						'width' => 9,
+					),
+				),
+			),
+		),
+		'no_items_text' => 'No instruction sets have been recorded.',
+		'add_button_text' => 'Add instruction set',
+		'include_timestamp' => false,
+		'use_last_button_text' => false,
+		'headings' => array('Bookings','Instructions'),
+	))?>
+	<input type="hidden" name="<?php echo CHtml::modelName($element)?>[present]" value="1" />
 </div>

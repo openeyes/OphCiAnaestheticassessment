@@ -192,3 +192,8 @@
 #div_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_procedures label {
   display: inline-block;
 }
+
+/* line 189, ../sass/components/_event.scss */
+#div_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_items .bookingDate {
+  width: 8.8em;
+}

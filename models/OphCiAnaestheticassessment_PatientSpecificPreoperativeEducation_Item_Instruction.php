@@ -16,7 +16,23 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 
-class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure extends BaseActiveRecordVersioned
+/**
+ * This is the model class for table "ophnupreoperative_patientstatus_cancel".
+ *
+ * The followings are the available columns in table:
+ * @property string $id
+ * @property string $name
+ *
+ * The followings are the available model relations:
+ *
+ * @property ElementType $element_type
+ * @property EventType $eventType
+ * @property Event $event
+ * @property User $user
+ * @property User $usermodified
+ */
+
+class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Instruction extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -32,7 +48,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure 
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_speced_instructions_procedure';
+		return 'ophcianaestheticassessment_speced_item_inst';
 	}
 
 	/**
@@ -41,8 +57,8 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure 
 	public function rules()
 	{
 		return array(
-			array('procedure_id', 'safe'),
-			array('procedure_id', 'required'),
+			array('instruction_id', 'safe'),
+			array('instruction_id', 'required'),
 			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
@@ -53,9 +69,8 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure 
 	public function relations()
 	{
 		return array(
-			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'element_id'),
-			'procedure' => array(self::BELONGS_TO, 'Procedure', 'procedure_id'),
-			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
+			'item' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item', 'item_id'),
+			'instruction' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id'),
 		);
 	}
 
@@ -69,6 +84,10 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure 
 		);
 	}
 
+	public function getAttributeSuffix($attribute)
+	{
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -78,10 +97,10 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure 
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
+		$criteria->compare('name', $this->name, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
 	}
 }
-?>

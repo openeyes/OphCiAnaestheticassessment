@@ -10,6 +10,7 @@ class DefaultController extends BaseEventTypeController
 		'riskProphylaxis' => self::ACTION_TYPE_FORM,
 		'validateSurgery' => self::ACTION_TYPE_FORM,
 		'instructionList' => self::ACTION_TYPE_FORM,
+		'validateInstructionitem' => self::ACTION_TYPE_FORM,
 	);
 
 	public function accessRules()
@@ -205,72 +206,205 @@ class DefaultController extends BaseEventTypeController
 			throw new Exception("Category not found: ".@$_GET['category_id']);
 		}
 
-		$element = new Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation;
-		$element->instruction_category_id = $category->id;
+		$item = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item;
+		$item->category_id = $category->id;
 
-		$form = new BaseEventTypeCActiveForm;
-		$form->multiSelectList($element,'instructions','instructions','instruction_id',CHtml::listData($element->instructionsForCategory,'id','name'),array(),array('empty' => '- Please select -','label' => $element->instruction_category ? $element->instruction_category->name : ''),!$element->instruction_category,false,null,false,false,array('label'=>3,'field'=>6));
+		$this->widget('application.widgets.MultiSelectList', array(
+			'field' => 'instructions',
+			'options' => CHtml::listData($item->instructionsForCategory,'id','name'),
+			'htmlOptions' => array(
+				'empty' => '- Please select -',
+				'nowrapper' => true,
+			),
+			'input_class' => 'recordInput',
+		));
 	}
 
-	protected function setElementDefaultOptions_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $action)
-	{
-		if ($action == 'create') {
-			if ($this->patient->isChild()) {
-				$element->instruction_category_id = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Peds General Anesthesia'))->id;
-			} else {
-				$element->instruction_category_id = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Adult General Anesthesia'))->id;
-			}
-		}
-	}
-	
 	protected function setComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
 	{
-		$procedure_assignments = array();
-		$procedures = array();
+		$items = array();
 
-		if (!empty($data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['procedures'])) {
-			foreach ($data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['procedures'] as $i => $procedure_id) {
-				if (!$procedure = Procedure::model()->findByPk($procedure_id)) {
-					throw new Exception("Procedure not found: $procedure_id");
+		if (!empty($data['OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item'])) {
+			foreach ($data['OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item'] as $data_item) {
+				if (!$data_item['id'] || !($item = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item::model()->findByPk($data_item['id']))) {
+					$item = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item;
 				}
 
-				if (!@$data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['assignments'][$i] ||
-					!($assignment = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure::model()->findByPk($data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['assignments'][$i]))) {
-					$assignment = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure;
+				$item->category_id = $data_item['category_id'];
+
+				$bookings = array();
+
+				foreach ($data_item['booking_event_id'] as $booking_event_id) {
+					if (!$booking_event_id['id'] || !($operation = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Operation::model()->findByPk($booking_event_id['id']))) {
+						$operation = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Operation;
+					}
+					$operation->booking_event_id = $booking_event_id['booking_event_id'];
+
+					$bookings[] = $operation;
 				}
-				$assignment->procedure_id = $procedure_id;
-				$assignment->eye_id = @$data['Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation']['eyes'][$i];
-				$procedure_assignments[] = $assignment;
-				$procedures[] = $procedure;
+
+				$item->bookings = $bookings;
+
+				$instructions = array();
+				$_instructions = array();
+
+				foreach ($data_item['instruction_id'] as $instruction_id) {
+					if (!$instruction_id['id'] || !($instruction = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Instruction::model()->findByPk($instruction_id['id']))) {
+						$instruction = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Instruction;
+					}
+
+					$instruction->instruction_id = $instruction_id['instruction_id'];
+
+					$instructions[] = $instruction;
+
+					$_instructions[] = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findByPk($instruction_id['instruction_id']);
+				}
+
+				$item->instruction_assignments = $instructions;
+				$item->instructions = $_instructions;
+
+				$items[] = $item;
 			}
 		}
 
-		$element->procedure_assignments = $procedure_assignments;
-		$element->procedures = $procedures;
+		$element->items = $items;
 	}
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation($element, $data, $index)
 	{
 		$ids = array();
 
-		foreach ($element->procedure_assignments as $assignment) {
-			$assignment->element_id = $element->id;
+		foreach ($element->items as $item) {
+			$item->element_id = $element->id;
 
-			if (!$assignment->save()) {
-				throw new Exception("Unable to save procedure assignment: ".print_r($assignment->errors,true));
+			if (!$item->save()) {
+				throw new Exception("Unable to save patient instruction item: ".print_r($item->errors,true));
 			}
 
-			$ids[] = $assignment->id;
+			$operation_ids = array();
+
+			foreach ($item->bookings as $operation) {
+				$operation->item_id = $item->id;
+
+				if (!$operation->save()) {
+					throw new Exception("Unable to save booking assignment: ".print_r($operation->errors,true));
+				}
+
+				$operation_ids[] = $operation->id;
+			}
+
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('item_id = :ii');
+			$criteria->params[':ii'] = $item->id;
+
+			if (!empty($operation_ids)) {
+				$criteria->addNotInCondition('id',$operation_ids);
+			}
+
+			OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Operation::model()->deleteAll($criteria);
+
+			$instruction_ids = array();
+
+			foreach ($item->instruction_assignments as $assignment) {
+				$assignment->item_id = $item->id;
+
+				if (!$assignment->save()) {
+					throw new Exception("Unable to save instruction assignment: ".print_r($assignment->errors,true));
+				}
+
+				$instruction_ids[] = $assignment->id;
+			}
+
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('item_id = :ii');
+			$criteria->params[':ii'] = $item->id;
+
+			if (!empty($instruction_ids)) {
+				$criteria->addNotInCondition('id',$instruction_ids);
+			}
+
+			OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Instruction::model()->deleteAll($criteria);
+
+			$ids[] = $item->id;
 		}
 
 		$criteria = new CDbCriteria;
-		$criteria->addCondition('element_id=:eid');
+		$criteria->addCondition('element_id = :eid');
 		$criteria->params[':eid'] = $element->id;
 
 		if (!empty($ids)) {
 			$criteria->addNotInCondition('id',$ids);
 		}
 
-		OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure::model()->deleteAll($criteria);
+		foreach (OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item::model()->findAll($criteria) as $item) {
+			foreach ($item->instruction_assignments as $assignment) {
+				if (!$assignment->delete()) {
+					throw new Exception("Unable to delete instruction assignment: ".print_r($assignment->errors,true));
+				}
+			}
+
+			foreach ($item->bookings as $operation) {
+				if (!$operation->delete()) {
+					throw new Exception("Unable to remove booking assignment: ".print_r($operation->errors,true));
+				}
+			}
+
+			if (!$item->delete()) {
+				throw new Exception("Unable to remove item: ".print_r($item->errors,true));
+			}
+		}
+	}
+
+	public function actionValidateInstructionItem()
+	{
+		$instruction = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item;
+		$instruction->category_id = $_POST['category_id'];
+
+		$operations = array();
+
+		if (!empty($_POST['booking_event_id'])) {
+			foreach ($_POST['booking_event_id'] as $event_id) {
+				$operation = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Operation;
+				$operation->booking_event_id = $event_id;
+
+				$operations[] = $operation;
+			}
+		}
+
+		$instruction->bookings = $operations;
+
+		$instructions = array();
+		$_instructions = array();
+
+		if (!empty($_POST['instructions'])) {
+			foreach ($_POST['instructions'] as $instruction_id) {
+				if (!$_instruction = OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findByPk($instruction_id)) {
+					throw new Exception("Instruction not found: $instruction_id");
+				}
+
+				$__instruction = new OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Instruction;
+				$__instruction->instruction_id = $instruction_id;
+
+				$instructions[] = $__instruction;
+				$_instructions[] = $_instruction;
+			}
+		}
+
+		$instruction->instructions = $_instructions;
+		$instruction->instruction_assignments = $instructions;
+
+		$instruction->validate();
+
+		$errors = array();
+
+		foreach ($instruction->errors as $field => $error) {
+			$errors[$field] = $error[0];
+		}
+
+		if (empty($errors)) {
+			$errors['row'] = $this->renderPartial('_instruction_row',array('item' => $instruction, 'i' => $_POST['i'], 'edit' => true),true);
+		}
+
+		echo json_encode($errors);
 	}
 }

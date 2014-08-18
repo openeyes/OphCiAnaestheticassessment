@@ -18,39 +18,13 @@
  */
 ?>
 <div class="element-data">
-	<?php if (!$element->instructions){?>
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('instructions'))?>:</div>
-			</div>
-			<div class="large-9 column end">
-				<div class="data-value">None</div>
-			</div>
-		</div>
-	<?php } else {?>
-		<div class="row data-row instruction-category-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo $element->instruction_category->name?>:</div>
-			</div>
-			<div class="large-9 column end">
-				<div class="data-value">
-					<?php foreach ($element->instructions as $instruction) {?>
-						<?php echo $instruction->name?><br/>
-					<?php }?>
-				</div>
-			</div>
-		</div>
-	<?php }?>
-	<div class="row data-row">
-		<div class="large-3 column">
-			<div class="data-label"><?php echo $element->getAttributeLabel('procedures')?>:</div>
-		</div>
-		<div class="large-9 column end">
-			<div class="data-value">
-				<?php foreach ($element->procedure_assignments as $assignment) {?>
-					<?php echo $assignment->eye->name?> <?php echo $assignment->procedure->term?><br/>
-				<?php }?>
-			</div>
-		</div>
-	</div>
+	<?php $this->widget('application.widgets.Records', array(
+		'form' => $form,
+		'element' => $element,
+		'field' => 'items',
+		'row_view' => 'protected/modules/OphCiAnaestheticassessment/views/default/_instruction_row.php',
+		'no_items_text' => 'No instruction sets have been recorded.',
+		'headings' => array('Bookings','Instructions'),
+		'edit' => false,
+	))?>
 </div>

@@ -17,22 +17,22 @@
  */
 
 /**
- * This is the model class for table "ophcianassessment_speced_instructions_assignment".
+ * This is the model class for table "ophnupreoperative_patientstatus_cancel".
  *
  * The followings are the available columns in table:
  * @property string $id
- * @property integer $element_id
- * @property integer $instruction_id
+ * @property string $name
  *
  * The followings are the available model relations:
  *
- * @property Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation $element
- * @property OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions $ophcianassessment_speced_instructions
+ * @property ElementType $element_type
+ * @property EventType $eventType
+ * @property Event $event
  * @property User $user
  * @property User $usermodified
  */
 
-class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment extends BaseActiveRecordVersioned
+class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 	 */
 	public function tableName()
 	{
-		return 'ophcianassessment_speced_instructions_assignment';
+		return 'ophcianaestheticassessment_speced_item';
 	}
 
 	/**
@@ -57,9 +57,9 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 	public function rules()
 	{
 		return array(
-			array('element_id, instruction_id', 'safe'),
-			array('element_id, instruction_id', 'required'),
-			array('id, element_id, instruction_id', 'safe', 'on' => 'search'),
+			array('category_id, instructions, bookings', 'safe'),
+			array('category_id, instructions, bookings', 'required'),
+			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -70,9 +70,10 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 	{
 		return array(
 			'element' => array(self::BELONGS_TO, 'Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation', 'element_id'),
-			'ophcianassessment_speced_instructions' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
-			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'category' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category', 'category_id'),
+			'instruction_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Instruction', 'item_id'),
+			'instructions' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id', 'through' => 'instruction_assignments'),
+			'bookings' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item_Operation', 'item_id'),
 		);
 	}
 
@@ -83,8 +84,14 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'category_id' => 'Instructions list',
+			'instructions' => 'Instructions',
+			'bookings' => 'Bookings',
 		);
+	}
+
+	public function getAttributeSuffix($attribute)
+	{
 	}
 
 	/**
@@ -103,9 +110,13 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 		));
 	}
 
-	public function getName()
+	public function getInstructionsForCategory()
 	{
-		return $this->ophcianassessment_speced_instructions->name;
+		if ($this->category) {
+			return OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array('order' => 'display_order asc', 'condition' => 'category_id = :cid', 'params' => array(':cid' => $this->category_id)));
+		}
+
+		return array();
 	}
 }
 ?>

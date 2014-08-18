@@ -63,7 +63,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 	public function rules()
 	{
 		return array(
-			array('event_id, instructions, instruction_category_id', 'safe'),
+			array('event_id', 'safe'),
 			array('id, event_id', 'safe', 'on' => 'search'),
 		);
 	}
@@ -79,11 +79,7 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'instructions' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions', 'instruction_id', 'through' => 'instructions_assignments'),
-			'instructions_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Assignment', 'element_id'),
-			'instruction_category' => array(self::BELONGS_TO, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category', 'instruction_category_id'),
-			'procedure_assignments' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Procedure', 'element_id'),
-			'procedures' => array(self::HAS_MANY, 'Procedure', 'procedure_id', 'through' => 'procedure_assignments'),
+			'items' => array(self::HAS_MANY, 'OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item', 'element_id'),
 		);
 	}
 
@@ -114,15 +110,6 @@ class Element_OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation  e
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getInstructionsForCategory()
-	{
-		if ($this->instruction_category) {
-			return OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array('order' => 'display_order asc', 'condition' => 'category_id = :cid', 'params' => array(':cid' => $this->instruction_category->id)));
-		}
-
-		return array();
 	}
 
 	public function getSelectedProcedureIDs()

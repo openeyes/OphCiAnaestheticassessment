@@ -164,6 +164,26 @@ $(document).ready(function() {
 			$('.exclusionFields').show();
 		}
 	});
+
+	$('.InstructionsProcedureRow').children('td.can_select').click(function(e) {
+		if ($(this).closest('tr').children('td:first').children('input').is(':checked')) {
+			$(this).closest('tr').children('td:first').children('input').removeAttr('checked');
+		} else {
+			$(this).closest('tr').children('td:first').children('input').attr('checked','checked');
+		}
+	});
+
+	$('#category_id').change(function() {
+		var category_id = $(this).val();
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl + '/OphCiAnaestheticassessment/default/instructionList?category_id=' + category_id,
+			'success': function(html) {
+				$('div[data-field-name="instructions"]').replaceWith(html);
+			}
+		});
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
