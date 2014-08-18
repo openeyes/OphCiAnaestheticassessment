@@ -18,6 +18,10 @@
  */
 class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category extends CActiveRecord
 {
+
+	const SELECTION_ORDER = 'display_order';
+	const SELECTION_LABEL_FIELD = 'name';
+
 	/**
 	 * @return string the associated database table name
 	 */

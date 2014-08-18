@@ -17,14 +17,18 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<tr class="newRow" style="display: none">
+<tr class="addedRow">
 	<td>
 		<span>&uarr;&darr;</span>
 	</td>
 	<td>
-		<?php echo CHtml::hiddenField('id[]','',array('disabled' => 'disabled'))?>
-		<?php echo CHtml::textField('name[]','',array('disabled' => 'disabled'))?>
+		<?php echo CHtml::hiddenField('id[]',(isset($row) ? $row->id : ''))?>
+		<?php echo CHtml::textField('name[]',(isset($row) ? $row->name : ''))?>
+		<?php if (isset($errors) && isset($errors[$i])) {?>
+			<span class="error">
+				<?php echo $errors[$i]?>
+			</span>
+		<?php }?>
 	</td>
 	<td>
 		<select name="category_id[]" id="category_id">

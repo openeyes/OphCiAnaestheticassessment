@@ -37,9 +37,13 @@
 			</span>
 		<?php }?>
 	</td>
-	<?php foreach ($extra_fields as $field) {?>
+	<?php foreach ($extra_fields as $i => $field) {?>
 		<td>
-			<?php $this->renderPartial('application.widgets.views._generic_admin_'.$field['type'],array('row' => $row, 'params' => $field))?>
+			<?php $this->renderPartial('application.widgets.views._generic_admin_'.$field['type'],array(
+				'row' => $row,
+				'i' => '',
+				'params' => $field
+			))?>
 		</td>
 	<?php }?>
 	<td>

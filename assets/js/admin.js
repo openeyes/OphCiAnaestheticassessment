@@ -18,6 +18,8 @@
 
 $(document).ready(function() {
 
+	var newRowTemplate = $('#template-new-row').html();
+
 	$(this).on('click', '.editRow', function(e) {
 		e.preventDefault();
 
@@ -36,9 +38,8 @@ $(document).ready(function() {
 
 	$(this).on('click', '.generic-admin-add', function(e) {
 		e.preventDefault();
-
-		tbody.append('<tr class="addedRow">' + $('.generic-admin .newRow').html().replace(/ disabled="disabled"/g,'') + '</tr>');
-		tbody.children('tr:last').children('td:nth-child(2)').children('input').focus();
-		tbody.children('tr:last').find('[type=checkbox]').attr('disabled', 'disabled');
+		tbody
+			.append(newRowTemplate)
+			.find('tr:last input[type=text]:visible').focus();
 	});
 });
