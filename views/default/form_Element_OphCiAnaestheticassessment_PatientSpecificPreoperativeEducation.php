@@ -39,7 +39,7 @@
 						'type' => 'dropdown',
 						'default' => ($category_id = $this->patient->isChild()
 							? OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Peds General Anesthesia'))->id
-							: OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Adult General Anaesthesia'))->id
+							: OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->find('name=?',array('Adult General Anesthesia'))->id
 						),
 						'options' => CHtml::listData(OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category::model()->findAll(array('order'=>'display_order asc')),'id','name'),
 						'label_width' => 2,
