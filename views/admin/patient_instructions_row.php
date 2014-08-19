@@ -39,11 +39,28 @@
 	</td>
 	<?php foreach ($extra_fields as $i => $field) {?>
 		<td>
-			<?php $this->renderPartial('application.widgets.views._generic_admin_'.$field['type'],array(
-				'row' => $row,
-				'i' => '',
-				'params' => $field
-			))?>
+			<?php
+				$htmlOptions = array();
+				$model = $field['model'];
+				$value = $row ? $row->{$field['field']} : null;
+
+				if (!$row->active) {
+					$htmlOptions['disabled'] = 'disabled';
+					echo CHtml::hiddenField($field['field']."[]",$value);
+				}
+
+				$condition = array(
+					'order' => $model::SELECTION_ORDER,
+					'condition' => 'active=1'
+				);
+
+				echo CHtml::dropDownList(
+					$field['field']."[]",
+					$value,
+					CHtml::listData($model::model()->findAll($condition), 'id', $model::SELECTION_LABEL_FIELD),
+					$htmlOptions
+				);
+			?>
 		</td>
 	<?php }?>
 	<td>

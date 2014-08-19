@@ -16,7 +16,7 @@
  * @property User $user
  * @property User $usermodified
  */
-class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category extends CActiveRecord
+class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions_Category extends BaseActiveRecordVersioned
 {
 
 	const SELECTION_ORDER = 'display_order';
@@ -88,6 +88,7 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('active', 1);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
