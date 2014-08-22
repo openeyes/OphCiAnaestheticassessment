@@ -113,7 +113,11 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Item exten
 	public function getInstructionsForCategory()
 	{
 		if ($this->category) {
-			return OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array('order' => 'display_order asc', 'condition' => 'category_id = :cid', 'params' => array(':cid' => $this->category_id)));
+			return OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->findAll(array(
+				'order' => 'display_order asc',
+				'condition' => 'category_id = :cid and active=1',
+				'params' => array(':cid' => $this->category_id)
+			));
 		}
 
 		return array();

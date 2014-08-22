@@ -91,10 +91,18 @@ class DefaultController extends BaseEventTypeController
 
 	protected function saveComplexAttributes_Element_OphCiAnaestheticassessment_MedicalHistoryReview($element, $data, $index)
 	{
+
 		if (empty($data['medication_history_drug_ids'])) {
 			$element->updateMedications();
 		} else {
-			$element->updateMedications($data['medication_history_medication_ids'],$data['medication_history_drug_ids'],$data['medication_history_route_ids'],$data['medication_history_option_ids'],$data['medication_history_frequency_ids'],$data['medication_history_start_dates']);
+			$element->updateMedications(
+				$data['medication_history_medication_ids'],
+				$data['medication_history_drug_ids'],
+				$data['medication_history_route_ids'],
+				$data['medication_history_option_ids'],
+				$data['medication_history_frequency_ids'],
+				$data['medication_history_start_dates']
+			);
 		}
 
 		$ids = array();

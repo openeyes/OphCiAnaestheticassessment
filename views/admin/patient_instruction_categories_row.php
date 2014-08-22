@@ -42,6 +42,8 @@
 		echo CHtml::checkBox('active[' . $row->id . ']',$row->active);?>
 	</td>
 	<td>
-		<a href="/OphCiAnaestheticassessment/admin/editPatientInstructions?id=<?php echo $row->id;?>">manage instructions</a>
+		<?php if ($row->active) {?>
+			<a href="/OphCiAnaestheticassessment/admin/editPatientInstructions?id=<?php echo $row->id;?>">manage instructions</a>
+		<?php }?>
 	</td>
 </tr>
