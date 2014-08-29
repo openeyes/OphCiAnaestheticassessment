@@ -300,41 +300,7 @@ class Element_OphCiAnaestheticassessment_MedicalHistoryReview  extends	BaseEvent
 	public function afterSave()
 	{
 		if (Yii::app()->getController()->action->id == 'create') {
-			$patient = $this->event->episode->patient;
-
-			foreach ($this->medications as $medication) {
-
-				$params = array(
-					$patient->id,
-					$medication->drug_id,
-					$medication->route_id,
-					$medication->frequency_id,
-					$medication->start_date
-				);
-
-				$condition = 'patient_id=? and drug_id=? and route_id=? and frequency_id=? and start_date=?';
-
-				if (!$medication->option_id) {
-					$condition += ' and option_id IS NULL';
-				} else {
-					$condition += ' and option_id=?';
-					$params[] = $medication->option_id;
-				}
-
-				if (!Medication::model()->find($condition,$params)) {
-
-					$_medication = new Medication;
-					$_medication->patient_id = $patient->id;
-
-					foreach (array('drug_id','route_id','option_id','frequency_id','start_date') as $field) {
-						$_medication->$field = $medication->$field;
-					}
-
-					if (!$_medication->save()) {
-						throw new Exception("Unable to save medication: ".print_r($_medication->getErrors(),true));
-					}
-				}
-			}
+			$this->event->episode->patient->addMedications($this->medications);
 		}
 
 		return parent::afterSave();
