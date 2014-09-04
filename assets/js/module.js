@@ -184,6 +184,28 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	$(this).on('change', 'select.recordInput', function(e) {
+		var selectedCat = $(this).find('option:selected');
+		var selectedCatId = $(selectedCat).val();
+		var selectedCatName = $(selectedCat).text();
+
+		if(typeof OCA_PatientSpecific_InstructionsByCategoryId[selectedCatId] != 'undefined'){
+			$('#instructions').empty()
+			$('.MultiSelectList.multi-select-selections').empty()
+			$('#instructions').append($('<option/>', {
+				value: null,
+				text : '- Please select -'
+			}));
+
+			for(var x = 0; x < OCA_PatientSpecific_InstructionsByCategoryId[selectedCatId].length; x++){
+				$('#instructions').append($('<option/>', {
+					value: OCA_PatientSpecific_InstructionsByCategoryId[selectedCatId][x]['id'],
+					text : OCA_PatientSpecific_InstructionsByCategoryId[selectedCatId][x]['name']
+				}));
+			}
+		}
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }

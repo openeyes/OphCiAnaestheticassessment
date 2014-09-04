@@ -106,5 +106,20 @@ class OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructio
 			'criteria' => $criteria,
 		));
 	}
+
+	public function getByCategoryId(){
+		$instructions = $this->findAll(array(
+			'condition' => 'active=1',
+			'order'=>'display_order asc'
+		));
+		$cats = array();
+		foreach( $instructions as $instruction){
+			if(!isset($cats[$instruction->category_id])){
+				$cats[$instruction->category_id] = array();
+			}
+			$cats[$instruction->category_id][]=array('id'=> $instruction->id,'name'=>$instruction->name);
+		}
+		return $cats;
+	}
 }
 ?>

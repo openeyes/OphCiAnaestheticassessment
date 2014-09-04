@@ -51,6 +51,10 @@
 		'order'=>'display_order asc'
 	));
 
+	$instructionsByCategoryId =
+		OphCiAnaestheticassessment_PatientSpecificPreoperativeEducation_Instructions::model()->getByCategoryId();
+	//var_dump($instructionsByCategoryId);die;
+
 	$form->widget('application.widgets.Records', array(
 		'form' => $form,
 		'element' => $element,
@@ -93,3 +97,6 @@
 	))?>
 	<input type="hidden" name="<?php echo CHtml::modelName($element)?>[present]" value="1" />
 </div>
+<script type="text/javascript">
+	var OCA_PatientSpecific_InstructionsByCategoryId = <?php echo json_encode($instructionsByCategoryId) ?> ;
+</script>
